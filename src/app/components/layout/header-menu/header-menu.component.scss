@@ -1,4 +1,41 @@
+@import '../../../../variables.scss';
+
 .app-header-menu {
+    display:flex;
+    justify-content:space-between;
     overflow:hidden;
     max-height:100%;
+    padding-right:24px;
+    .header-logo {
+        width:111px;
+    }
+    .ant-menu {
+        .ant-menu-item {
+            height:100%;
+            border-bottom:1px solid $borderColor;
+            background-color:$bgColorLight;
+            &:focus {
+                outline: none;
+            }
+            &.ant-menu-item-selected, &.ant-menu-item:hover {
+                color:$bgColorDark;
+                border-bottom:1px solid $bgColorDark;
+            }
+        }
+    }
+    .ant-btn {
+        border:1px solid $borderColor;
+        &.ant-btn-primary {
+            background-color:$bgColorDark;
+            &:hover, &:focus {
+                color:$bgColorLight;
+            }
+        }
+        &:hover, &:focus {
+            color:$bgColorDark;
+        }
+    }
+    nz-button-group {
+        width:175px;
+    }
 }
