@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-note.component.scss']
 })
 export class NewNoteComponent implements OnInit {
-
-  constructor() { }
+  textRows:number;
+  displayRaw:boolean;
 
   ngOnInit(): void {
+    this.textRows = 30;
+    this.displayRaw = true;
   }
 
 }

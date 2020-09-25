@@ -1,0 +1,12 @@
+@import '../../../../variables.scss';
+
+app-toolbar {
+    background-color:$bgColorLight;
+}
+
+form {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding: 1rem 10rem;
+}

@@ -7,6 +7,7 @@ import { IconsProviderModule } from './icons-provider.module';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +22,7 @@ import { LandingComponent } from './components/pages/landing/landing.component';
 import { NewNoteComponent } from './components/notes/new-note/new-note.component';
 import { SettingsComponent } from './components/pages/settings/settings.component';
 import { AboutComponent } from './components/pages/about/about.component';
+import { ToolbarComponent } from './components/notes/toolbar/toolbar.component';
 
 registerLocaleData(en);
 
@@ -32,7 +34,8 @@ registerLocaleData(en);
     LandingComponent,
     NewNoteComponent,
     SettingsComponent,
-    AboutComponent
+    AboutComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ registerLocaleData(en);
     NzButtonModule,
     NzLayoutModule,
     NzMenuModule,
+    NzDropDownModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule

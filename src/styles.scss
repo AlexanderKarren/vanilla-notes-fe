@@ -29,6 +29,17 @@ h1, h2, h3, h4, h5, h6 {
     font-weight:bold;
 }
 
+textarea {
+	width:100%;
+	border:1px solid $borderColor;
+	outline:none;
+	resize:none;
+	padding:1rem;
+	&.raw {
+		padding:0;
+	}
+}
+
 .page {
 	display:flex;
 	flex-direction:column;
@@ -37,4 +48,13 @@ h1, h2, h3, h4, h5, h6 {
 	width:100%;
 	padding:0 15%;
 	background-color:white;
+}
+
+.ant-btn {
+	color:$bgColorDark;
+	border:1px solid $borderColor;
+	&.ant-btn-primary {
+		background-color:$bgColorDark;
+		color:white;
+	}
 }
