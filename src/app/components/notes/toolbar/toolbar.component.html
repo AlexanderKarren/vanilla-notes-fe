@@ -1,0 +1,79 @@
+<!-- Save -->
+<button nz-button nzType="default">
+    <i nz-icon nzType="save"></i>
+</button>
+<!-- Undo / Redo -->
+<nz-button-group>
+    <button nz-button nzType="default" (click)="undo()">
+      <i nz-icon nzType="undo"></i>
+    </button>
+    <button nz-button nzType="default" (click)="redo()">
+      <i nz-icon nzType="redo"></i>
+    </button>
+</nz-button-group>
+<!-- Text Style -->
+<div class="dropdown">
+    <button nz-button nz-dropdown [nzDropdownMenu]="options" nzTrigger="click">
+        Text Style
+    <i nz-icon nzType="down"></i>
+    </button>
+</div>
+<!-- Text Alignment -->
+<nz-button-group>
+      <button nz-button nzType="default">
+        <i nz-icon nzType="align-left"></i>
+      </button>
+      <button nz-button nzType="default">
+        <i nz-icon nzType="align-center"></i>
+      </button>
+      <button nz-button nzType="default">
+        <i nz-icon nzType="align-right"></i>
+      </button>
+</nz-button-group>
+<!-- Lists -->
+<nz-button-group>
+    <button nz-button nzType="default">
+      <i nz-icon nzType="ordered-list"></i>
+    </button>
+    <button nz-button nzType="default" (click)="changeMode('bullet', !modes.bullet)">
+      <i nz-icon nzType="unordered-list"></i>
+    </button>
+</nz-button-group>
+<!-- Link / Image -->
+<nz-button-group>
+    <button nz-button nzType="default">
+    <i nz-icon nzType="link"></i>
+    </button>
+    <button nz-button nzType="default">
+    <i nz-icon nzType="picture"></i>
+    </button>
+</nz-button-group>
+<!-- Rich / Raw -->
+<nz-button-group>
+    <button
+        (click)="toggleRawDisplay(false)"
+        nz-button 
+        [nzType]="displayRaw ? 'default' : 'primary'" 
+        nzDisabled>
+        Rich
+    </button>
+    <button
+        (click)="toggleRawDisplay(true)"
+        nz-button
+        [nzType]="displayRaw ? 'primary' : 'default'"
+        nzDisabled>
+        Raw
+    </button>
+</nz-button-group>
+<!-- Dropdown -->
+<nz-dropdown-menu #options="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item>Heading 1</li>
+      <li nz-menu-item>Heading 2</li>
+      <li nz-menu-item>Heading 3</li>
+    </ul>
+</nz-dropdown-menu>
+<!-- Delete -->
+<button nz-button nzType="default">
+  <i nz-icon nzType="delete"></i>
+</button>

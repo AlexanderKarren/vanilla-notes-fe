@@ -1,1 +1,19 @@
-<p>new-note works!</p>
+<app-toolbar 
+    [modes]="modes"
+    [displayRaw]="displayRaw" 
+    (displayChange)="this.displayRaw = $event"
+    (modeChange)="changeMode($event)"
+    (undoAction)="undo()"
+    (redoAction)="redo()"
+></app-toolbar>
+
+<form [ngClass]="displayRaw ? 'raw' : ''" [formGroup]="noteForm">
+    <button nz-button (click)="whatIsModes()">Modes</button>
+    <input id="title" formControlName="title" type="text">
+    <textarea
+        (keyup)="handleChanges()"
+        [rows]="textRows"
+        id="body"
+        formControlName="body"
+    ></textarea>
+</form>

@@ -1,0 +1,9 @@
+@import '../../../../variables.scss';
+
+:host {
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid $borderColor;
+    padding: .2rem 13rem;
+    width:100%;
+}
