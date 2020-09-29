@@ -1,5 +1,5 @@
-<app-toolbar [displayRaw]="displayRaw"></app-toolbar>
+<app-toolbar [displayRaw]="displayRaw" (displayChange)="this.displayRaw = $event"></app-toolbar>
 
-<form>
+<form [ngClass]="displayRaw ? 'raw' : ''">
     <textarea [rows]="textRows"></textarea>
 </form>

@@ -14,4 +14,8 @@ export class NewNoteComponent implements OnInit {
     this.displayRaw = true;
   }
 
+  // whatIsDisplayRaw(): void {
+  //   console.log(this.displayRaw);
+  // }
+
 }

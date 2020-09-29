@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { NoteService } from '../../../services/note.service';
 
@@ -14,12 +14,14 @@ export class ToolbarComponent implements OnInit {
   ) { }
 
   @Input() displayRaw:boolean;
+  @Output() displayChange = new EventEmitter();
 
   ngOnInit(): void {
   }
 
   toggleRawDisplay(display: boolean) {
     this.displayRaw = display;
+    this.displayChange.emit(this.displayRaw);
   }
 
 }

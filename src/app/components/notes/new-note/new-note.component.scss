@@ -1,5 +1,11 @@
 @import '../../../../variables.scss';
 
+:host {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
 app-toolbar {
     background-color:$bgColorLight;
 }
@@ -8,5 +14,9 @@ form {
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding: 1rem 10rem;
+    padding: .5rem 0;
+    width:40rem;
+    &.raw {
+        font-family: $rawFont;
+    }
 }
