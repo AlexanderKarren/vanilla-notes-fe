@@ -4,10 +4,10 @@
 </button>
 <!-- Undo / Redo -->
 <nz-button-group>
-    <button nz-button nzType="default">
+    <button nz-button nzType="default" (click)="undo()">
       <i nz-icon nzType="undo"></i>
     </button>
-    <button nz-button nzType="default">
+    <button nz-button nzType="default" (click)="redo()">
       <i nz-icon nzType="redo"></i>
     </button>
 </nz-button-group>
@@ -35,7 +35,7 @@
     <button nz-button nzType="default">
       <i nz-icon nzType="ordered-list"></i>
     </button>
-    <button nz-button nzType="default">
+    <button nz-button nzType="default" (click)="changeMode('bullet', !modes.bullet)">
       <i nz-icon nzType="unordered-list"></i>
     </button>
 </nz-button-group>

@@ -34,6 +34,7 @@
             ],
             "styles": [
               "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "src/variables.scss",
               "src/styles.scss",
               "src/assets/fonts/fonts.scss"
             ],
