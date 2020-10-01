@@ -14,17 +14,17 @@ function assignTopics(localNotes: Note[]): Topic[] {
 
   localNotes.forEach((note, index) => {
     console.log(note);
-    const topic = note.topic
-    console.log(topicHash[topic])
+    const topic = note.topic;
+    console.log(topicHash[topic]);
     if (!topicHash[topic]) Object.assign(topicHash, {[topic]: {
       id: index + 1,
       title: topic
-    }})
+    }});
   })
 
   console.log(topicHash);
 
-  return <Topic[]>[allNotes, ...Object.values(topicHash)]
+  return <Topic[]>[allNotes, ...Object.values(topicHash)];
 }
 
 @Injectable({
@@ -38,17 +38,25 @@ export class NoteService {
     this.topics = assignTopics(this.notes);
   }
 
-  getNotes() {
+  getNotes(): Note[] {
     return this.notes;
   }
 
-  getTopics() {
+  getTopics(): Topic[] {
     return this.topics;
   }
 
-  addLocalNote(note: Note) {
+  addLocalNote(note: Note): void {
+    this.addLocalTopic(note);
     this.notes.push(note);
-    this.topics = assignTopics(this.notes);
+  }
+
+  // addLocalTopic will only add a topic if it doesn't already exist
+  addLocalTopic(note: Note): void {
+    if (!this.notes.find(element => element.topic === note.topic)) this.topics.push({
+      id: this.topics.length,
+      title: note.topic
+    })
   }
 
 }

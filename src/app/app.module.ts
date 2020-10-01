@@ -23,6 +23,8 @@ import { NewNoteComponent } from './components/notes/new-note/new-note.component
 import { SettingsComponent } from './components/pages/settings/settings.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { ToolbarComponent } from './components/notes/toolbar/toolbar.component';
+import { SortSearchComponent } from './components/layout/sort-search/sort-search.component';
+import { NzInputModule } from 'ng-zorro-antd';
 
 registerLocaleData(en);
 
@@ -35,7 +37,8 @@ registerLocaleData(en);
     NewNoteComponent,
     SettingsComponent,
     AboutComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SortSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ registerLocaleData(en);
     NzLayoutModule,
     NzMenuModule,
     NzDropDownModule,
+    NzInputModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

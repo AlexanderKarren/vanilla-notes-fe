@@ -1,7 +1,32 @@
 <h2>Notes</h2>
 
-<div class="topic-list">
-    <div class="topic-listing" *ngFor="let topic of topics">
+<app-sort-search
+    [sortBy]="sortBy"
+    [sortAsc]="sortAsc"
+    (sortChange)="changeSort($event)"
+></app-sort-search>
+
+<div class="list" *ngIf="!viewNotes">
+    <div 
+        (click)="changeTopic(topic.title)"
+        class="listing"
+        *ngFor="let topic of topics">
         {{ topic.title }}
+    </div>
+</div>
+
+<div class="list" *ngIf="viewNotes">
+    <h3>
+        <i 
+            nz-icon
+            nzType="left"
+            nzTheme="outline"
+            (click)="return()"
+        ></i>
+        <span>{{ activeTopic }}</span>
+        <div></div>
+    </h3>
+    <div class="listing" *ngFor="let note of notes">
+        {{ note.title }}
     </div>
 </div>

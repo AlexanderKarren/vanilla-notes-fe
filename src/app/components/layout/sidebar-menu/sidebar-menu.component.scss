@@ -1,13 +1,37 @@
 @import '../../../../variables.scss';
 
 h2 {
+    display:flex;
+    justify-content:center;
+}
+h3 {
+    display:flex;
+    justify-content:space-between;
     width:100%;
-    text-align:center;
-    font-size:1.3rem;
+    padding: 0 $microMargin;
+    i, div {
+        width:10%;
+    }
+    i {
+        font-size:1rem;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        &:hover {
+            cursor:pointer;
+            color:$bgColorDark;
+        }
+    }
+    span {
+        display:flex;
+        justify-content:center;
+        width:90%;
+        margin-left: $microMargin;
+    }
 }
 
-.topic-list {
-    .topic-listing {
+.list {
+    .listing {
         transition:.3s;
         width:100%;
         padding: .4rem $microMargin;

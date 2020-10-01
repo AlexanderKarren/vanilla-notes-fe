@@ -1,0 +1,27 @@
+@import '../../../../variables.scss';
+
+:host {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:100%;
+    margin: $microMargin 0;
+    padding: 0 $microMargin;
+}
+
+nz-button-group {
+    display:flex;
+    justify-content:center;
+    width:100%;
+    button {
+        width:35%;
+    }
+}
+
+form {
+    padding: $microMargin 0;
+    width:100%;
+    i {
+        color:$bgColorDark;
+    }
+}
