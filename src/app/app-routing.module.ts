@@ -5,10 +5,12 @@ import { LandingComponent } from './components/pages/landing/landing.component';
 import { NewNoteComponent } from './components/notes/new-note/new-note.component';
 import { SettingsComponent } from './components/pages/settings/settings.component';
 import { AboutComponent } from './components/pages/about/about.component';
+import { NoteComponent } from './components/notes/note/note.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'notes/new', component: NewNoteComponent },
+  { path: 'notes/id/:id', component: NoteComponent},
   { path: 'settings', component: SettingsComponent },
   { path: 'about', component: AboutComponent }
 ];

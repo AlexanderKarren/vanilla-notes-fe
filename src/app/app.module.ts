@@ -25,6 +25,7 @@ import { AboutComponent } from './components/pages/about/about.component';
 import { ToolbarComponent } from './components/notes/toolbar/toolbar.component';
 import { SortSearchComponent } from './components/layout/sort-search/sort-search.component';
 import { NzInputModule } from 'ng-zorro-antd';
+import { NoteComponent } from './components/notes/note/note.component';
 
 registerLocaleData(en);
 
@@ -38,7 +39,8 @@ registerLocaleData(en);
     SettingsComponent,
     AboutComponent,
     ToolbarComponent,
-    SortSearchComponent
+    SortSearchComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,

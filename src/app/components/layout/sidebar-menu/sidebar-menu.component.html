@@ -26,7 +26,13 @@
         <span>{{ activeTopic }}</span>
         <div></div>
     </h3>
-    <div class="listing" *ngFor="let note of notes">
-        {{ note.title }}
-    </div>
+    <ng-container *ngFor="let note of notes">
+        <div 
+            class="listing"
+            *ngIf="viewAll || note.topic === activeTopic"
+            [routerLink]="['/notes/id', note.id]"
+        >
+            {{ note.title }}
+        </div>
+    </ng-container>
 </div>

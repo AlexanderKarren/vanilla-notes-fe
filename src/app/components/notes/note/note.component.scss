@@ -1,0 +1,45 @@
+@import '../../../../variables.scss';
+
+:host {
+    display:flex;
+    justify-content:center;
+}
+
+.note-display {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    background-color:white;
+    padding: 1rem 2.5rem;
+    width:50rem;
+    margin-top:$microMargin;
+    border:1px solid $borderColor;
+    div {
+        display:flex;
+        align-items:center;
+        width:100%;
+        .bullet {
+            display:flex;
+            align-items:center;
+            height:.25rem;
+            width:.25rem;
+            background-color:$textColor;
+            border-radius:50rem;
+            margin-right:$microMargin;
+        }
+    }
+    .headingOne, .headingTwo, .headingThree {
+        display:flex;
+        align-items:flex-start;
+        font-weight:bold;
+        border-bottom:1px solid lightgray;
+        margin-bottom:$microMargin;
+    }
+    .headingOne {
+        height:auto;
+        font-size:3rem;
+    }
+    .headingTwo {
+        font-size:2rem;
+    }
+}

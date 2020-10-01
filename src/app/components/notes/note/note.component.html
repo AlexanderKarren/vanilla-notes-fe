@@ -1,0 +1,10 @@
+<ng-container *ngIf="note">
+    <div class="note-display">
+        <ng-container *ngFor="let line of textLines">
+            <div [ngClass]="line.className">
+                <div class="bullet" *ngIf="line.bullet"></div>
+                {{ line.text }}
+            </div>
+        </ng-container>
+    </div>
+</ng-container>

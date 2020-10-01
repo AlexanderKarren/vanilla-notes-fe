@@ -16,6 +16,7 @@ interface SortChanges {
   styleUrls: ['./sidebar-menu.component.scss']
 })
 export class SidebarMenuComponent implements OnInit {
+  viewAll: boolean;
   activeTopic: string;
   viewNotes: boolean;
   sortBy: string;
@@ -28,6 +29,7 @@ export class SidebarMenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.viewAll = true;
     this.viewNotes = false;
     this.sortBy = "title";
     this.sortAsc = true;
@@ -43,6 +45,8 @@ export class SidebarMenuComponent implements OnInit {
 
   changeTopic(topic: string) {
     this.activeTopic = topic;
+    if (this.activeTopic === 'All Notes') this.viewAll = true;
+    else this.viewAll = false;
     this.viewNotes = true;
   }
 
