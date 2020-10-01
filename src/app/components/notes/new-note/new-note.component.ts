@@ -1,9 +1,11 @@
-import { ArrayType } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { NoteService } from 'src/app/services/note.service';
 
 import keyCodes from '../../../models/keyCodes';
 import { ModeSchema } from '../../../models/ModeSchema';
+
+import { generate } from 'shortid';
 
 // Traverses a body string and returns a shortened version that ends at the last period.
 const cutAtLastPeriod = (str: string):string => {
@@ -29,11 +31,13 @@ interface ModeOptions {
 export class NewNoteComponent implements OnInit {
   undoHistory = [];
   textRows: number;
+  saved: boolean;
   displayRaw: boolean;
   noteForm: object;
   modes: ModeSchema;
 
   constructor(
+    private noteService: NoteService,
     private formBuilder: FormBuilder
   ) {
     this.noteForm = this.formBuilder.group({
@@ -47,6 +51,7 @@ export class NewNoteComponent implements OnInit {
       bullet: false
     }
     this.textRows = 30;
+    this.saved = false;
     this.displayRaw = true;
   }
 
@@ -55,13 +60,11 @@ export class NewNoteComponent implements OnInit {
   }
 
   handleChanges() {
+    this.saved = false;
     const penulChar = (<any>this.noteForm).value.body.charCodeAt((<any>this.noteForm).value.body.length - 3)
     const lastChar = (<any>this.noteForm).value.body.charCodeAt((<any>this.noteForm).value.body.length - 1)
-    console.log("penulChar:", penulChar)
     if (this.modes.bullet) {
-      console.log(lastChar === keyCodes["enter"]);
       if (lastChar === keyCodes["enter"]) {
-        console.log("body should be updated");
         (<any>this.noteForm).patchValue({
           body: (<any>this.noteForm).value.body + '* '
         })
@@ -73,10 +76,21 @@ export class NewNoteComponent implements OnInit {
         })
       }
     }
-    console.log(lastChar);
+  }
+
+  save() {
+    this.saved = true;
+    console.log((<any>this.noteForm).value);
+    this.noteService.addLocalNote({
+      id: generate(),
+      topic: "poo",
+      ...(<any>this.noteForm).value
+    })
+    console.log(this.noteService.notes);
   }
 
   undo() {
+    this.saved = false;
     const newString = cutAtLastPeriod((<any>this.noteForm).value.body);
     if (newString) this.undoHistory.push((<any>this.noteForm).value.body);
     (<any>this.noteForm).patchValue({
@@ -85,9 +99,10 @@ export class NewNoteComponent implements OnInit {
   }
 
   redo() {
-    const poo = this.undoHistory.pop();
-    if (poo) (<any>this.noteForm).patchValue({
-      body: poo
+    this.saved = false;
+    const poppedBody = this.undoHistory.pop();
+    if (poppedBody) (<any>this.noteForm).patchValue({
+      body: poppedBody
     })
   }
 

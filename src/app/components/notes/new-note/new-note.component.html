@@ -1,14 +1,16 @@
 <app-toolbar 
     [modes]="modes"
-    [displayRaw]="displayRaw" 
+    [saved]="saved"
+    [displayRaw]="displayRaw"
     (displayChange)="this.displayRaw = $event"
     (modeChange)="changeMode($event)"
+    (saveAction)="save()"
     (undoAction)="undo()"
     (redoAction)="redo()"
 ></app-toolbar>
 
 <form [ngClass]="displayRaw ? 'raw' : ''" [formGroup]="noteForm">
-    <button nz-button (click)="whatIsModes()">Modes</button>
+    <!-- <button nz-button (click)="whatIsModes()">Modes</button> -->
     <input id="title" formControlName="title" type="text">
     <textarea
         (keyup)="handleChanges()"

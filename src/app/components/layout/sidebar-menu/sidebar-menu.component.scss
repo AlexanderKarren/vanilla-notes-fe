@@ -1,4 +1,31 @@
+@import '../../../../variables.scss';
+
 h2 {
     width:100%;
     text-align:center;
+    font-size:1.3rem;
+}
+
+.topic-list {
+    .topic-listing {
+        transition:.3s;
+        width:100%;
+        padding: .4rem $microMargin;
+        background-color:white;
+        border-top: 1px solid $borderColor;
+        &:last-of-type {
+            border-bottom: 1px solid $borderColor;
+        }
+        &:hover {
+            cursor:pointer;
+            color:$hoverColor;
+            border-top: 1px solid $hoverColor;
+            &:last-of-type {
+                border-bottom: 1px solid $hoverColor;
+            }
+            & + * {
+                border-top: 1px solid $hoverColor;
+            }
+        }
+    }
 }
