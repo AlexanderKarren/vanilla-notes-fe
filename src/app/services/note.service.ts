@@ -66,8 +66,8 @@ export class NoteService {
   }
 
   addLocalNote(note: Note): void {
-    console.log(new Date());
-    console.log(format(new Date(), null, null))
+    // console.log(new Date());
+    // console.log(format(new Date(), null, null))
     this.addLocalTopic(note);
     this.notes.push(note);
     storage.update(this.notes);
