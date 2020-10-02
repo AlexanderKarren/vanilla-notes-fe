@@ -4,8 +4,6 @@ import Topic from '../models/Topic';
 import storage from '../utilities/storage';
 import dummyNotes from './dummy-notes';
 
-import format from 'date-fns/format';
-
 // Get topics for client-stored tasks
 function assignTopics(localNotes: Note[]): Topic[] {
   const allNotes = {
