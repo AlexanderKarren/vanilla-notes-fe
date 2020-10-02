@@ -22,13 +22,13 @@ function parseImage(line: string) {
 }
 
 function formatTextLine(line: string, inline: boolean = false): TextLine {
-    console.log(line);
+    // console.log(line);
     switch(line[0]) {
         // backtick case not working for multi-line yet
         case '`':
             for (let i = 2; i < line.length; i++) {
                 if (line[i] === '`') {
-                    console.log(line.substr(1, i));
+                    // console.log(line.substr(1, i));
                     return {
                         className: 'codeBlock',
                         image: false,

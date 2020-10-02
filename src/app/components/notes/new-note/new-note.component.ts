@@ -53,6 +53,7 @@ export class NewNoteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("ngOnInit() called")
     this.topics = this.noteService.getTopics();
     this.modes = {
       bullet: false
@@ -61,7 +62,7 @@ export class NewNoteComponent implements OnInit {
     this.saved = false;
     this.displayRaw = true;
     this.route.params.subscribe(params => {
-      console.log(this.noteForm);
+      console.log("route params note form:", this.noteForm);
       if (params['id']) {
         this.saved = true;
         this.editId = params['id'];

@@ -13,6 +13,7 @@
     <!-- <button nz-button (click)="whatIsModes()">Modes</button> -->
     <h3>Topic</h3>
     <div class="topic-input-group">
+        <div class="button-container"></div>
         <input
             class="topic-input"
             type="text"
@@ -22,12 +23,14 @@
             text="title"
             placeholder="Topic"
         >
-        <button
-            nz-button
-            nz-dropdown
-            [nzDropdownMenu]="options"
-            nzTrigger="click"
-        ><i nz-icon nzType="down"></i></button>
+        <div class="button-container">
+            <button
+                nz-button
+                nz-dropdown
+                [nzDropdownMenu]="options"
+                nzTrigger="click"
+            ><i nz-icon nzType="down"></i></button>
+        </div>
     </div>
     <nz-dropdown-menu #options="nzDropdownMenu">
         <ul nz-menu>

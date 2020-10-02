@@ -17,6 +17,7 @@ form {
     padding: $microMargin 0;
     width:42rem;
     h3 {
+        font-size:1.5rem;
         font-weight:lighter;
         color:$borderColor;
     }
@@ -71,6 +72,9 @@ form {
             &:hover {
                 color:$hoverColor;
             }
+        }
+        .button-container {
+            width:10%;
         }
     }
     textarea {
