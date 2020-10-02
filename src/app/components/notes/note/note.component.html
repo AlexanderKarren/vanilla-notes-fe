@@ -7,13 +7,13 @@
                 <button nz-button [routerLink]="'/notes/id/' + note.id + '/edit'">
                     <i nz-icon nzType="edit" nzTheme="outline"></i>
                 </button>
-                <button nz-button>
+                <button nz-button (click)="changeDeleteStatus(true)">
                     <i nz-icon nzType="delete" nzTheme="outline"></i>
                 </button>
             </nz-button-group>
         </div>
     </div>
-    <div class="note-display">
+    <div class="note-display" *ngIf="!confirmDelete">
         <ng-container *ngFor="let line of textLines">
             <div [ngClass]="line.className" *ngIf="!line.inline && !line.image">
                 <div class="bullet" *ngIf="line.bullet"></div>
@@ -25,4 +25,10 @@
             <img [ngClass]="line.inline" [src]="line.className" [alt]="line.text" *ngIf="!line.inline && line.image">
         </ng-container>
     </div>
+    <app-confirm-delete
+        class="note-display"
+        (statusAction)="changeDeleteStatus($event)"
+        [note]="note"
+        *ngIf="confirmDelete"
+    ></app-confirm-delete>
 </ng-container>

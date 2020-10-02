@@ -1,0 +1,18 @@
+<p>Are you sure you want to delete '{{ note.title }}'? This action cannot be undone.</p>
+<div class="buttons">
+    <button
+        nz-button
+        nzDanger
+        nzType="primary"
+        (click)="deleteNote()"
+    >
+        Yes
+    </button>
+    <button
+        nz-button
+        nzDanger
+        (click)="changeDeleteStatus(false)"
+    >
+        No
+    </button>
+</div>

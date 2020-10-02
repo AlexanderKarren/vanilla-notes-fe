@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import Note from '../models/Note';
 import Topic from '../models/Topic';
+import storage from '../utilities/storage';
 import dummyNotes from './dummy-notes';
 
 // Get topics for client-stored tasks
@@ -13,16 +14,16 @@ function assignTopics(localNotes: Note[]): Topic[] {
   let topicHash = {};
 
   localNotes.forEach((note, index) => {
-    console.log(note);
+    // console.log(note);
     const topic = note.topic;
-    console.log(topicHash[topic]);
+    // console.log(topicHash[topic]);
     if (!topicHash[topic]) Object.assign(topicHash, {[topic]: {
       id: index + 1,
       title: topic
     }});
   })
 
-  console.log(topicHash);
+  // console.log(topicHash);
 
   return <Topic[]>[allNotes, ...Object.values(topicHash)];
 }
@@ -31,10 +32,11 @@ function assignTopics(localNotes: Note[]): Topic[] {
   providedIn: 'root'
 })
 export class NoteService {
-  notes: Note[] = dummyNotes;
+  notes: Note[];
   topics: Topic[];
 
   constructor() {
+    this.notes = storage.get() || dummyNotes;
     this.topics = assignTopics(this.notes);
   }
 
@@ -52,6 +54,7 @@ export class NoteService {
       }
       return note;
     })
+    storage.update(this.notes);
   }
 
   getNotes(): Note[] {
@@ -65,6 +68,7 @@ export class NoteService {
   addLocalNote(note: Note): void {
     this.addLocalTopic(note);
     this.notes.push(note);
+    storage.update(this.notes);
   }
 
   // addLocalTopic will only add a topic if it doesn't already exist
@@ -73,6 +77,11 @@ export class NoteService {
       id: this.topics.length,
       title: note.topic
     })
+  }
+
+  deleteLocalNote(note: Note) {
+    this.notes = this.notes.filter(element => (element.id !== note.id))
+    storage.update(this.notes);
   }
 
 }

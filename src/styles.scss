@@ -64,6 +64,23 @@ textarea {
 	&.ant-btn-primary {
 		background-color:$bgColorDark;
 		color:white;
+		&.ant-btn-dangerous {
+			color:white;
+			background-color:$dangerColor;
+			&:hover {
+				background-color:$dangerColorDark;
+				color:white;
+			}
+		}
+	}
+	&.ant-btn-dangerous {
+		border:1px solid $dangerColor;
+		color:$dangerColor;
+		&:hover {
+			background-color:#FCFCFC;
+			border:1px solid $dangerColorDark;
+			color:$dangerColorDark;
+		}
 	}
 }
 

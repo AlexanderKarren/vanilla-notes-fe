@@ -53,7 +53,7 @@ export class NewNoteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("ngOnInit() called")
+    // console.log("ngOnInit() called")
     this.topics = this.noteService.getTopics();
     this.modes = {
       bullet: false

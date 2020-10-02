@@ -13,6 +13,7 @@ import splitLine from 'src/app/utilities/splitLine';
 export class NoteComponent implements OnInit {
   private sub: any;
   note: Note;
+  confirmDelete: boolean;
   textLines: TextLine[];
 
   constructor(
@@ -23,6 +24,7 @@ export class NoteComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.confirmDelete = false;
     this.textLines = [];
     this.sub = this.route.params.subscribe(params => {
       this.note = this.noteService.getNote(params['id']);
@@ -35,6 +37,10 @@ export class NoteComponent implements OnInit {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  changeDeleteStatus(status: boolean) {
+    this.confirmDelete = status;
   }
 
 }
