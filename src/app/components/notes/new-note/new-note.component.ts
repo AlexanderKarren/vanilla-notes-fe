@@ -7,6 +7,7 @@ import { ModeSchema } from '../../../models/ModeSchema';
 
 import { generate } from 'shortid';
 import { ActivatedRoute } from '@angular/router';
+import Topic from 'src/app/models/Topic';
 
 // Traverses a body string and returns a shortened version that ends at the last period.
 const cutAtLastPeriod = (str: string):string => {
@@ -30,6 +31,7 @@ interface ModeOptions {
   styleUrls: ['./new-note.component.scss']
 })
 export class NewNoteComponent implements OnInit {
+  topics: Topic[];
   undoHistory = [];
   editId: string;
   textRows: number;
@@ -45,11 +47,13 @@ export class NewNoteComponent implements OnInit {
   ) {
     this.noteForm = this.formBuilder.group({
       title: 'New Note',
+      topic: 'Misc',
       body: ''
     })
   }
 
   ngOnInit(): void {
+    this.topics = this.noteService.getTopics();
     this.modes = {
       bullet: false
     }
@@ -101,18 +105,18 @@ export class NewNoteComponent implements OnInit {
     this.saved = true;
     // console.log((<any>this.noteForm).value);
     if (this.editId) {
-      console.log(this.noteService.getNote(this.editId));
       this.noteService.editNote(this.editId, {
         ...(<any>this.noteForm).value
       })
-      console.log(this.noteService.getNote(this.editId));
     }
     else {
-      this.noteService.addLocalNote({
-        id: generate(),
-        topic: "poo",
-        ...(<any>this.noteForm).value
-      })
+        const id = generate();
+        this.noteService.addLocalNote({
+          id: id,
+          topic: "poo",
+          ...(<any>this.noteForm).value
+        })
+        this.editId = id;
     }
     // console.log(this.noteService.notes);
   }
@@ -144,6 +148,12 @@ export class NewNoteComponent implements OnInit {
 
   whatIsModes(): void {
     console.log(this.modes);
+  }
+
+  changeTopic(topic: string): void {
+    (<any>this.noteForm).patchValue({
+      topic: topic
+    })
   }
 
 }

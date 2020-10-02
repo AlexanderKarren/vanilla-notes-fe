@@ -3,7 +3,7 @@
     <i nz-icon nzType="save" [nzTheme]="saved && 'fill'"></i>
 </button>
 <!-- Undo / Redo -->
-<nz-button-group>
+<nz-button-group class="end-right">
     <button 
       nz-button
       nzType="default"
@@ -18,12 +18,13 @@
       <i nz-icon nzType="redo"></i>
     </button>
 </nz-button-group>
+<div class="divider"></div>
 <!-- Text Style -->
 <div class="dropdown">
     <button 
       nz-button
       nz-dropdown
-      [nzDropdownMenu]="options"
+      [nzDropdownMenu]="styleOptions"
       nzTrigger="click">
         Text Style
     <i nz-icon nzType="down"></i>
@@ -77,7 +78,7 @@
     </button>
 </nz-button-group>
 <!-- Dropdown -->
-<nz-dropdown-menu #options="nzDropdownMenu">
+<nz-dropdown-menu #styleOptions="nzDropdownMenu">
     <ul nz-menu>
       <li nz-menu-item>Heading 1</li>
       <li nz-menu-item>Heading 2</li>

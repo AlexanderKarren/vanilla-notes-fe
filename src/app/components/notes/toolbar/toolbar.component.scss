@@ -4,6 +4,12 @@
     display:flex;
     justify-content:space-between;
     border-bottom:1px solid $borderColor;
-    padding: .2rem 13rem;
+    padding: .2rem 15rem;
     width:100%;
+}
+
+.divider {
+    width:.01rem;
+    height:auto;
+    background-color:$borderColor;
 }
