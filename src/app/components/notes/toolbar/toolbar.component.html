@@ -86,6 +86,10 @@
     </ul>
 </nz-dropdown-menu>
 <!-- Delete -->
-<button nz-button nzType="default">
+<button 
+  nz-button
+  nzType="default"
+  (click)="changeDeleteStatus(true)"
+>
   <i nz-icon nzType="delete"></i>
 </button>

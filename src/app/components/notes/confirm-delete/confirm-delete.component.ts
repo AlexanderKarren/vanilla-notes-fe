@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import Note from 'src/app/models/Note';
 import { NoteService } from 'src/app/services/note.service';
 
@@ -13,7 +14,8 @@ export class ConfirmDeleteComponent implements OnInit {
   @Output() statusAction = new EventEmitter();
 
   constructor(
-    private noteService: NoteService
+    private noteService: NoteService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -26,7 +28,8 @@ export class ConfirmDeleteComponent implements OnInit {
 
   deleteNote() {
     this.changeDeleteStatus(false);
-    this.noteService.deleteLocalNote(this.note);
+    if (this.note) this.noteService.deleteLocalNote(this.note);
+    this.router.navigate([""]);
   }
 
 }

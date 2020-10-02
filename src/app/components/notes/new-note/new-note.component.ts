@@ -6,8 +6,9 @@ import keyCodes from '../../../models/keyCodes';
 import { ModeSchema } from '../../../models/ModeSchema';
 
 import { generate } from 'shortid';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Topic from 'src/app/models/Topic';
+import Note from 'src/app/models/Note';
 
 // Traverses a body string and returns a shortened version that ends at the last period.
 const cutAtLastPeriod = (str: string):string => {
@@ -31,6 +32,7 @@ interface ModeOptions {
   styleUrls: ['./new-note.component.scss']
 })
 export class NewNoteComponent implements OnInit {
+  note: Note;
   topics: Topic[];
   undoHistory = [];
   editId: string;
@@ -39,9 +41,11 @@ export class NewNoteComponent implements OnInit {
   displayRaw: boolean;
   noteForm: object;
   modes: ModeSchema;
+  confirmDelete: boolean;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private noteService: NoteService,
     private formBuilder: FormBuilder
   ) {
@@ -54,6 +58,7 @@ export class NewNoteComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log("ngOnInit() called")
+    this.note = null;
     this.topics = this.noteService.getTopics();
     this.modes = {
       bullet: false
@@ -66,10 +71,10 @@ export class NewNoteComponent implements OnInit {
       if (params['id']) {
         this.saved = true;
         this.editId = params['id'];
-        const note = this.noteService.getNote(params['id']);
+        this.note = this.noteService.getNote(params['id']);
         (<any>this.noteForm).patchValue({
-          title: note.title,
-          body: note.body
+          title: this.note.title,
+          body: this.note.body
         })
       }
     })
@@ -155,6 +160,10 @@ export class NewNoteComponent implements OnInit {
     (<any>this.noteForm).patchValue({
       topic: topic
     })
+  }
+
+  changeDeleteStatus(status: boolean) {
+    this.confirmDelete = status;
   }
 
 }

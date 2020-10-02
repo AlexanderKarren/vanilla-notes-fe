@@ -1,4 +1,4 @@
-<app-toolbar 
+<app-toolbar
     [modes]="modes"
     [saved]="saved"
     [displayRaw]="displayRaw"
@@ -7,9 +7,13 @@
     (saveAction)="save()"
     (undoAction)="undo()"
     (redoAction)="redo()"
+    (deleteAction)="changeDeleteStatus($event)"
 ></app-toolbar>
 
-<form [ngClass]="displayRaw ? 'raw' : ''" [formGroup]="noteForm">
+<form 
+    *ngIf="!confirmDelete"
+    [ngClass]="displayRaw ? 'raw' : ''"
+    [formGroup]="noteForm">
     <!-- <button nz-button (click)="whatIsModes()">Modes</button> -->
     <h3>Topic</h3>
     <div class="topic-input-group">
@@ -60,3 +64,9 @@
         formControlName="body"
     ></textarea>
 </form>
+<app-confirm-delete
+    class="note-display"
+    (statusAction)="changeDeleteStatus($event)"
+    [note]="note"
+    *ngIf="confirmDelete"
+></app-confirm-delete>

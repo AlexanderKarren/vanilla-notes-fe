@@ -1,18 +1,21 @@
-<p>Are you sure you want to delete '{{ note.title }}'? This action cannot be undone.</p>
-<div class="buttons">
-    <button
-        nz-button
-        nzDanger
-        nzType="primary"
-        (click)="deleteNote()"
-    >
-        Yes
-    </button>
-    <button
-        nz-button
-        nzDanger
-        (click)="changeDeleteStatus(false)"
-    >
-        No
-    </button>
-</div>
+<ng-container>
+    <p *ngIf="note">Are you sure you want to delete '{{ note.title }}'? This action cannot be undone.</p>
+    <p *ngIf="!note">Are you sure you want to delete this project?</p>
+    <div class="buttons">
+        <button
+            nz-button
+            nzDanger
+            nzType="primary"
+            (click)="deleteNote()"
+        >
+            Yes
+        </button>
+        <button
+            nz-button
+            nzDanger
+            (click)="changeDeleteStatus(false)"
+        >
+            No
+        </button>
+    </div>
+</ng-container>
