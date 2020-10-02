@@ -23,6 +23,10 @@ import { NewNoteComponent } from './components/notes/new-note/new-note.component
 import { SettingsComponent } from './components/pages/settings/settings.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { ToolbarComponent } from './components/notes/toolbar/toolbar.component';
+import { SortSearchComponent } from './components/layout/sort-search/sort-search.component';
+import { NzInputModule } from 'ng-zorro-antd';
+import { NoteComponent } from './components/notes/note/note.component';
+import { ConfirmDeleteComponent } from './components/notes/confirm-delete/confirm-delete.component';
 
 registerLocaleData(en);
 
@@ -35,7 +39,10 @@ registerLocaleData(en);
     NewNoteComponent,
     SettingsComponent,
     AboutComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SortSearchComponent,
+    NoteComponent,
+    ConfirmDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +52,7 @@ registerLocaleData(en);
     NzLayoutModule,
     NzMenuModule,
     NzDropDownModule,
+    NzInputModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

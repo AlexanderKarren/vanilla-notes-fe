@@ -1,15 +1,62 @@
-<app-toolbar 
+<app-toolbar
     [modes]="modes"
-    [displayRaw]="displayRaw" 
+    [saved]="saved"
+    [displayRaw]="displayRaw"
     (displayChange)="this.displayRaw = $event"
     (modeChange)="changeMode($event)"
+    (saveAction)="save()"
     (undoAction)="undo()"
     (redoAction)="redo()"
+    (deleteAction)="changeDeleteStatus($event)"
 ></app-toolbar>
 
-<form [ngClass]="displayRaw ? 'raw' : ''" [formGroup]="noteForm">
-    <button nz-button (click)="whatIsModes()">Modes</button>
-    <input id="title" formControlName="title" type="text">
+<form 
+    *ngIf="!confirmDelete"
+    [ngClass]="displayRaw ? 'raw' : ''"
+    [formGroup]="noteForm">
+    <!-- <button nz-button (click)="whatIsModes()">Modes</button> -->
+    <h3>Topic</h3>
+    <div class="topic-input-group">
+        <div class="button-container"></div>
+        <input
+            class="topic-input"
+            type="text"
+            nz-input
+            id="topic"
+            formControlName="topic"
+            text="title"
+            placeholder="Topic"
+        >
+        <div class="button-container">
+            <button
+                nz-button
+                nz-dropdown
+                [nzDropdownMenu]="options"
+                nzTrigger="click"
+            ><i nz-icon nzType="down"></i></button>
+        </div>
+    </div>
+    <nz-dropdown-menu #options="nzDropdownMenu">
+        <ul nz-menu>
+            <ng-container *ngFor="let topic of topics">
+                <li
+                (click)="changeTopic(topic.title)"
+                nz-menu-item
+                *ngIf="topic.title !== 'All Notes'"
+            >
+                {{ topic.title }}
+            </li>
+            </ng-container>
+        </ul>
+    </nz-dropdown-menu>
+    <h3>Title</h3>
+    <input
+        (keyup)="handleChanges()"
+        id="title"
+        formControlName="title"
+        type="text"
+        [ngClass]="getTitleLength() > 20 ? 'smaller' : ''"
+    >
     <textarea
         (keyup)="handleChanges()"
         [rows]="textRows"
@@ -17,3 +64,9 @@
         formControlName="body"
     ></textarea>
 </form>
+<app-confirm-delete
+    class="note-display"
+    (statusAction)="changeDeleteStatus($event)"
+    [note]="note"
+    *ngIf="confirmDelete"
+></app-confirm-delete>

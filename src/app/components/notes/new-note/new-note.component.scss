@@ -16,16 +16,22 @@ form {
     align-items:center;
     padding: $microMargin 0;
     width:42rem;
+    h3 {
+        font-size:1.5rem;
+        font-weight:lighter;
+        color:$borderColor;
+    }
     &.raw {
         font-family: $rawFont;
     }
-    input:first-of-type {
+    input {
         transition:.2s;
         font-family: $primaryFont!important;
         font-weight:bold;
         text-align:center;
         font-family:inherit;
         font-size:3rem;
+        padding: 0 $microMargin;
         margin-bottom: $microMargin;
         color:white;
         background:none;
@@ -33,8 +39,42 @@ form {
         border-top-right-radius: 5px;
         border:none;
         border-bottom:2px solid white;
+        width:100%;
         &:focus, &:hover {
             background-color:$bgColorDarker;
+        }
+        &.smaller {
+            font-size:2rem;
+        }
+        &::placeholder {
+            font-weight:lighter;
+            color:$borderColor;
+        }
+    }
+    .topic-input-group {
+        display:flex;
+        align-items:center;
+        width:20rem;
+        input {
+            font-size:2rem;
+        }
+        button {
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            color:white;
+            background-color:$bgColorDark;
+            // border:1px solid white;
+            border:none;
+            i {
+                font-size:1.25rem;
+            }
+            &:hover {
+                color:$hoverColor;
+            }
+        }
+        .button-container {
+            width:10%;
         }
     }
     textarea {

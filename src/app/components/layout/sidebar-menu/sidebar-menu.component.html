@@ -1,1 +1,38 @@
 <h2>Notes</h2>
+
+<app-sort-search
+    [sortBy]="sortBy"
+    [sortAsc]="sortAsc"
+    (sortChange)="changeSort($event)"
+></app-sort-search>
+
+<div class="list" *ngIf="!viewNotes">
+    <div 
+        (click)="changeTopic(topic.title)"
+        class="listing"
+        *ngFor="let topic of topics">
+        {{ topic.title }}
+    </div>
+</div>
+
+<div class="list" *ngIf="viewNotes">
+    <h3>
+        <i 
+            nz-icon
+            nzType="left"
+            nzTheme="outline"
+            (click)="return()"
+        ></i>
+        <span>{{ activeTopic }}</span>
+        <div></div>
+    </h3>
+    <ng-container *ngFor="let note of notes">
+        <div 
+            class="listing"
+            *ngIf="viewAll || note.topic === activeTopic"
+            [routerLink]="['/notes/id', note.id]"
+        >
+            {{ note.title }}
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,37 @@
+@import '../../../../variables.scss';
+
+:host {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.view-toolbar {
+    display:flex;
+    justify-content:space-between;
+    padding: $microMargin 5.5rem;
+    width:100%;
+    background-color:$bgColorLight;
+    border-bottom:1px solid $borderColor;
+    div {
+        display:flex;
+        justify-content:center;
+        width:20%;
+        nz-button-group {
+            display:flex;
+            align-items:center;
+        }
+    }
+    h2 {
+        display:flex;
+        justify-content:center;
+        height:auto;
+        font-size:1.3rem;
+        color: $textColor;
+        background-color:white;
+        padding:$microMargin 1.5rem;
+        width:50%;
+        border:1px solid $borderColor;
+        border-radius:.25rem;
+    }
+}

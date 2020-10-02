@@ -25,6 +25,14 @@ h1 {
 	font-size:2rem;
 }
 
+h2 {
+	font-size:1.5rem;
+}
+
+h3 {
+	font-size:1.2rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-weight:bold;
 }
@@ -56,9 +64,103 @@ textarea {
 	&.ant-btn-primary {
 		background-color:$bgColorDark;
 		color:white;
+		&.ant-btn-dangerous {
+			color:white;
+			background-color:$dangerColor;
+			&:hover {
+				background-color:$dangerColorDark;
+				color:white;
+			}
+		}
+	}
+	&.ant-btn-dangerous {
+		border:1px solid $dangerColor;
+		color:$dangerColor;
+		&:hover {
+			background-color:#FCFCFC;
+			border:1px solid $dangerColorDark;
+			color:$dangerColorDark;
+		}
 	}
 }
 
 input {
 	outline:none;
+}
+
+.note-display {
+    background-color:white;
+    padding: 3.5rem 2.5rem;
+    width:50rem;
+    margin:$microMargin 0;
+    border:1px solid $borderColor;
+    div {
+        display:flex;
+        align-items:center;
+        width:100%;
+        .bullet {
+            display:flex;
+            align-items:center;
+            height:.25rem;
+            width:.25rem;
+            background-color:$textColor;
+            border-radius:50rem;
+            margin-right:$microMargin;
+        }
+    }
+    span {
+        display:inline;
+        &.bold {
+            font-weight:bold;
+        }
+    }
+    img {
+        display:flex;
+        margin: 1rem, 0!important;
+        &.inline {
+            display:inline;
+        }
+    }
+    .headingOne, .headingTwo, .headingThree {
+        display:flex;
+        align-items:flex-start;
+        font-weight:bold;
+        border-bottom:1px solid lightgray;
+        margin:$microMargin 0;
+    }
+    .headingOne {
+        height:auto;
+        font-size:3rem;
+    }
+    .headingTwo {
+        font-size:2rem;
+    }
+    .codeBlock {
+        margin:1rem 0;
+        background-color:$bgColorLight;
+        border-radius:.25rem;
+        font-family: $rawFont;
+        padding:$microMargin;
+        overflow-x:auto;
+        border:1px solid $borderColor;
+    }
+}
+
+app-confirm-delete {
+    flex-direction:column;
+    align-items:center;
+    p {
+        text-align:center;
+        margin:$microMargin;
+    }
+    .buttons {
+        display:flex;
+        justify-content:center;
+        button {
+            height:auto;
+            font-size:1.2rem;
+            margin: 0 $microMargin;
+            width:10rem;
+        }
+    }
 }

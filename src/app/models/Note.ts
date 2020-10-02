@@ -1,5 +1,5 @@
-export class Note {
-    id:number;
+export default class Note {
+    id:string;
     topic:string;
     title:string;
     body:string;

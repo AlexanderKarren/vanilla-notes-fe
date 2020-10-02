@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModeSchema } from 'src/app/models/ModeSchema';
 
 import { NoteService } from '../../../services/note.service';
@@ -9,18 +10,22 @@ import { NoteService } from '../../../services/note.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-
   constructor(
+    private router: Router,
     private noteService: NoteService
   ) { }
 
-  @Input() displayRaw:boolean;
+  @Input() saved: boolean;
+  @Input() displayRaw: boolean;
   @Input() modes: ModeSchema;
+  @Input() canUndo: boolean;
 
   @Output() displayChange = new EventEmitter();
   @Output() modeChange = new EventEmitter();
+  @Output() saveAction = new EventEmitter();
   @Output() undoAction = new EventEmitter();
   @Output() redoAction = new EventEmitter();
+  @Output() deleteAction = new EventEmitter();
 
   ngOnInit(): void {
   }
@@ -38,12 +43,20 @@ export class ToolbarComponent implements OnInit {
     })
   }
 
+  save() {
+    this.saveAction.emit();
+  }
+
   undo() {
     this.undoAction.emit();
   }
 
   redo() {
     this.redoAction.emit();
+  }
+
+  changeDeleteStatus(status: boolean) {
+    this.deleteAction.emit(status);
   }
 
 }
