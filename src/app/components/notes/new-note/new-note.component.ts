@@ -6,6 +6,7 @@ import keyCodes from '../../../models/keyCodes';
 import { ModeSchema } from '../../../models/ModeSchema';
 
 import { generate } from 'shortid';
+import { ActivatedRoute } from '@angular/router';
 
 // Traverses a body string and returns a shortened version that ends at the last period.
 const cutAtLastPeriod = (str: string):string => {
@@ -30,6 +31,7 @@ interface ModeOptions {
 })
 export class NewNoteComponent implements OnInit {
   undoHistory = [];
+  editId: string;
   textRows: number;
   saved: boolean;
   displayRaw: boolean;
@@ -37,6 +39,7 @@ export class NewNoteComponent implements OnInit {
   modes: ModeSchema;
 
   constructor(
+    private route: ActivatedRoute,
     private noteService: NoteService,
     private formBuilder: FormBuilder
   ) {
@@ -53,6 +56,22 @@ export class NewNoteComponent implements OnInit {
     this.textRows = 30;
     this.saved = false;
     this.displayRaw = true;
+    this.route.params.subscribe(params => {
+      console.log(this.noteForm);
+      if (params['id']) {
+        this.saved = true;
+        this.editId = params['id'];
+        const note = this.noteService.getNote(params['id']);
+        (<any>this.noteForm).patchValue({
+          title: note.title,
+          body: note.body
+        })
+      }
+    })
+  }
+
+  getTitleLength(): number {
+    return (<any>this.noteForm).value.title.length;
   }
 
   changeMode(data: ModeOptions): void {
@@ -80,13 +99,22 @@ export class NewNoteComponent implements OnInit {
 
   save() {
     this.saved = true;
-    console.log((<any>this.noteForm).value);
-    this.noteService.addLocalNote({
-      id: generate(),
-      topic: "poo",
-      ...(<any>this.noteForm).value
-    })
-    console.log(this.noteService.notes);
+    // console.log((<any>this.noteForm).value);
+    if (this.editId) {
+      console.log(this.noteService.getNote(this.editId));
+      this.noteService.editNote(this.editId, {
+        ...(<any>this.noteForm).value
+      })
+      console.log(this.noteService.getNote(this.editId));
+    }
+    else {
+      this.noteService.addLocalNote({
+        id: generate(),
+        topic: "poo",
+        ...(<any>this.noteForm).value
+      })
+    }
+    // console.log(this.noteService.notes);
   }
 
   undo() {
@@ -107,7 +135,7 @@ export class NewNoteComponent implements OnInit {
   }
 
   peekForm(): void {
-    console.log((<HTMLInputElement>this.noteForm).value);
+    console.log((<any>this.noteForm).value);
   }
 
   // whatIsDisplayRaw(): void {

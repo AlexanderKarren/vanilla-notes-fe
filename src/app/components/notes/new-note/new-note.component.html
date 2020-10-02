@@ -11,7 +11,12 @@
 
 <form [ngClass]="displayRaw ? 'raw' : ''" [formGroup]="noteForm">
     <!-- <button nz-button (click)="whatIsModes()">Modes</button> -->
-    <input id="title" formControlName="title" type="text">
+    <input 
+        id="title"
+        formControlName="title"
+        type="text"
+        [ngClass]="getTitleLength() > 20 ? 'smaller' : ''"
+    >
     <textarea
         (keyup)="handleChanges()"
         [rows]="textRows"

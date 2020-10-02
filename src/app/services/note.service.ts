@@ -38,6 +38,22 @@ export class NoteService {
     this.topics = assignTopics(this.notes);
   }
 
+  getNote(id: string): Note {
+    return this.notes.find(element => element.id === id)
+  }
+
+  editNote(id: string, newNote: any): void {
+    this.notes = this.notes.map(note => {
+      if (note.id === id) {
+        return {
+          ...note,
+          ...newNote
+        };
+      }
+      return note;
+    })
+  }
+
   getNotes(): Note[] {
     return this.notes;
   }

@@ -2,15 +2,34 @@
 
 :host {
     display:flex;
-    justify-content:center;
+    flex-direction:column;
+    align-items:center;
+}
+
+.view-toolbar {
+    display:flex;
+    justify-content:space-between;
+    padding: $microMargin 5.5rem;
+    width:100%;
+    background-color:$bgColorLight;
+    border-bottom:1px solid $borderColor;
+    div {
+        display:flex;
+        justify-content:center;
+        width:20%;
+        nz-button-group {
+            display:flex;
+            align-items:center;
+        }
+    }
+    h2 {
+        font-size:1.3rem;
+    }
 }
 
 .note-display {
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
     background-color:white;
-    padding: 1rem 2.5rem;
+    padding: 3.5rem 2.5rem;
     width:50rem;
     margin-top:$microMargin;
     border:1px solid $borderColor;
@@ -28,12 +47,25 @@
             margin-right:$microMargin;
         }
     }
+    span {
+        display:inline;
+        &.bold {
+            font-weight:bold;
+        }
+    }
+    img {
+        display:flex;
+        margin: 1rem, 0!important;
+        &.inline {
+            display:inline;
+        }
+    }
     .headingOne, .headingTwo, .headingThree {
         display:flex;
         align-items:flex-start;
         font-weight:bold;
         border-bottom:1px solid lightgray;
-        margin-bottom:$microMargin;
+        margin:$microMargin 0;
     }
     .headingOne {
         height:auto;
@@ -41,5 +73,14 @@
     }
     .headingTwo {
         font-size:2rem;
+    }
+    .codeBlock {
+        margin:1rem 0;
+        background-color:$bgColorLight;
+        border-radius:.5rem;
+        font-family: $rawFont;
+        padding:$microMargin;
+        overflow-x:auto;
+        border:1px solid $bgColorDark;
     }
 }

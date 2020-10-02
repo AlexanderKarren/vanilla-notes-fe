@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'notes/new', component: NewNoteComponent },
   { path: 'notes/id/:id', component: NoteComponent},
+  { path: 'notes/id/:id/edit', component: NewNoteComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'about', component: AboutComponent }
 ];

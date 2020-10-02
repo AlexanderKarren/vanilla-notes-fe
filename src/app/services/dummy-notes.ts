@@ -5,8 +5,17 @@ export default <Note[]>[{
     topic: "Welcome",
     title: "Welcome to Vanilla Notes",
     body: `# Welcome to Vanilla Notes
-Harum odit dis oratione per rem facer contemptor sem leo morbi est pede adulterium/dicterium et vel ante ut hic purus massa orci orci vero eu. Y caduca ti ut v hominem meruerunt fiant nibh est at duis quae surdis vitae sit. Si quo exdivisionem sunt quae aemulam totam sit amet possim'e desiderium massam sed sequi modi suscipere constituemus dulcedo? Fuga rerum sint quo e legunt meritorius rem specie vitae? Odio'p sunt ac dicta arctiora ad eros M'o porro spiral te est nec.
-## Getting Started
-* Nagivate to New Note`
+To create a new **note,** click the **'New Note'** button on the header up top.
+## Bulleted Lists
+Place an asterisk followed by a space before a line to create a bulleted list item.
+* My first bullet,
+* My second,
+* and my third!
+## Stylized Text
+Surround text with a pair of **double asterisks** to create **bold** text.
+## Adding Images
+Use the following syntax to add images to your notes:
+\`![monkey with ice cream](https://i.pinimg.com/originals/2a/46/37/2a4637ed3fbeb25dc8c7e996a6d5f3ac.jpg)\`
+![monkey with ice cream](https://i.pinimg.com/originals/2a/46/37/2a4637ed3fbeb25dc8c7e996a6d5f3ac.jpg)`
 }
 ]
