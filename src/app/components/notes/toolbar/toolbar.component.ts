@@ -26,6 +26,7 @@ export class ToolbarComponent implements OnInit {
   @Output() undoAction = new EventEmitter();
   @Output() redoAction = new EventEmitter();
   @Output() deleteAction = new EventEmitter();
+  @Output() linkAction = new EventEmitter();
 
   ngOnInit(): void {
   }
@@ -57,6 +58,11 @@ export class ToolbarComponent implements OnInit {
 
   changeDeleteStatus(status: boolean) {
     this.deleteAction.emit(status);
+  }
+
+  insertImageLink() {
+    const userSelection = document.getSelection().toString() ? document.getSelection().toString() : null;
+    this.linkAction.emit(document.getSelection().toString());
   }
 
 }

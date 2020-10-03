@@ -4,24 +4,26 @@
 </button>
 <!-- Undo / Redo -->
 <nz-button-group class="end-right">
-    <button 
+    <button
+      disabled
       nz-button
       nzType="default"
       (click)="undo()">
       <i nz-icon nzType="undo"></i>
     </button>
-    <button 
+    <button
+      disabled
       nz-button
       nzType="default"
-      (click)="redo()"
-      [disabled]="canUndo">
+      (click)="redo()">
       <i nz-icon nzType="redo"></i>
     </button>
 </nz-button-group>
 <div class="divider"></div>
 <!-- Text Style -->
 <div class="dropdown">
-    <button 
+    <button
+      disabled
       nz-button
       nz-dropdown
       [nzDropdownMenu]="styleOptions"
@@ -32,19 +34,25 @@
 </div>
 <!-- Text Alignment -->
 <nz-button-group>
-      <button nz-button nzType="default">
+      <button
+        nz-button
+        [nzType]="(!modes.alignRight && !modes.alignCenter) ? 'primary' : 'default'"
+      >
         <i nz-icon nzType="align-left"></i>
       </button>
-      <button nz-button nzType="default">
+      <button disabled nz-button nzType="default">
         <i nz-icon nzType="align-center"></i>
       </button>
-      <button nz-button nzType="default">
+      <button disabled nz-button nzType="default">
         <i nz-icon nzType="align-right"></i>
       </button>
 </nz-button-group>
 <!-- Lists -->
 <nz-button-group>
-    <button nz-button>
+    <button
+      disabled
+      nz-button
+    >
       <i nz-icon nzType="ordered-list"></i>
     </button>
     <button 
@@ -57,16 +65,25 @@
 </nz-button-group>
 <!-- Link / Image -->
 <nz-button-group>
-    <button nz-button nzType="default">
+    <button
+      (click)="insertImageLink()"
+      nz-button
+      nzType="default"
+    >
     <i nz-icon nzType="link"></i>
     </button>
-    <button nz-button nzType="default">
+    <button
+      disabled
+      nz-button
+      nzType="default"
+    >
     <i nz-icon nzType="picture"></i>
     </button>
 </nz-button-group>
 <!-- Rich / Raw -->
 <nz-button-group>
     <button
+    disabled
         (click)="toggleRawDisplay(false)"
         nz-button 
         [nzType]="displayRaw ? 'default' : 'primary'" 

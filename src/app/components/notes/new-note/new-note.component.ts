@@ -62,6 +62,8 @@ export class NewNoteComponent implements OnInit {
     this.note = null;
     this.topics = this.noteService.getTopics();
     this.modes = {
+      alignCenter: false,
+      alignRight: false,
       bullet: false
     }
     this.textRows = 30;
@@ -93,6 +95,7 @@ export class NewNoteComponent implements OnInit {
     this.saved = false;
     const lastChar = (<any>this.noteForm).value.body.charCodeAt((<any>this.noteForm).value.body.length - 1)
     const penulChar = (<any>this.noteForm).value.body.charCodeAt((<any>this.noteForm).value.body.length - 2)
+    console.log(lastChar, penulChar);
     if (this.modes.bullet) {
       console.log(penulChar);
       if (lastChar === keyCodes["enter"]) {
@@ -113,7 +116,8 @@ export class NewNoteComponent implements OnInit {
       }
     }
     else {
-      if (penulChar === keyCodes["enter"] && lastChar === keyCodes["asterisk"]) {
+      console.log((penulChar === keyCodes["enter"] || !penulChar) && lastChar === keyCodes["asterisk"])
+      if ((penulChar === keyCodes["enter"] || !penulChar) && lastChar === keyCodes["asterisk"]) {
         this.changeMode({
           key: "bullet",
           bool: true
@@ -137,7 +141,7 @@ export class NewNoteComponent implements OnInit {
           topic: "poo",
           ...(<any>this.noteForm).value
         })
-        this.editId = id;
+        this.router.navigate([`notes/id/${id}/edit`]);
     }
     // console.log(this.noteService.notes);
   }
@@ -179,6 +183,20 @@ export class NewNoteComponent implements OnInit {
 
   changeDeleteStatus(status: boolean) {
     this.confirmDelete = status;
+  }
+
+  insertImageLink(userSelection: string) {
+    const formatted = `[${userSelection}]()`;
+    if (userSelection) {
+      (<any>this.noteForm).patchValue({
+        body: (<any>this.noteForm).value.body.replace(userSelection, formatted)
+      })
+    }
+    else {
+      (<any>this.noteForm).patchValue({
+        body: (<any>this.noteForm).value.body + ' ' + formatted
+      })
+    }
   }
 
 }
