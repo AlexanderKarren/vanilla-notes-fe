@@ -2,9 +2,10 @@ import Note from '../models/Note';
 
 export default <Note[]>[{
     id: "PPBqWA9",
+    date_created: "2020-09-28T15:12:19Z",
     topic: "Welcome",
     title: "Welcome to Vanilla Notes",
-    body: `# Welcome to Vanilla Notes
+    body: `# Welcome to Vanilla Notes,
 To create a new **note,** click the **'New Note'** button on the header up top.
 ## Bulleted Lists
 Place an asterisk followed by a space before a line to create a bulleted list item.

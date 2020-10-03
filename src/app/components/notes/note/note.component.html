@@ -7,6 +7,9 @@
                 <button nz-button [routerLink]="'/notes/id/' + note.id + '/edit'">
                     <i nz-icon nzType="edit" nzTheme="outline"></i>
                 </button>
+                <button nz-button (click)="saveTextFile()">
+                    <i nz-icon nzType="download" nzTheme="outline"></i>
+                </button>
                 <button nz-button (click)="changeDeleteStatus(true)">
                     <i nz-icon nzType="delete" nzTheme="outline"></i>
                 </button>

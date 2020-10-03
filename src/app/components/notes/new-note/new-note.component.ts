@@ -5,6 +5,7 @@ import { NoteService } from 'src/app/services/note.service';
 import keyCodes from '../../../models/keyCodes';
 import { ModeSchema } from '../../../models/ModeSchema';
 
+import * as dayjs from 'dayjs';
 import { generate } from 'shortid';
 import { ActivatedRoute, Router } from '@angular/router';
 import Topic from 'src/app/models/Topic';
@@ -139,9 +140,11 @@ export class NewNoteComponent implements OnInit {
         this.noteService.addLocalNote({
           id: id,
           topic: "poo",
+          date_created: dayjs().format('YYYY-MM-DDTHH:mm:ss[Z]'),
           ...(<any>this.noteForm).value
         })
         this.router.navigate([`notes/id/${id}/edit`]);
+        console.log(this.noteService.notes);
     }
     // console.log(this.noteService.notes);
   }

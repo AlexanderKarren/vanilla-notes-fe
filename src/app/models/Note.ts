@@ -3,4 +3,5 @@ export default class Note {
     topic:string;
     title:string;
     body:string;
+    date_created:string;
 }

@@ -8,8 +8,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class SortSearchComponent implements OnInit {
   @Input() sortBy: string;
   @Input() sortAsc: boolean;
+  @Input() dateDisplay: boolean;
 
   @Output() sortChange = new EventEmitter();
+  @Output() dateAction = new EventEmitter();
 
   constructor() { }
 
@@ -24,6 +26,10 @@ export class SortSearchComponent implements OnInit {
       newSort: newSort,
       newDir: newDir
     })
+  }
+
+  toggleDateDisplay() {
+    this.dateAction.emit();
   }
 
 }

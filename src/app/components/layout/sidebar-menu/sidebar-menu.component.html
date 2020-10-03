@@ -3,10 +3,12 @@
 <app-sort-search
     [sortBy]="sortBy"
     [sortAsc]="sortAsc"
+    [dateDisplay]="dateDisplay"
     (sortChange)="changeSort($event)"
+    (dateAction)="toggleDateDisplay()"
 ></app-sort-search>
 
-<div class="list" *ngIf="!viewNotes">
+<div class="list" *ngIf="!viewNotes && !dateDisplay">
     <div 
         (click)="changeTopic(topic.title)"
         class="listing"
@@ -15,7 +17,7 @@
     </div>
 </div>
 
-<div class="list" *ngIf="viewNotes">
+<div class="list" *ngIf="viewNotes && !dateDisplay">
     <h3>
         <i 
             nz-icon
@@ -36,3 +38,20 @@
         </div>
     </ng-container>
 </div>
+
+<ng-container *ngIf="dateDisplay">
+    <div class="list" *ngFor="let date of dates">
+        <h3>
+            <div></div>
+            <span>{{ date.formatted }}</span>
+            <div></div>
+        </h3>
+        <div 
+            class="listing"
+            *ngFor="let note of datesMap.get(date.iso)"
+            [routerLink]="['/notes/id', note.id]"
+        >
+            {{ note.title }}
+        </div>
+    </div>
+</ng-container>
