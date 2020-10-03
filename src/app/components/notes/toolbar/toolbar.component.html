@@ -44,10 +44,14 @@
 </nz-button-group>
 <!-- Lists -->
 <nz-button-group>
-    <button nz-button nzType="default">
+    <button nz-button>
       <i nz-icon nzType="ordered-list"></i>
     </button>
-    <button nz-button nzType="default" (click)="changeMode('bullet', !modes.bullet)">
+    <button 
+      nz-button
+      [nzType]="modes.bullet ? 'primary' : 'default'"
+      (click)="changeMode('bullet', !modes.bullet)"
+    >
       <i nz-icon nzType="unordered-list"></i>
     </button>
 </nz-button-group>

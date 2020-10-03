@@ -28,11 +28,13 @@
         &.ant-btn-primary {
             background-color:$bgColorDark;
             &:hover, &:focus {
-                color:$bgColorLight;
+                color:white;
+                border:1px solid $hoverColor;
             }
         }
         &:hover, &:focus {
-            color:$bgColorDark;
+            color:$hoverColor;
+            border:1px solid $hoverColor;
         }
     }
     nz-button-group {

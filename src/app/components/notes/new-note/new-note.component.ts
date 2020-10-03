@@ -22,14 +22,15 @@ const cutAtLastPeriod = (str: string):string => {
 }
 
 interface ModeOptions {
-    key?: string
-    bool?: boolean
+    key: string;
+    bool: boolean;
 }
+
 
 @Component({
   selector: 'app-new-note',
   templateUrl: './new-note.component.html',
-  styleUrls: ['./new-note.component.scss']
+  styleUrls: ['./new-note.component.scss'],
 })
 export class NewNoteComponent implements OnInit {
   note: Note;
@@ -90,18 +91,32 @@ export class NewNoteComponent implements OnInit {
 
   handleChanges() {
     this.saved = false;
-    const penulChar = (<any>this.noteForm).value.body.charCodeAt((<any>this.noteForm).value.body.length - 3)
     const lastChar = (<any>this.noteForm).value.body.charCodeAt((<any>this.noteForm).value.body.length - 1)
+    const penulChar = (<any>this.noteForm).value.body.charCodeAt((<any>this.noteForm).value.body.length - 2)
     if (this.modes.bullet) {
+      console.log(penulChar);
       if (lastChar === keyCodes["enter"]) {
-        (<any>this.noteForm).patchValue({
-          body: (<any>this.noteForm).value.body + '* '
-        })
+        if (penulChar === keyCodes["blank"]) {
+          this.changeMode({
+            key: 'bullet',
+            bool: false
+          });
+          (<any>this.noteForm).patchValue({
+            body: (<any>this.noteForm).value.body.substr(0, (<any>this.noteForm).value.body.length - 3)
+          });
+        }
+        else {
+          (<any>this.noteForm).patchValue({
+            body: (<any>this.noteForm).value.body + '* '
+          });
+        }
       }
-      else if (penulChar === keyCodes["asterisk"]) {
+    }
+    else {
+      if (penulChar === keyCodes["enter"] && lastChar === keyCodes["asterisk"]) {
         this.changeMode({
-          key: 'bullet',
-          bool: false
+          key: "bullet",
+          bool: true
         })
       }
     }

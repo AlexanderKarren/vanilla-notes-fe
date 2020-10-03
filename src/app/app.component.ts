@@ -13,7 +13,9 @@ export class AppComponent implements OnInit {
   // }
 
   ngOnInit():void {
-    console.log(this.isCollapsed);
+    console.log("Starting app.NgOnit():")
+
+    console.log("Done running app.ngOnInit().")
   }
 
 }

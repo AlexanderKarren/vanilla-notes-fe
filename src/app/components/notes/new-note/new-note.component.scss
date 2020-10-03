@@ -17,7 +17,7 @@ form {
     padding: $microMargin 0;
     width:42rem;
     h3 {
-        font-size:1.5rem;
+        font-size:1rem;
         font-weight:lighter;
         color:$borderColor;
     }
@@ -56,7 +56,11 @@ form {
         align-items:center;
         width:20rem;
         input {
-            font-size:2rem;
+            border-bottom-left-radius:0;
+            border-bottom-right-radius:0;
+            border:none;
+            font-size:1rem;
+            border-bottom: 1px solid white;
         }
         button {
             display:flex;
@@ -67,14 +71,14 @@ form {
             // border:1px solid white;
             border:none;
             i {
-                font-size:1.25rem;
+                font-size:.75rem;
             }
             &:hover {
                 color:$hoverColor;
             }
         }
         .button-container {
-            width:10%;
+            width:20%;
         }
     }
     textarea {
