@@ -95,55 +95,11 @@ input {
     width:55rem;
     margin:$microMargin 0;
     border:1px solid $borderColor;
-    div {
-        display:flex;
-        align-items:center;
-        width:100%;
-        .bullet {
-            display:flex;
-            align-items:center;
-            height:.25rem;
-            width:.25rem;
-            background-color:$textColor;
-            border-radius:50rem;
-            margin-right:$microMargin;
-        }
-    }
     span {
         display:inline;
         &.bold {
             font-weight:bold;
         }
-    }
-    img {
-        display:flex;
-        margin: 1rem, 0!important;
-        &.inline {
-            display:inline;
-        }
-    }
-    .headingOne, .headingTwo, .headingThree {
-        display:flex;
-        align-items:flex-start;
-        font-weight:bold;
-        border-bottom:1px solid lightgray;
-        margin:$microMargin 0;
-    }
-    .headingOne {
-        height:auto;
-        font-size:3rem;
-    }
-    .headingTwo {
-        font-size:2rem;
-    }
-    .codeBlock {
-        margin:1rem 0;
-        background-color:$bgColorLight;
-        border-radius:.25rem;
-        font-family: $rawFont;
-        padding:$microMargin;
-        overflow-x:auto;
-        border:1px solid $borderColor;
     }
 }
 

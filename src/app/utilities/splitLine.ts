@@ -66,6 +66,15 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
             }
         case '*':
             if (line[1] === '*') {
+                if (line[2] === '*') {
+                    return {
+                        className: 'divider',
+                        image: false,
+                        text: null,
+                        bullet: false,
+                        inline: inline
+                    }
+                }
                 return {
                     className: 'bold',
                     image: false,
@@ -88,6 +97,26 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
                     className: imageElements[1],
                     image: true,
                     text: imageElements[0],
+                    bullet: false,
+                    inline: inline
+                }
+            }
+        case 'c':
+            if (line[1] === '[' && line[line.length - 1] === ']') {
+                return {
+                    className: "centerAlign",
+                    image: false,
+                    text: line.substr(2, line.length - 3),
+                    bullet: false,
+                    inline:inline
+                }
+            }
+        case 'r':
+            if (line[1] === '[' && line[line.length - 1] === ']') {
+                return {
+                    className: "rightAlign",
+                    image: false,
+                    text: line.substr(2, line.length - 3),
                     bullet: false,
                     inline: inline
                 }

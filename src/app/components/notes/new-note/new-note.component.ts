@@ -25,6 +25,7 @@ const cutAtLastPeriod = (str: string):string => {
 interface Selection {
   selection: string;
   image: boolean;
+  alignment: string;
 }
 
 interface ModeOptions {
@@ -82,6 +83,7 @@ export class NewNoteComponent implements OnInit {
         this.note = this.noteService.getNote(params['id']);
         (<any>this.noteForm).patchValue({
           title: this.note.title,
+          topic: this.note.topic,
           body: this.note.body
         })
       }
@@ -192,20 +194,36 @@ export class NewNoteComponent implements OnInit {
     this.confirmDelete = status;
   }
 
-  insertLink(userSelection: Selection) {
-    const { selection, image } = userSelection;
-    const formatted = image ? `![${selection}]()` : `[${selection}]()`;
-    // if userSelection is not null, find and replace the selection in the body with the formatted version.
-    if (selection) {
-      (<any>this.noteForm).patchValue({
-        body: (<any>this.noteForm).value.body.replace(selection, formatted)
-      })
+  insert(userSelection: Selection) {
+    const { selection, image, alignment } = userSelection;
+    if (alignment) {
+      const formatted = alignment === 'c[]' ? `c[${selection}]` : `r[${selection}]`;
+      console.log("formatted:", formatted);
+      if (selection) {
+        (<any>this.noteForm).patchValue({
+          body: (<any>this.noteForm).value.body.replace(selection, formatted)
+        })
+      }
+      else {
+        (<any>this.noteForm).patchValue({
+          body: (<any>this.noteForm).value.body + formatted
+        })
+      }
     }
     else {
-      const blankBrackets = image ? '![]()' : '[]()';
-      (<any>this.noteForm).patchValue({
-        body: (<any>this.noteForm).value.body + blankBrackets
-      })
+      const formatted = image ? `![${selection}]()` : `[${selection}]()`;
+      // if userSelection is not null, find and replace the selection in the body with the formatted version.
+      if (selection) {
+        (<any>this.noteForm).patchValue({
+          body: (<any>this.noteForm).value.body.replace(selection, formatted)
+        })
+      }
+      else {
+        const blankBrackets = image ? '![]()' : '[]()';
+        (<any>this.noteForm).patchValue({
+          body: (<any>this.noteForm).value.body + blankBrackets
+        })
+      }
     }
   }
 

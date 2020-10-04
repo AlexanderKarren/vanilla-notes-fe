@@ -40,10 +40,18 @@
       >
         <i nz-icon nzType="align-left"></i>
       </button>
-      <button disabled nz-button nzType="default">
+      <button 
+        (click)="insertAlignment('c[]')"
+        nz-button
+        nzType="default"
+      >
         <i nz-icon nzType="align-center"></i>
       </button>
-      <button disabled nz-button nzType="default">
+      <button
+      (click)="insertAlignment('r[]')"
+        nz-button
+        nzType="default"
+      >
         <i nz-icon nzType="align-right"></i>
       </button>
 </nz-button-group>

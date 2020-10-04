@@ -35,3 +35,64 @@
         border-radius:.25rem;
     }
 }
+
+.note-display {
+    div {
+        display:flex;
+        align-items:center;
+        width:100%;
+        .bullet {
+            display:flex;
+            align-items:center;
+            height:.25rem;
+            width:.25rem;
+            background-color:$textColor;
+            border-radius:50rem;
+            margin-right:$microMargin;
+        }
+    }
+    img {
+        border:1px solid $borderColor;
+        display:flex;
+        margin: 1rem, 0!important;
+        &.inline {
+            display:inline;
+        }
+    }
+    .headingOne, .headingTwo, .headingThree {
+        display:flex;
+        align-items:flex-start;
+        font-weight:bold;
+        border-bottom:1px solid lightgray;
+        margin:$microMargin 0;
+    }
+    .headingOne {
+        height:auto;
+        font-size:3rem;
+    }
+    .headingTwo {
+        font-size:2rem;
+    }
+    .codeBlock {
+        margin:1rem 0;
+        background-color:$bgColorLight;
+        border-radius:.25rem;
+        font-family: $rawFont;
+        padding:$microMargin;
+        overflow-x:auto;
+        border:1px solid $borderColor;
+    }
+    .rightAlign {
+        justify-content:flex-end;
+        text-align:right;
+    }
+    .centerAlign {
+        justify-content:center;
+        text-align:center;
+    }
+    .divider {
+        height:1rem;
+        border-bottom:1px solid lightgray;
+        margin-bottom:1rem;
+    }
+}

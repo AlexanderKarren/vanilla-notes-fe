@@ -4,6 +4,10 @@ import { ModeSchema } from 'src/app/models/ModeSchema';
 
 import { NoteService } from '../../../services/note.service';
 
+function getSelection():string {
+  return document.getSelection().toString() ? document.getSelection().toString() : null;
+}
+
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -26,7 +30,7 @@ export class ToolbarComponent implements OnInit {
   @Output() undoAction = new EventEmitter();
   @Output() redoAction = new EventEmitter();
   @Output() deleteAction = new EventEmitter();
-  @Output() linkAction = new EventEmitter();
+  @Output() insertAction = new EventEmitter();
 
   ngOnInit(): void {
   }
@@ -61,11 +65,21 @@ export class ToolbarComponent implements OnInit {
   }
 
   insertLink(image: boolean) {
-    const userSelection = document.getSelection().toString() ? document.getSelection().toString() : null;
-    this.linkAction.emit({
+    const userSelection = getSelection();
+    this.insertAction.emit({
       selection: userSelection,
-      image: image
+      image: image,
+      alignment: null
     });
+  }
+
+  insertAlignment(alignment: string) {
+    const userSelection = getSelection();
+    this.insertAction.emit({
+      selection: userSelection,
+      image: false,
+      alignment: alignment
+    })
   }
 
 }

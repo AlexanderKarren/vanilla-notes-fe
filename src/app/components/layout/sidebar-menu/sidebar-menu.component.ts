@@ -50,7 +50,7 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   getNotesFromDate(date: string): Note[] {
-    return this.datesMap.get(date);
+    return this.datesMap.get(dayjs(date).format("MMMM D, YYYY"));
   }
 
   changeSort(changes: SortChanges): void {
@@ -70,7 +70,7 @@ export class SidebarMenuComponent implements OnInit {
 
   toggleDateDisplay() {
     let notes = localSort(this.noteService.getNotes(), 'title', true);
-    if (this.activeTopic) notes = notes.filter(note => (note.topic !== this.activeTopic));
+    if (this.activeTopic && this.activeTopic !== "All Notes") notes = notes.filter(note => (note.topic === this.activeTopic));
     this.datesMap = getDates(notes);
     this.dates = Array.from(this.datesMap.keys()).map(date => {
       const now = dayjs().format("MMMM D, YYYY");
