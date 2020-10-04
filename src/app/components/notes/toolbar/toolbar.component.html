@@ -66,14 +66,14 @@
 <!-- Link / Image -->
 <nz-button-group>
     <button
-      (click)="insertImageLink()"
+      (click)="insertLink(false)"
       nz-button
       nzType="default"
     >
     <i nz-icon nzType="link"></i>
     </button>
     <button
-      disabled
+      (click)="insertLink(true)"
       nz-button
       nzType="default"
     >

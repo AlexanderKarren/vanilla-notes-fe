@@ -8,7 +8,7 @@
     (dateAction)="toggleDateDisplay()"
 ></app-sort-search>
 
-<div class="list" *ngIf="!viewNotes && !dateDisplay">
+<div class="list" *ngIf="!viewNotes">
     <div 
         (click)="changeTopic(topic.title)"
         class="listing"
@@ -39,13 +39,23 @@
     </ng-container>
 </div>
 
-<ng-container *ngIf="dateDisplay">
+<ng-container *ngIf="viewNotes && dateDisplay">
+    <h3>
+        <i
+            nz-icon
+            nzType="left"
+            nzTheme="outline"
+            (click)="return()"
+        ></i>
+        <span>{{ activeTopic }}</span>
+        <div></div>
+    </h3>
     <div class="list" *ngFor="let date of dates">
-        <h3>
+        <h4>
             <div></div>
             <span>{{ date.formatted }}</span>
             <div></div>
-        </h3>
+        </h4>
         <div 
             class="listing"
             *ngFor="let note of datesMap.get(date.iso)"

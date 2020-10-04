@@ -22,11 +22,15 @@ const cutAtLastPeriod = (str: string):string => {
   return null
 }
 
+interface Selection {
+  selection: string;
+  image: boolean;
+}
+
 interface ModeOptions {
     key: string;
     bool: boolean;
 }
-
 
 @Component({
   selector: 'app-new-note',
@@ -188,16 +192,19 @@ export class NewNoteComponent implements OnInit {
     this.confirmDelete = status;
   }
 
-  insertImageLink(userSelection: string) {
-    const formatted = `[${userSelection}]()`;
-    if (userSelection) {
+  insertLink(userSelection: Selection) {
+    const { selection, image } = userSelection;
+    const formatted = image ? `![${selection}]()` : `[${selection}]()`;
+    // if userSelection is not null, find and replace the selection in the body with the formatted version.
+    if (selection) {
       (<any>this.noteForm).patchValue({
-        body: (<any>this.noteForm).value.body.replace(userSelection, formatted)
+        body: (<any>this.noteForm).value.body.replace(selection, formatted)
       })
     }
     else {
+      const blankBrackets = image ? '![]()' : '[]()';
       (<any>this.noteForm).patchValue({
-        body: (<any>this.noteForm).value.body + ' ' + formatted
+        body: (<any>this.noteForm).value.body + blankBrackets
       })
     }
   }

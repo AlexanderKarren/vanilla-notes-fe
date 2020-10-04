@@ -4,7 +4,7 @@ import Note from 'src/app/models/Note';
 import TextLine from 'src/app/models/TextLine';
 import { NoteService } from 'src/app/services/note.service';
 import splitLine from 'src/app/utilities/splitLine';
-import { saveAs } from 'file-saver'
+import storage from 'src/app/utilities/storage';
 
 @Component({
   selector: 'app-note',
@@ -44,11 +44,6 @@ export class NoteComponent implements OnInit {
     this.confirmDelete = status;
   }
 
-  saveTextFile() {
-    const blob = new Blob([this.note.body], {type: "text/plain;charset=utf-8"});
-    const filename = this.note.title.toLowerCase().replace(" ", "_");
-    saveAs(blob, `${filename}.txt`);
-    console.log("ran saveTextFile()")
-  }
+  download = () => storage.download(this.note.title, this.note.body);
 
 }

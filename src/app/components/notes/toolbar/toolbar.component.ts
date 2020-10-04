@@ -60,9 +60,12 @@ export class ToolbarComponent implements OnInit {
     this.deleteAction.emit(status);
   }
 
-  insertImageLink() {
+  insertLink(image: boolean) {
     const userSelection = document.getSelection().toString() ? document.getSelection().toString() : null;
-    this.linkAction.emit(document.getSelection().toString());
+    this.linkAction.emit({
+      selection: userSelection,
+      image: image
+    });
   }
 
 }

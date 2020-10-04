@@ -56,7 +56,7 @@ export class SidebarMenuComponent implements OnInit {
   changeSort(changes: SortChanges): void {
     this.sortBy = changes.newSort;
     this.sortAsc = changes.newDir;
-    this.topics = localSort(this.noteService.getTopics(), this.sortBy, this.sortAsc);
+    this.notes = localSort(this.noteService.getNotes(), this.sortBy, this.sortAsc);
     this.dateDisplay = false;
   }
 
@@ -65,15 +65,21 @@ export class SidebarMenuComponent implements OnInit {
     if (this.activeTopic === 'All Notes') this.viewAll = true;
     else this.viewAll = false;
     this.viewNotes = true;
+    if (this.dateDisplay) this.toggleDateDisplay();
   }
 
   toggleDateDisplay() {
-    const notes = localSort(this.noteService.getNotes(), this.sortBy, this.sortAsc);
-    getDates(notes, this.datesMap);
-    this.dates = Array.from(this.datesMap.keys()).map(date => ({
-      formatted: dayjs(date).format("MMMM D, YYYY"),
-      iso: date
-    }));
+    let notes = localSort(this.noteService.getNotes(), 'title', true);
+    if (this.activeTopic) notes = notes.filter(note => (note.topic !== this.activeTopic));
+    this.datesMap = getDates(notes);
+    this.dates = Array.from(this.datesMap.keys()).map(date => {
+      const now = dayjs().format("MMMM D, YYYY");
+      const dateCreated = dayjs(date).format("MMMM D, YYYY");
+      return {
+        formatted: dateCreated === now ? "Today" : dateCreated,
+        iso: date
+      }
+    });
     this.dateDisplay = true;
   }
 
