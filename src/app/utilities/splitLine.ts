@@ -1,3 +1,5 @@
+import keyCodes from '../models/keyCodes';
+import Note from '../models/Note';
 import TextLine from '../models/TextLine';
 
 function parseLink(line: string) {
@@ -21,8 +23,8 @@ function parseLink(line: string) {
     return imageElements;
 }
 
-function formatTextLine(line: string, inline: boolean = false): TextLine {
-    console.log("fTL:", line);
+function formatTextLine(line: string, variables: any, inline: boolean = false): TextLine {
+    // console.log("fTL:", line);
     switch(line[0]) {
         // backtick case not working for multi-line yet
         case '`':
@@ -135,6 +137,22 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
                     inline: inline
                 }
             }
+            // Link with variable
+            else if (line[line.length - 2] === ']') {
+                const lastChar = line[line.length - 1];
+                console.log("lwv:", [
+                    linkElements[1].substr(0, linkElements[1].length - 2),
+                    linkElements[0].substr(0, linkElements[0].length - 1) + lastChar
+                ])
+                return {
+                    className: variables[linkElements[1].substr(0, linkElements[1].length - 2)],
+                    link: true,
+                    image: false,
+                    text: linkElements[0].substr(0, linkElements[0].length - 1) + lastChar,
+                    bullet: false,
+                    inline: inline
+                }
+            }
         case 'c':
             if (line[1] === '[' && line[line.length - 1] === ']') {
                 return {
@@ -168,7 +186,7 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
     }
   }
 
-export default function splitLine(textLines: TextLine[], line: string) {
+export function splitLine(textLines: TextLine[], line: string, variables: any) {
     let subLinesFound = false;
         let parsing = false;
         let subLength = 0;
@@ -179,15 +197,15 @@ export default function splitLine(textLines: TextLine[], line: string) {
           subLength++;
           if (i === line.length - 2) {
             if (subLinesFound && line[i] !== '*') {
-              textLines.push(formatTextLine(line.substr(start), true))
+              textLines.push(formatTextLine(line.substr(start), variables, true))
             }
             else if (line[i] === '*') {
-              textLines.push(formatTextLine(line.substr(start, subLength), true))
+              textLines.push(formatTextLine(line.substr(start, subLength), variables, true))
             }
           }
           else if (parsing === false) {
             if (line[i] === '*' && line[i + 1] === '*') {
-                textLines.push(formatTextLine(line.substr(start, subLength - 2), true))
+                textLines.push(formatTextLine(line.substr(start, subLength - 2), variables, true))
                 parsing = true;
                 start = i;
                 i += 2;
@@ -195,7 +213,7 @@ export default function splitLine(textLines: TextLine[], line: string) {
                 subLength = 2;
             }
             else if (line[i] === '[') {
-                textLines.push(formatTextLine(line.substr(start, subLength - 3), true));
+                textLines.push(formatTextLine(line.substr(start, subLength - 3), variables, true));
                 parsing = true;
                 start = i;
                 subLength = i;
@@ -203,7 +221,7 @@ export default function splitLine(textLines: TextLine[], line: string) {
           }
           else {
             if (line[i] === '*' && line[i + 1] === '*') {
-              textLines.push(formatTextLine(line.substr(start, subLength), true));
+              textLines.push(formatTextLine(line.substr(start, subLength), variables, true));
               parsing = false;
               start = i + 3;
               subLinesFound = true;
@@ -211,7 +229,7 @@ export default function splitLine(textLines: TextLine[], line: string) {
               i += 2;
             }
             else if (line[i] === ')') {
-                textLines.push(formatTextLine(line.substr(start, subLength), true));
+                textLines.push(formatTextLine(line.substr(start, subLength), variables, true));
                 parsing = false;
                 start = i + 1;
                 subLinesFound = true;
@@ -221,5 +239,54 @@ export default function splitLine(textLines: TextLine[], line: string) {
           }
           i++;
         }
-        !subLinesFound && textLines.push(formatTextLine(line))
+        !subLinesFound && textLines.push(formatTextLine(line, variables))
+}
+
+export function scanForVariables(body: string, variables: any) {
+    let parsing = false;
+    let start = 0;
+    let i = 0;
+    let j = 0;
+
+    while (i < body.length - 2) {
+        if (parsing) {
+            if (body[i] === ']' && body[i + 1] === ':') {
+                parsing = false;
+                let lastVar = false;
+                let key = body.substr(start + 1, j - 1);
+                const endIndex = body.substr(i + 3, body.length).split("").findIndex(char => {
+                    return (char.charCodeAt(0) === keyCodes["enter"])
+                });
+                let value = body.substr(i + 3, endIndex);
+                if (endIndex === -1) value = body.substr(i + 3, body.length - 1);
+                console.log([
+                    body.substr(start + 1, j - 1),
+                    // body.substr(i + 3, body.substr(i + 3, body.length).split("").findIndex(char => {
+                    //     return (char.charCodeAt(0) === keyCodes["enter"])
+                    // }))
+                    body.substr(i + 3, body.length).split("").findIndex(char => {
+                        return (char.charCodeAt(0) === keyCodes["enter"])
+                    })
+                ]);
+                variables[key] = value;
+            }
+            else if (body[i] === '[') {
+                start = i;
+                // j will increment anyway
+                j = 0;
+            }
+            j++;
+        }
+        else {
+            if (body[i] === '[') {
+                parsing = true;
+                start = i;
+                j = 1;
+            }
+        }
+
+        i++
+    }
+
+    console.log(variables);
 }

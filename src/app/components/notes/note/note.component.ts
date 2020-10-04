@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Note from 'src/app/models/Note';
 import TextLine from 'src/app/models/TextLine';
 import { NoteService } from 'src/app/services/note.service';
-import splitLine from 'src/app/utilities/splitLine';
+import { splitLine, scanForVariables } from 'src/app/utilities/splitLine';
 import storage from 'src/app/utilities/storage';
 
 @Component({
@@ -30,8 +30,10 @@ export class NoteComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.note = this.noteService.getNote(params['id']);
       const lines = this.note.body.replace(/\r\n/g, "\r").replace(/\n/g, "\r").split(/\r/);
+      const variables = {};
+      scanForVariables(this.note.body, variables);
       lines.forEach(line => {
-        splitLine(this.textLines, line);
+        splitLine(this.textLines, line, variables);
       })
     })
   }
