@@ -18,14 +18,17 @@
     </div>
     <div class="note-display" *ngIf="!confirmDelete">
         <ng-container *ngFor="let line of textLines">
-            <div [ngClass]="line.className" *ngIf="!line.inline && !line.image">
+            <div [ngClass]="line.className" *ngIf="!line.inline && !line.image && !line.link">
                 <div class="bullet" *ngIf="line.bullet"></div>
                 {{ line.text }}
             </div>
-            <span [ngClass]="line.className" *ngIf="line.inline && !line.image">
+            <a [href]="line.className" *ngIf="line.link">
+                {{ line.text }}
+            </a>
+            <span [ngClass]="line.className" *ngIf="line.inline && !line.image && !line.link">
                 {{ line.text }}
             </span>
-            <img [ngClass]="line.inline" [src]="line.className" [alt]="line.text" *ngIf="!line.inline && line.image">
+            <img [ngClass]="line.inline" [src]="line.className" [alt]="line.text" *ngIf="!line.inline && line.image && !line.link">
         </ng-container>
     </div>
     <app-confirm-delete

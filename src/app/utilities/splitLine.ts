@@ -1,6 +1,6 @@
 import TextLine from '../models/TextLine';
 
-function parseImage(line: string) {
+function parseLink(line: string) {
     let imageElements = [];
     let i = 0;
     let start = 0;
@@ -11,7 +11,7 @@ function parseImage(line: string) {
             start = i + 1;
         }
         else if ((line[i] === ']') || (line[i] === ')')) {
-            imageElements.push(line.substr(start, subLength - 2))
+            imageElements.push(line.substr(start, subLength))
             subLength = 0;
         }
         i++;
@@ -22,7 +22,7 @@ function parseImage(line: string) {
 }
 
 function formatTextLine(line: string, inline: boolean = false): TextLine {
-    // console.log(line);
+    console.log("fTL:", line);
     switch(line[0]) {
         // backtick case not working for multi-line yet
         case '`':
@@ -31,6 +31,7 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
                     // console.log(line.substr(1, i));
                     return {
                         className: 'codeBlock',
+                        link: false,
                         image: false,
                         text: line.substr(1, i - 1),
                         bullet: false,
@@ -43,6 +44,7 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
                 if (line[2] == '#') {
                     return {
                     className: 'headingThree',
+                    link: false,
                     image: false,
                     text: line.substr(3, line.length - 1),
                     bullet: false,
@@ -51,6 +53,7 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
                 }
                 return {
                     className: 'headingTwo',
+                    link: false,
                     image: false,
                     text: line.substr(2, line.length - 1),
                     bullet: false,
@@ -59,6 +62,7 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
             }
             return {
                 className: 'headingOne',
+                link: false,
                 image: false,
                 text: line.substr(1, line.length - 1),
                 bullet: false,
@@ -69,6 +73,7 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
                 if (line[2] === '*') {
                     return {
                         className: 'divider',
+                        link: false,
                         image: false,
                         text: null,
                         bullet: false,
@@ -77,6 +82,7 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
                 }
                 return {
                     className: 'bold',
+                    link: false,
                     image: false,
                     text: line.substr(2, line.length - 1),
                     bullet: false,
@@ -84,19 +90,47 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
                 }
             }
             return {
-            className: 'default',
-            image: false,
-            text: line.substr(1, line.length - 1),
-            bullet: true,
-            inline: inline
+                className: 'default',
+                link: false,
+                image: false,
+                text: line.substr(1, line.length - 1),
+                bullet: true,
+                inline: inline
             }
         case '!':
             if (line[line.length - 1] === ')') {
-                const imageElements = parseImage(line);
+                const imageElements = parseLink(line);
                 return {
-                    className: imageElements[1],
+                    className: imageElements[1].substr(0, imageElements[1].length - 1),
+                    link: false,
                     image: true,
-                    text: imageElements[0],
+                    text: imageElements[0].substr(0, imageElements[0].length - 2),
+                    bullet: false,
+                    inline: inline
+                }
+            }
+        case '[':
+            // Links
+            const linkElements = parseLink(line);
+            if (line[line.length - 1] === ')') {
+                // console.log([linkElements[1], linkElements[0]]);
+                return {
+                    className: linkElements[1],
+                    link: true,
+                    image: false,
+                    text: linkElements[0],
+                    bullet: false,
+                    inline: inline
+                }
+            }
+            else if (line[line.length - 2] === ')') {
+                const lastChar = line[line.length - 1];
+                // console.log([linkElements[1].substr(0, linkElements[1].length - 2), linkElements[0].substr(0, linkElements[0].length - 1)]);
+                return {
+                    className: linkElements[1].substr(0, linkElements[1].length - 2),
+                    link: true,
+                    image: false,
+                    text: linkElements[0].substr(0, linkElements[0].length - 1) + lastChar,
                     bullet: false,
                     inline: inline
                 }
@@ -105,6 +139,7 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
             if (line[1] === '[' && line[line.length - 1] === ']') {
                 return {
                     className: "centerAlign",
+                    link: false,
                     image: false,
                     text: line.substr(2, line.length - 3),
                     bullet: false,
@@ -115,6 +150,7 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
             if (line[1] === '[' && line[line.length - 1] === ']') {
                 return {
                     className: "rightAlign",
+                    link: false,
                     image: false,
                     text: line.substr(2, line.length - 3),
                     bullet: false,
@@ -124,6 +160,7 @@ function formatTextLine(line: string, inline: boolean = false): TextLine {
     }
     return {
       className: 'default',
+      link: false,
       image: false,
       text: line,
       bullet: false,
@@ -150,21 +187,36 @@ export default function splitLine(textLines: TextLine[], line: string) {
           }
           else if (parsing === false) {
             if (line[i] === '*' && line[i + 1] === '*') {
-              textLines.push(formatTextLine(line.substr(start, subLength - 2), true))
-              parsing = true;
-              start = i;
-              i += 2;
-              subLength = 2;
+                textLines.push(formatTextLine(line.substr(start, subLength - 2), true))
+                parsing = true;
+                start = i;
+                i += 2;
+                //   This is probably a problem
+                subLength = 2;
+            }
+            else if (line[i] === '[') {
+                textLines.push(formatTextLine(line.substr(start, subLength - 3), true));
+                parsing = true;
+                start = i;
+                subLength = i;
             }
           }
           else {
             if (line[i] === '*' && line[i + 1] === '*') {
-              textLines.push(formatTextLine(line.substr(start, subLength), true))
+              textLines.push(formatTextLine(line.substr(start, subLength), true));
               parsing = false;
               start = i + 3;
               subLinesFound = true;
               subLength = 0;
               i += 2;
+            }
+            else if (line[i] === ')') {
+                textLines.push(formatTextLine(line.substr(start, subLength), true));
+                parsing = false;
+                start = i + 1;
+                subLinesFound = true;
+                subLength = 0;
+                i += 1;
             }
           }
           i++;
