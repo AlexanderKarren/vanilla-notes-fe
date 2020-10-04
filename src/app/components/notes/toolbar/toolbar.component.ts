@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModeSchema } from 'src/app/models/ModeSchema';
+import { PreviousRouteService } from 'src/app/services/previous-route.service';
 
 import { NoteService } from '../../../services/note.service';
 
@@ -15,6 +16,7 @@ function getSelection():string {
 })
 export class ToolbarComponent implements OnInit {
   constructor(
+    private previousRouteService: PreviousRouteService,
     private router: Router,
     private noteService: NoteService
   ) { }
@@ -80,6 +82,10 @@ export class ToolbarComponent implements OnInit {
       image: false,
       alignment: alignment
     })
+  }
+
+  return() {
+    this.router.navigate([this.previousRouteService.getPreviousUrl()])
   }
 
 }

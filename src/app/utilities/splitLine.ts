@@ -129,7 +129,7 @@ function formatTextLine(line: string, variables: any, inline: boolean = false): 
                 const lastChar = line[line.length - 1];
                 // console.log([linkElements[1].substr(0, linkElements[1].length - 2), linkElements[0].substr(0, linkElements[0].length - 1)]);
                 return {
-                    className: linkElements[1].substr(0, linkElements[1].length - 2),
+                    className: linkElements[1].substr(0, linkElements[1].length - 2) || "#",
                     link: true,
                     image: false,
                     text: linkElements[0].substr(0, linkElements[0].length - 1) + lastChar,
@@ -145,7 +145,7 @@ function formatTextLine(line: string, variables: any, inline: boolean = false): 
                     linkElements[0].substr(0, linkElements[0].length - 1) + lastChar
                 ])
                 return {
-                    className: variables[linkElements[1].substr(0, linkElements[1].length - 2)],
+                    className: variables[linkElements[1].substr(0, linkElements[1].length - 2)] || "#",
                     link: true,
                     image: false,
                     text: linkElements[0].substr(0, linkElements[0].length - 1) + lastChar,
@@ -252,7 +252,6 @@ export function scanForVariables(body: string, variables: any) {
         if (parsing) {
             if (body[i] === ']' && body[i + 1] === ':') {
                 parsing = false;
-                let lastVar = false;
                 let key = body.substr(start + 1, j - 1);
                 const endIndex = body.substr(i + 3, body.length).split("").findIndex(char => {
                     return (char.charCodeAt(0) === keyCodes["enter"])
