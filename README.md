@@ -2,7 +2,7 @@
 
 [Figma](https://www.figma.com/file/TW8bPloPIaPcvMv1i7ytrW/Vanilla-Notes?node-id=0%3A1)
 
-https://master.d1pxi0vvz94css.amplifyapp.com/
+https://www.vanillanotes.app/
 
 This application is deployed on [AWS Amplify.](https://aws.amazon.com/amplify/)
 
