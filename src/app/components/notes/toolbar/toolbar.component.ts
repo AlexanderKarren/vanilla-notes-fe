@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModeSchema } from 'src/app/models/ModeSchema';
+import { Mode } from 'src/app/models/ModeSchema';
 import { PreviousRouteService } from 'src/app/services/previous-route.service';
 
 import { NoteService } from '../../../services/note.service';
@@ -23,7 +23,7 @@ export class ToolbarComponent implements OnInit {
 
   @Input() saved: boolean;
   @Input() displayRaw: boolean;
-  @Input() modes: ModeSchema;
+  @Input() modes: Mode;
   @Input() canUndo: boolean;
 
   @Output() displayChange = new EventEmitter();

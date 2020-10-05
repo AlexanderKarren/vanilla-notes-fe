@@ -15,15 +15,16 @@ function get(): Note[] {
 }
 
 function update(notes: Note[]) {
-    localStorage.setItem("vanilla-notes", JSON.stringify(notes))
+    localStorage.setItem("vanilla-notes", JSON.stringify(notes));
 }
 
-function download(name: string, content: string) {
-    let filename = name.toLowerCase().replace(" ", "_");
+// possibly dangerous function?
+function download(title: string, content: string) {
+    let filename = title.toLowerCase().replace(" ", "_");
     let extension = null;
-    for (let i = 0; i < name.length; i++) {
-        if (name[i] === '.') {
-            let potentialExtension = name.substr(i, name.length - 1);
+    for (let i = 0; i < title.length; i++) {
+        if (title[i] === '.') {
+            let potentialExtension = title.substr(i, title.length - 1);
             // if it looks like a legitimate extension, assign it.
             if (potentialExtension.length < 6) {
                 extension = potentialExtension;

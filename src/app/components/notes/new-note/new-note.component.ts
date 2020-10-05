@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
 
-import keyCodes from '../../../models/keyCodes';
-import { ModeSchema } from '../../../models/ModeSchema';
+import { Mode, ModeOptions } from '../../../models/ModeSchema';
 
 import * as dayjs from 'dayjs';
 import { generate } from 'shortid';
 import { ActivatedRoute, Router } from '@angular/router';
 import Topic from 'src/app/models/Topic';
 import Note from 'src/app/models/Note';
+import { handleNoteInput } from 'src/app/utilities/input';
 
-// Traverses a body string and returns a shortened version that ends at the last period.
+// Traverses a body string and returns a shortened version that ends at the last period
 const cutAtLastPeriod = (str: string):string => {
   let i = str.length - 1;
   while (i > 0) {
@@ -22,15 +22,11 @@ const cutAtLastPeriod = (str: string):string => {
   return null
 }
 
+// A Selection object contains a string for the user's selection, and what to replace it with.
 interface Selection {
   selection: string;
   image: boolean;
   alignment: string;
-}
-
-interface ModeOptions {
-    key: string;
-    bool: boolean;
 }
 
 @Component({
@@ -47,7 +43,7 @@ export class NewNoteComponent implements OnInit {
   saved: boolean;
   displayRaw: boolean;
   noteForm: object;
-  modes: ModeSchema;
+  modes: Mode;
   confirmDelete: boolean;
 
   constructor(
@@ -64,7 +60,7 @@ export class NewNoteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log("ngOnInit() called")
+    // console.log("new-note: ngOnInit() called")
     this.note = null;
     this.topics = this.noteService.getTopics();
     this.modes = {
@@ -100,37 +96,17 @@ export class NewNoteComponent implements OnInit {
 
   handleChanges() {
     this.saved = false;
-    const lastChar = (<any>this.noteForm).value.body.charCodeAt((<any>this.noteForm).value.body.length - 1)
-    const penulChar = (<any>this.noteForm).value.body.charCodeAt((<any>this.noteForm).value.body.length - 2)
-    console.log(lastChar, penulChar);
-    if (this.modes.bullet) {
-      console.log(penulChar);
-      if (lastChar === keyCodes["enter"]) {
-        if (penulChar === keyCodes["blank"]) {
-          this.changeMode({
-            key: 'bullet',
-            bool: false
-          });
-          (<any>this.noteForm).patchValue({
-            body: (<any>this.noteForm).value.body.substr(0, (<any>this.noteForm).value.body.length - 3)
-          });
-        }
-        else {
-          (<any>this.noteForm).patchValue({
-            body: (<any>this.noteForm).value.body + '* '
-          });
-        }
-      }
-    }
-    else {
-      console.log((penulChar === keyCodes["enter"] || !penulChar) && lastChar === keyCodes["asterisk"])
-      if ((penulChar === keyCodes["enter"] || !penulChar) && lastChar === keyCodes["asterisk"]) {
-        this.changeMode({
-          key: "bullet",
-          bool: true
-        })
-      }
-    }
+    const body = (<any>this.noteForm).value.body;
+    const lastChar = body.charCodeAt(body.length - 1);
+    const penulChar = body.charCodeAt(body.length - 2);
+    // console.log(lastChar, penulChar);
+    handleNoteInput({
+      body: (<any>this.noteForm).value.body,
+      lastChar: lastChar,
+      penulChar: penulChar,
+      modes: this.modes,
+      form: (<any>this.noteForm)
+    });
   }
 
   save() {
@@ -176,14 +152,6 @@ export class NewNoteComponent implements OnInit {
     console.log((<any>this.noteForm).value);
   }
 
-  // whatIsDisplayRaw(): void {
-  //   console.log(this.displayRaw);
-  // }
-
-  whatIsModes(): void {
-    console.log(this.modes);
-  }
-
   changeTopic(topic: string): void {
     (<any>this.noteForm).patchValue({
       topic: topic
@@ -226,5 +194,13 @@ export class NewNoteComponent implements OnInit {
       }
     }
   }
+
+  // whatIsDisplayRaw(): void {
+  //   console.log(this.displayRaw);
+  // }
+
+  // whatIsModes(): void {
+  //   console.log(this.modes);
+  // }
 
 }
