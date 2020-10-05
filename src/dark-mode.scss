@@ -1,0 +1,111 @@
+// Global Colors
+$darkBgColorDarker: #0e1717;
+$darkBgColorDark: #1c2f2f;
+$darkBgColorLight: #121f1f;
+
+$darkBorderColor: lightgray;
+$darkHoverColor: #40a9ff;
+$darkDangerColor: #ff4d4f;
+$darkDangerColorDark:#b23537;
+$darkDangerHover: #ffeded;
+
+$darkTextColor: rgba(0,0,0,.65);
+
+@mixin dark {
+    h1, h2, h3, h4, h5, h6 {
+        color:white;
+    }
+    nz-header {
+        span i {
+            color:white;
+        }
+        .app-header {
+            background-color:$darkBgColorLight!important;
+            [nz-menu] li {
+                color:white!important;
+                background-color:$darkBgColorLight!important;
+            }
+        }
+    }
+    nz-content {
+        .inner-content {
+            background: $darkBgColorDark!important;
+        }
+        app-toolbar {
+            background-color: $darkBgColorLight;
+        }
+    }
+    .menu-sidebar {
+        background-color:$darkBgColorLight!important;
+        // sidebar component
+        > div {
+            color:white;
+            nz-input-group, input {
+                background-color:$darkBgColorDark;
+                color:white;
+                i {
+                    color:white;
+                }
+            }
+            .list {
+                .listing {
+                    background:$darkBgColorDark;
+                    border-top: 1px solid $darkBorderColor;
+                    &:last-of-type {
+                        border-bottom: 1px solid $darkBorderColor;
+                    }
+                    &:hover {
+                        cursor:pointer;
+                        color:$hoverColor;
+                        border-top: 1px solid $hoverColor;
+                        &:last-of-type {
+                            border-bottom: 1px solid $hoverColor;
+                        }
+                        & + * {
+                            border-top: 1px solid $hoverColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .ant-btn {
+        color:white;
+        border:1px solid $darkBorderColor;
+        background-color:$darkBgColorDark;
+        &.ant-btn-primary {
+            background-color:$bgColorDark;
+            color:white;
+            &.ant-btn-dangerous {
+                color:white;
+                background-color:$dangerColor;
+                &:hover {
+                    background-color:$dangerColorDark;
+                    color:white;
+                }
+            }
+        }
+        &.ant-btn-dangerous {
+            border:1px solid $dangerColor;
+            color:$dangerColor;
+            &:hover {
+                background-color:#FCFCFC;
+                border:1px solid $dangerColorDark;
+                color:$dangerColorDark;
+            }
+        }
+    }
+    app-note {
+        .view-toolbar {
+            background-color:$darkBgColorLight!important;
+            h2 {
+                background-color:black!important;
+                color:white!important;
+            }
+        }
+        .note-display {
+            background-color:black!important;
+            color:white!important;
+        }
+    }
+}

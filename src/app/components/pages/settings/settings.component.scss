@@ -1,0 +1,73 @@
+@import '../../../../variables.scss';
+
+:host {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.view-toolbar {
+    display:flex;
+    justify-content:center;
+    padding: $microMargin 5.5rem;
+    width:100%;
+    background-color:$bgColorLight;
+    border-bottom:1px solid $borderColor;
+    h2 {
+        display:flex;
+        justify-content:center;
+        height:auto;
+        font-size:1.3rem;
+        color: $textColor;
+        background-color:white;
+        padding:$microMargin 1.5rem;
+        width:50%;
+        border:1px solid $borderColor;
+        border-radius:.25rem;
+    }
+}
+
+.settings-container {
+    height:auto;
+    width:25rem;
+    button {
+        width:100%;
+    }
+    .confirm {
+        // padding: 0 5rem;
+        .confirm-container {
+            background-color:#fff;
+            color:$textColor;
+            width:100%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            border-radius:2px;
+            border:1px solid $borderColor;
+            p {
+                margin-left:$microMargin;
+                font-size:14px;
+                color:$bgColorDark;
+            }
+            .confirm-buttons {
+                margin-right:$microMargin;
+                display:flex;
+                justify-content:space-between;
+            }
+        }
+    }
+    nz-alert {
+        margin: $microMargin 0;
+    }
+}
+
+h1 {
+    border-bottom:1px solid black;
+    width:35rem!important;
+}
+
+h1, h2 {
+    width:100%;
+    text-align:center;
+    color:white;
+}

@@ -8,6 +8,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzInputModule } from 'ng-zorro-antd';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +26,6 @@ import { SettingsComponent } from './components/pages/settings/settings.componen
 import { AboutComponent } from './components/pages/about/about.component';
 import { ToolbarComponent } from './components/notes/toolbar/toolbar.component';
 import { SortSearchComponent } from './components/layout/sort-search/sort-search.component';
-import { NzInputModule } from 'ng-zorro-antd';
 import { NoteComponent } from './components/notes/note/note.component';
 import { ConfirmDeleteComponent } from './components/notes/confirm-delete/confirm-delete.component';
 
@@ -53,6 +54,7 @@ registerLocaleData(en);
     NzMenuModule,
     NzDropDownModule,
     NzInputModule,
+    NzAlertModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

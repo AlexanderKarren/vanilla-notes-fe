@@ -13,7 +13,7 @@
         </li>
         <li nz-menu-item routerLink="/settings">
             <i nz-icon nzType="setting" nzTheme="fill"></i>
-            Preferences
+            Settings
         </li>
         <li nz-menu-item routerLink="/about">
             <i nz-icon nzType="question-circle" nzTheme="fill"></i>
@@ -23,5 +23,9 @@
     <nz-button-group>
         <button nz-button>Sign In</button>
         <button nz-button nzType="primary">Sign Up</button>
+        <button nz-button (click)="toggleDarkMode()">
+            <i class="fas fa-moon" *ngIf="!dark"></i>
+            <i class="fas fa-sun" *ngIf="dark"></i>
+        </button>
     </nz-button-group>
 </div>

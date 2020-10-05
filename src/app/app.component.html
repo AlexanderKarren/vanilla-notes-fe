@@ -1,4 +1,4 @@
-<nz-layout class="app-layout">
+<nz-layout [ngClass]="dark ? 'app-layout dark-mode' : 'app-layout'">
   <nz-sider class="menu-sidebar"
             nzCollapsible
             nzCollapsedWidth="0"
@@ -15,11 +15,15 @@
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <i class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+                nz-icon
+                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
         </span>
-        <app-header-menu style="width:100%;"></app-header-menu>
+        <app-header-menu 
+          style="width:100%;"
+          [dark]="dark"
+          (themeChange)="toggleDarkMode()"
+        ></app-header-menu>
       </div>
     </nz-header>
     <nz-content>

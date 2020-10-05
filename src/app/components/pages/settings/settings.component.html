@@ -1,1 +1,42 @@
-<p>settings works!</p>
+<div class="view-toolbar">
+    <h2>Settings</h2>
+</div>
+
+<div class="settings-container">
+    <h2>Local Storage</h2>
+    <button
+        (click)="setConfirm('clear-local-storage', true)"
+        *ngIf="!confirm"
+        nz-button
+    >Remove All Notes From Local Storage</button>
+    <div class="confirm" *ngIf="confirm">
+        <div class="confirm-container">
+            <p>Are you sure?</p>
+            <nz-button-group class="confirm-buttons">
+                <button
+                    (click)="execute()"
+                    nz-button
+                    nzType="primary"
+                    nzDanger
+                >
+                Yes
+                </button>
+                <button
+                    (click)="setConfirm()"
+                    nz-button
+                    nzDanger
+                >
+                No
+                </button>
+            </nz-button-group>
+        </div>
+        <ng-container *ngIf="confirm.warning">
+            <nz-alert
+            nzType="warning"
+            [nzMessage]="confirm.warning.message"
+            [nzDescription]="confirm.warning.description"
+        >
+        </nz-alert>    
+        </ng-container>
+    </div>
+</div>

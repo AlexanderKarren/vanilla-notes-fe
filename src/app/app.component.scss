@@ -1,4 +1,13 @@
 @import '../variables.scss';
+@import '../variables-dark.scss';
+
+@mixin transition {
+  transition: color .3s cubic-bezier(.645,.045,.355,1),border-color .3s cubic-bezier(.645,.045,.355,1),background .3s cubic-bezier(.645,.045,.355,1),padding .15s cubic-bezier(.645,.045,.355,1)!important;
+  transition-property: color, border-color, background, padding!important;
+  transition-duration: 0.3s, 0.3s, 0.3s, 0.15s!important;
+  transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1), cubic-bezier(0.645, 0.045, 0.355, 1), cubic-bezier(0.645, 0.045, 0.355, 1), cubic-bezier(0.645, 0.045, 0.355, 1)!important;
+  transition-delay: 0s, 0s, 0s, 0s!important;
+}
 
 :host {
   display: flex;
