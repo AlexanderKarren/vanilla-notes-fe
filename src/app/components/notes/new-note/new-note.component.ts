@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
 
-import { Mode, ModeOptions } from '../../../models/ModeSchema';
+import { Mode, ModeOptions } from 'src/app/models/ModeSchema';
+import Topic from 'src/app/models/Topic';
+import Note from 'src/app/models/Note';
 
 import * as dayjs from 'dayjs';
 import { generate } from 'shortid';
 import { ActivatedRoute, Router } from '@angular/router';
-import Topic from 'src/app/models/Topic';
-import Note from 'src/app/models/Note';
 import { handleNoteInput } from 'src/app/utilities/input';
 
 // Traverses a body string and returns a shortened version that ends at the last period
@@ -60,7 +60,6 @@ export class NewNoteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log("new-note: ngOnInit() called")
     this.note = null;
     this.topics = this.noteService.getTopics();
     this.modes = {
@@ -71,12 +70,14 @@ export class NewNoteComponent implements OnInit {
     this.textRows = 30;
     this.saved = false;
     this.displayRaw = true;
+    // check to see if there is an id in route params
     this.route.params.subscribe(params => {
-      console.log("route params note form:", this.noteForm);
-      if (params['id']) {
+      // if there is, get note by id and pass the values to the form
+      const { id } = params;
+      if (id) {
         this.saved = true;
-        this.editId = params['id'];
-        this.note = this.noteService.getNote(params['id']);
+        this.editId = id;
+        this.note = this.noteService.getNote(id);
         (<any>this.noteForm).patchValue({
           title: this.note.title,
           topic: this.note.topic,

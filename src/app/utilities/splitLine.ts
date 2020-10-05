@@ -30,6 +30,9 @@ export function splitLine(textLines: TextLine[], line: string, variables: any) {
                     // This is probably a problem
                     subLength = 2;
                 }
+                else if (line[i] === '[') {
+                    console.log(line.substr(0, 10));
+                }
             }
             // if currently parsing
             else {

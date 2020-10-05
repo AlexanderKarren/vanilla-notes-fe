@@ -1,7 +1,7 @@
 import { ModeOptions, Mode } from '../models/ModeSchema';
 import keyCodes from '../models/keyCodes';
 
-class InputData {
+interface InputData {
     body: string;
     lastChar: number;
     penulChar: number;

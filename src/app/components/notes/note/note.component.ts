@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import Note from 'src/app/models/Note';
 import TextLine from 'src/app/models/TextLine';
+
 import { NoteService } from 'src/app/services/note.service';
 import { splitLine, scanForVariables } from 'src/app/utilities/splitLine';
 import storage from 'src/app/utilities/storage';
