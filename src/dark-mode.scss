@@ -128,7 +128,7 @@ $darkTextColor: rgba(0,0,0,.65);
     }
     app-new-note {
         form {
-            input:hover {
+            input:hover, input:focus {
                 background-color:$darkBgColorLight!important;
             }
             textarea {
