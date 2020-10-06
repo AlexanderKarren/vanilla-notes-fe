@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import storage from 'src/app/utilities/storage';
 
 @Component({
   selector: 'app-header-menu',
@@ -15,6 +16,9 @@ export class HeaderMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggleDarkMode = () => this.themeChange.emit();
+  toggleDarkMode() {
+    storage.toggleDarkMode();
+    this.themeChange.emit()
+  };
 
 }

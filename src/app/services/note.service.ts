@@ -36,7 +36,7 @@ export class NoteService {
   topics: Topic[];
 
   constructor() {
-    this.notes = storage.get() || dummyNotes;
+    this.notes = storage.getNotes() || dummyNotes;
     this.topics = assignTopics(this.notes);
   }
 
@@ -54,7 +54,7 @@ export class NoteService {
       }
       return note;
     })
-    storage.update(this.notes);
+    storage.updateNotes(this.notes);
   }
 
   getNotes(): Note[] {
@@ -70,7 +70,7 @@ export class NoteService {
     // console.log(format(new Date(), null, null))
     this.addLocalTopic(note);
     this.notes.push(note);
-    storage.update(this.notes);
+    storage.updateNotes(this.notes);
   }
 
   // addLocalTopic will only add a topic if it doesn't already exist
@@ -83,7 +83,7 @@ export class NoteService {
 
   deleteLocalNote(note: Note) {
     this.notes = this.notes.filter(element => (element.id !== note.id))
-    storage.update(this.notes);
+    storage.updateNotes(this.notes);
   }
 
 }

@@ -21,9 +21,15 @@ $darkTextColor: rgba(0,0,0,.65);
         }
         .app-header {
             background-color:$darkBgColorLight!important;
+            border-bottom:1px solid $darkBorderColor!important;
             [nz-menu] li {
                 color:white!important;
                 background-color:$darkBgColorLight!important;
+                border-bottom:1px solid $darkBorderColor!important;
+                &:hover {
+                    border-bottom:1px solid gray!important;
+                    color:gray!important;
+                }
             }
         }
     }
@@ -34,6 +40,9 @@ $darkTextColor: rgba(0,0,0,.65);
         app-toolbar {
             background-color: $darkBgColorLight;
         }
+    }
+    nz-sider {
+        border-right:1px solid $darkBorderColor!important;
     }
     .menu-sidebar {
         background-color:$darkBgColorLight!important;
@@ -98,14 +107,41 @@ $darkTextColor: rgba(0,0,0,.65);
     app-note {
         .view-toolbar {
             background-color:$darkBgColorLight!important;
+            border-bottom:1px solid $darkBorderColor;
             h2 {
                 background-color:black!important;
+                border:1px solid $darkBorderColor;
                 color:white!important;
+                border:1px solid $darkBorderColor!important;
             }
         }
         .note-display {
             background-color:black!important;
             color:white!important;
+            border:1px solid $darkBorderColor;
+            .codeBlock {
+                background-color:$darkBgColorDark!important;
+                color:white!important;
+                border:1px solid $darkBorderColor!important;
+            }
         }
+    }
+    app-new-note {
+        form {
+            input:hover {
+                background-color:$darkBgColorLight!important;
+            }
+            textarea {
+                border:1px solid $darkBorderColor;
+                background-color:black;
+                color:white;
+            }
+            h3 {
+                color:$darkBorderColor!important;
+            }
+        }
+    }
+    app-toolbar {
+        border-bottom: 1px solid $darkBorderColor;
     }
 }

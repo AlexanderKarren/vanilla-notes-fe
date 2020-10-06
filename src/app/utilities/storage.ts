@@ -1,21 +1,59 @@
 import { saveAs } from 'file-saver';
 import Note from '../models/Note';
 
+interface Storage {
+    notes: Note[];
+    dark_mode: boolean;
+}
+
 export default {
-    get,
-    update,
+    getNotes,
+    updateNotes,
+    toggleDarkMode,
+    isDarkMode,
     download
 }
 
-function get(): Note[] {
+const get = (): Storage => (
+    localStorage.getItem("vanilla-notes") ? 
+    <Storage>JSON.parse(localStorage.getItem("vanilla-notes")) : 
+    null);
+
+function getNotes(): Note[] | null {
     if (localStorage.getItem("vanilla-notes")) {
-        return JSON.parse(localStorage.getItem("vanilla-notes"));
+        return JSON.parse(localStorage.getItem("vanilla-notes")).notes;
     }
     return null;
 }
 
-function update(notes: Note[]) {
-    localStorage.setItem("vanilla-notes", JSON.stringify(notes));
+function updateNotes(notes: Note[]): void {
+    const userStorage: Storage = get();
+
+    if (userStorage) localStorage.setItem("vanilla-notes", JSON.stringify({
+        notes: notes,
+        dark_mode: userStorage.dark_mode
+    }))
+    else localStorage.setItem("vanilla-notes", JSON.stringify({
+        notes: notes,
+        dark_mode: false
+    }));
+}
+
+function isDarkMode(): boolean {
+    return localStorage.getItem("vanilla-notes") ? JSON.parse(localStorage.getItem("vanilla-notes")).dark_mode : false
+}
+
+function toggleDarkMode(): void {
+    const userStorage: Storage = get();
+
+    if (userStorage) localStorage.setItem("vanilla-notes", JSON.stringify({
+        notes: userStorage.notes,
+        dark_mode: !userStorage.dark_mode
+    }));
+    else localStorage.setItem("vanilla-notes", JSON.stringify({
+        notes: [],
+        dark_mode: true
+    }));
 }
 
 // possibly dangerous function?

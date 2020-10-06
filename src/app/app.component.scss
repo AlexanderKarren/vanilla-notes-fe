@@ -1,5 +1,4 @@
 @import '../variables.scss';
-@import '../variables-dark.scss';
 
 @mixin transition {
   transition: color .3s cubic-bezier(.645,.045,.355,1),border-color .3s cubic-bezier(.645,.045,.355,1),background .3s cubic-bezier(.645,.045,.355,1),padding .15s cubic-bezier(.645,.045,.355,1)!important;

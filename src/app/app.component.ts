@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import storage from './utilities/storage';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit():void {
     console.log("Starting app.NgOnit():")
-    this.dark = false;
+    this.dark = storage.isDarkMode();
     console.log("Done running app.ngOnInit().")
   }
 

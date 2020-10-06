@@ -32,6 +32,8 @@ export class SettingsComponent implements OnInit {
 
   constructor() { }
 
+  isLocalStorageEmpty = (): boolean => Boolean(localStorage.getItem("vanilla-notes"));
+
   ngOnInit(): void {
     this.confirm = null;
   }
