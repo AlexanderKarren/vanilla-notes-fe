@@ -89,6 +89,26 @@ export default function formatTextLine(line: string, variables: any, inline: boo
                     inline: inline
                 }
             }
+            // Checkbox
+            else if (line[2] === '[' && line[4] === ']') {
+                // if checked,
+                if (line[3] === '*') return {
+                    className: 'default checkbox checked',
+                    link: false,
+                    image: false,
+                    text: line.substr(6, line.length - 1),
+                    bullet: true,
+                    inline: inline
+                }
+                return {
+                    className: 'default checkbox',
+                    link: false,
+                    image: false,
+                    text: line.substr(6, line.length - 1),
+                    bullet: true,
+                    inline: inline
+                }
+            }
             return {
                 className: 'default',
                 link: false,

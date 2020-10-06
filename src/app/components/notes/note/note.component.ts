@@ -8,6 +8,16 @@ import { NoteService } from 'src/app/services/note.service';
 import { splitLine, scanForVariables } from 'src/app/utilities/splitLine';
 import storage from 'src/app/utilities/storage';
 
+function updateCheckboxes(note: Note, checked: boolean, text: string): Note {
+  return checked ? {
+    ...note,
+    body: note.body.replace(`[*] ${text}`, `[ ] ${text}`)
+  } : {
+    ...note,
+    body: note.body.replace(`[ ] ${text}`, `[*] ${text}`)
+  }
+}
+
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
@@ -31,12 +41,16 @@ export class NoteComponent implements OnInit {
     this.textLines = [];
     this.sub = this.route.params.subscribe(params => {
       this.note = this.noteService.getNote(params['id']);
-      const lines = this.note.body.replace(/\r\n/g, "\r").replace(/\n/g, "\r").split(/\r/);
-      const variables = {};
-      scanForVariables(this.note.body, variables);
-      lines.forEach(line => {
-        splitLine(this.textLines, line, variables);
-      })
+      this.renderNote();
+    })
+  }
+
+  renderNote():void {
+    const lines = this.note.body.replace(/\r\n/g, "\r").replace(/\n/g, "\r").split(/\r/);
+    const variables = {};
+    scanForVariables(this.note.body, variables);
+    lines.forEach(line => {
+      splitLine(this.textLines, line, variables);
     })
   }
 
@@ -49,5 +63,12 @@ export class NoteComponent implements OnInit {
   }
 
   download = () => storage.download(this.note.title, this.note.body);
+
+  handleBoxTick(text: string, checked: boolean) {
+    this.textLines = [];
+    this.note = updateCheckboxes(this.note, checked, text)
+    this.noteService.editNote(this.note.id, this.note);
+    this.renderNote();
+  };
 
 }

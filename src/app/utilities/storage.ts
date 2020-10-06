@@ -4,16 +4,19 @@ import Note from '../models/Note';
 interface Storage {
     notes: Note[];
     dark_mode: boolean;
+    checkboxes?: any;
 }
 
 export default {
     getNotes,
+    getCheckboxes,
     updateNotes,
     toggleDarkMode,
     isDarkMode,
     download
 }
 
+// get entire Storage object in vanilla-notes
 const get = (): Storage => (
     localStorage.getItem("vanilla-notes") ? 
     <Storage>JSON.parse(localStorage.getItem("vanilla-notes")) : 
@@ -23,6 +26,14 @@ function getNotes(): Note[] | null {
     if (localStorage.getItem("vanilla-notes")) {
         return JSON.parse(localStorage.getItem("vanilla-notes")).notes;
     }
+    return null;
+}
+
+function getCheckboxes(): any | null {
+    const userStorage: Storage = get();
+
+    if (userStorage && userStorage.checkboxes) return JSON.parse(localStorage.getItem("vanilla-notes"));
+    
     return null;
 }
 

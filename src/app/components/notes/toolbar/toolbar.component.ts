@@ -25,6 +25,7 @@ export class ToolbarComponent implements OnInit {
   @Input() displayRaw: boolean;
   @Input() modes: Mode;
   @Input() canUndo: boolean;
+  @Input() editId: string;
 
   @Output() displayChange = new EventEmitter();
   @Output() modeChange = new EventEmitter();
@@ -85,7 +86,8 @@ export class ToolbarComponent implements OnInit {
   }
 
   return() {
-    this.router.navigate([this.previousRouteService.getPreviousUrl()])
+    this.save();
+    this.router.navigate([`notes/id/${this.editId}`])
   }
 
 }
