@@ -46,9 +46,10 @@ export class NoteComponent implements OnInit {
   }
 
   renderNote():void {
-    const lines = this.note.body.replace(/\r\n/g, "\r").replace(/\n/g, "\r").split(/\r/);
     const variables = {};
-    scanForVariables(this.note.body, variables);
+    this.note.body = scanForVariables(this.note.body, variables);
+    // split by 
+    const lines = this.note.body.replace(/\r\n/g, "\r").replace(/\n/g, "\r").split(/\r/);
     lines.forEach(line => {
       splitLine(this.textLines, line, variables);
     })

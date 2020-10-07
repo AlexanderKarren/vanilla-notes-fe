@@ -9,7 +9,6 @@ interface Storage {
 
 export default {
     getNotes,
-    getCheckboxes,
     updateNotes,
     toggleDarkMode,
     isDarkMode,
@@ -26,14 +25,6 @@ function getNotes(): Note[] | null {
     if (localStorage.getItem("vanilla-notes")) {
         return JSON.parse(localStorage.getItem("vanilla-notes")).notes;
     }
-    return null;
-}
-
-function getCheckboxes(): any | null {
-    const userStorage: Storage = get();
-
-    if (userStorage && userStorage.checkboxes) return JSON.parse(localStorage.getItem("vanilla-notes"));
-    
     return null;
 }
 

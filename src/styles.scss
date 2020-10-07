@@ -20,7 +20,8 @@ time, mark, audio, video {
 	font-size: 100%;
 	vertical-align: baseline;
     font-family: $primaryFont;
-    box-sizing: border-box;
+	box-sizing: border-box;
+	transition:.3s!important;
 }
 
 h1 {

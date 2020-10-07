@@ -3,7 +3,8 @@ import TextLine from '../models/TextLine';
 import formatTextLine from './formatTextLine';
 
 export function splitLine(textLines: TextLine[], line: string, variables: any) {
-    let subLinesFound = false;
+        let subLinesFound = false;
+        let foundClosingBracket = false;
         let parsing = false;
         let subLength = 0;
         let start = 0;
@@ -14,10 +15,10 @@ export function splitLine(textLines: TextLine[], line: string, variables: any) {
             // if at end of string
             if (i === line.length - 2) {
                 if (subLinesFound && line[i] !== '*') {
-                textLines.push(formatTextLine(line.substr(start), variables, true))
+                    textLines.push(formatTextLine(line.substr(start), variables, true))
                 }
                 else if (line[i] === '*') {
-                textLines.push(formatTextLine(line.substr(start, subLength), variables, true))
+                    textLines.push(formatTextLine(line.substr(start, subLength), variables, true))
                 }
             }
             // if not currently parsing
@@ -31,27 +32,49 @@ export function splitLine(textLines: TextLine[], line: string, variables: any) {
                     subLength = 2;
                 }
                 else if (line[i] === '[') {
-                    console.log(line.substr(0, 10));
+                    textLines.push(formatTextLine(line.substr(start, subLength - 1), variables, true))
+                    parsing = true;
+                    start = i;
+                    i += 2;
+                    // This is probably a problem
+                    subLength = 1;
                 }
             }
             // if currently parsing
             else {
                 // bold asterisks found
                 if (line[i] === '*' && line[i + 1] === '*') {
-                textLines.push(formatTextLine(line.substr(start, subLength), variables, true));
-                parsing = false;
-                start = i + 3;
-                subLinesFound = true;
-                subLength = 0;
-                i += 2;
+                    textLines.push(formatTextLine(line.substr(start, subLength), variables, true));
+                    parsing = false;
+                    start = i + 3;
+                    subLinesFound = true;
+                    subLength = 0;
+                    i += 2;
+                }
+                else if (line[i] === ']') {
+                    if (foundClosingBracket) {
+                        foundClosingBracket = false;
+                        console.log("start:", start, "subLength:", subLength, line.substr(start, subLength + 2))
+                        textLines.push(formatTextLine(line.substr(start, subLength + 2), variables, true));
+                        parsing = false;
+                        start = i + 1;
+                        subLinesFound = true;
+                        subLength = 0;
+                        i += 1;
+                    }
+                    else {
+                        foundClosingBracket = true;
+                    }
                 }
             }
             i++;
-            }
-            !subLinesFound && textLines.push(formatTextLine(line, variables));
+        }
+        // console.log(textLines);
+        !subLinesFound && textLines.push(formatTextLine(line, variables));
 }
 
-export function scanForVariables(body: string, variables: any) {
+export function scanForVariables(body: string, variables: any): string {
+    let firstVar = null;
     let parsing = false;
     let start = 0;
     let i = 0;
@@ -60,6 +83,13 @@ export function scanForVariables(body: string, variables: any) {
     while (i < body.length - 2) {
         if (parsing) {
             if (body[i] === ']' && body[i + 1] === ':') {
+                if (!firstVar) {
+                    let j = i;
+                    while (body[j] !== '[') {
+                        j--;
+                    }
+                    firstVar = j;
+                }
                 parsing = false;
                 let key = body.substr(start + 1, j - 1);
                 const endIndex = body.substr(i + 3, body.length).split("").findIndex(char => {
@@ -95,4 +125,6 @@ export function scanForVariables(body: string, variables: any) {
 
         i++
     }
+    if (firstVar) return body.substr(0, firstVar);
+    return body;
 }

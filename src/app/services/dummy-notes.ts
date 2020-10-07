@@ -12,6 +12,10 @@ Place an asterisk followed by a space before a line to create a bulleted list it
 * My first bullet,
 * My second,
 * and my third!
+## Checkboxes
+* [ ] First checkbox
+* [ ] Second checkbox
+* [ ] Third checkbox
 ## Alignment
 You can format lines of text
 c[to be centerered,]

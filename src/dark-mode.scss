@@ -27,8 +27,8 @@ $darkTextColor: rgba(0,0,0,.65);
                 background-color:$darkBgColorLight!important;
                 border-bottom:1px solid $darkBorderColor!important;
                 &:hover {
-                    border-bottom:1px solid gray!important;
-                    color:gray!important;
+                    border-bottom:1px solid #b2b2b2!important;
+                    color:#b2b2b2!important;
                 }
             }
         }
@@ -123,6 +123,20 @@ $darkTextColor: rgba(0,0,0,.65);
                 background-color:$darkBgColorDark!important;
                 color:white!important;
                 border:1px solid $darkBorderColor!important;
+            }
+            .checkbox {
+                .checkbox {
+                    background-color:$darkBgColorDark!important;
+                    border:1px solid $darkBorderColor!important;
+                    &:hover {
+                        cursor:pointer;
+                        border:1px solid $hoverColor;
+                    }
+                    i {
+                        color:$darkBorderColor!important;
+                        font-size:.9rem;
+                    }
+                }
             }
         }
     }

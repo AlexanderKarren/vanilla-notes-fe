@@ -156,17 +156,23 @@ export default function formatTextLine(line: string, variables: any, inline: boo
                 }
             }
             // Link with variable
-            else if (line[line.length - 2] === ']') {
+            else if (line[line.length - 2] === ']' && line[line.length - 1] === '.') {
                 const lastChar = line[line.length - 1];
-                console.log("lwv:", [
-                    linkElements[1].substr(0, linkElements[1].length - 2),
-                    linkElements[0].substr(0, linkElements[0].length - 1) + lastChar
-                ])
                 return {
                     className: variables[linkElements[1].substr(0, linkElements[1].length - 2)] || "#",
                     link: true,
                     image: false,
                     text: linkElements[0].substr(0, linkElements[0].length - 1) + lastChar,
+                    bullet: false,
+                    inline: inline
+                }
+            }
+            else if (line[line.length - 1] === ']') {
+                return {
+                    className: variables[linkElements[1].substr(0, linkElements[1].length - 1)] || "#",
+                    link: true,
+                    image: false,
+                    text: linkElements[0].substr(0, linkElements[0].length - 1),
                     bullet: false,
                     inline: inline
                 }
