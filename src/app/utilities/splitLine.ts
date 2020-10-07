@@ -9,6 +9,11 @@ export function splitLine(textLines: TextLine[], line: string, variables: any) {
         let subLength = 0;
         let start = 0;
 
+        if (line[0] === 'c' || line[0] === 'r' || line[0] === '`' || line[0] === '!') {
+            textLines.push(formatTextLine(line, variables, false));
+            return
+        }
+
         let i = 0;
         while (i < line.length - 1) {
             subLength++;
