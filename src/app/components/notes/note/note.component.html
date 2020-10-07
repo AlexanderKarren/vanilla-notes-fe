@@ -1,6 +1,23 @@
 <ng-container *ngIf="note">
     <div class="view-toolbar">
-        <div></div>
+        <div>
+            <button nz-button nz-dropdown [nzDropdownMenu]="noteHeadings" nzTrigger="click">
+                Jump To
+                <i nz-icon nzType="down"></i>
+            </button>
+            <nz-dropdown-menu #noteHeadings="nzDropdownMenu">
+                <ul nz-menu>
+                    <ng-container *ngFor="let heading of headings">
+                        <li nz-menu-item [ngClass]="heading.className">
+                            <a [routerLink]="'/notes/id/' + note.id" [fragment]="heading.name">
+                                <span *ngIf="heading.className === 'headingOne'">{{ heading.name }}</span>
+                                <span *ngIf="heading.className !== 'headingOne'">{{ heading.num + '. ' + heading.name }}</span>
+                            </a>
+                        </li>
+                    </ng-container>
+                </ul>
+              </nz-dropdown-menu>
+        </div>
         <h2>{{ note.title }}</h2>
         <div>
             <nz-button-group>
@@ -18,7 +35,11 @@
     </div>
     <div class="note-display" *ngIf="!confirmDelete">
         <ng-container *ngFor="let line of textLines">
-            <div [ngClass]="line.className" *ngIf="!line.inline && !line.image && !line.link">
+            <div 
+                [ngClass]="line.className"
+                *ngIf="!line.inline && !line.image && !line.link"
+                [id]="line.text"
+            >
                 <div class="bullet" *ngIf="line.bullet && !line.className.includes('checkbox')"></div>
                 <div
                     *ngIf="line.bullet && line.className.includes('checkbox')"

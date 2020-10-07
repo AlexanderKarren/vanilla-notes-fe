@@ -1,4 +1,6 @@
+import Heading from '../models/Heading'
 import TextLine from '../models/TextLine'
+import { romanize, deromanize } from './romanize';
 
 function parseLink(line: string) {
     let imageElements = [];
@@ -21,7 +23,32 @@ function parseLink(line: string) {
     return imageElements;
 }
 
-export default function formatTextLine(line: string, variables: any, inline: boolean = false): TextLine {
+function getHeadingNum(headings: Heading[], curClass: string):string {
+    let i = headings.length - 1;
+    switch(curClass) {
+        default:
+            return "0";
+        case 'headingTwo':
+            while (i > 0) {
+                if (headings[i].className === 'headingTwo') {
+                    return String(parseInt(headings[i].num) + 1);
+                }
+                i--;
+            }
+            return "1"
+        case 'headingThree':
+            while (i > 0) {
+                if (headings[i].className === 'headingThree') {
+                    const prevNum = deromanize(headings[i].num)
+                    return romanize(prevNum + 1);
+                }
+                i--;
+            }
+            return romanize(1)
+    }
+}
+
+export default function formatTextLine(line: string, variables: any, headings: Heading[], inline: boolean = false): TextLine {
     // console.log("fTL:", line);
     switch(line[0]) {
         // backtick case not working for multi-line yet
@@ -42,29 +69,44 @@ export default function formatTextLine(line: string, variables: any, inline: boo
         case '#':
             if (line[1] == '#') {
                 if (line[2] == '#') {
+                    headings.push({
+                        name: line.substr(4, line.length - 1),
+                        className: 'headingThree',
+                        num: getHeadingNum(headings, "headingThree")
+                    })
                     return {
-                    className: 'headingThree',
+                        className: 'headingThree',
+                        link: false,
+                        image: false,
+                        text: line.substr(4, line.length - 1),
+                        bullet: false,
+                        inline: inline
+                    }
+                }
+                headings.push({
+                    name: line.substr(3, line.length - 1),
+                    className: 'headingTwo',
+                    num: getHeadingNum(headings, "headingTwo")
+                })
+                return {
+                    className: 'headingTwo',
                     link: false,
                     image: false,
                     text: line.substr(3, line.length - 1),
                     bullet: false,
                     inline: inline
-                    }
-                }
-                return {
-                    className: 'headingTwo',
-                    link: false,
-                    image: false,
-                    text: line.substr(2, line.length - 1),
-                    bullet: false,
-                    inline: inline
                 }
             }
+            headings.push({
+                name: line.substr(2, line.length - 1),
+                className: 'headingOne',
+                num: getHeadingNum(headings, "headingOne")
+            })
             return {
                 className: 'headingOne',
                 link: false,
                 image: false,
-                text: line.substr(1, line.length - 1),
+                text: line.substr(2, line.length - 1),
                 bullet: false,
                 inline: inline
             }
@@ -92,7 +134,7 @@ export default function formatTextLine(line: string, variables: any, inline: boo
             // Checkbox
             else if (line[2] === '[' && line[4] === ']') {
                 // if checked,
-                if (line[3] === '*') return {
+                if (line[3] === 'x') return {
                     className: 'default checkbox checked',
                     link: false,
                     image: false,

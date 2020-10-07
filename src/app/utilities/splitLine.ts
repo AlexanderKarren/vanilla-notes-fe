@@ -1,8 +1,9 @@
 import keyCodes from '../models/keyCodes';
+import Heading from '../models/Heading';
 import TextLine from '../models/TextLine';
 import formatTextLine from './formatTextLine';
 
-export function splitLine(textLines: TextLine[], line: string, variables: any) {
+export function splitLine(textLines: TextLine[], headings: Heading[], line: string, variables: any) {
         let subLinesFound = false;
         let foundClosingBracket = false;
         let parsing = false;
@@ -10,7 +11,7 @@ export function splitLine(textLines: TextLine[], line: string, variables: any) {
         let start = 0;
 
         if (line[0] === 'c' || line[0] === 'r' || line[0] === '`' || line[0] === '!') {
-            textLines.push(formatTextLine(line, variables, false));
+            textLines.push(formatTextLine(line, variables, headings, false));
             return
         }
 
@@ -20,16 +21,16 @@ export function splitLine(textLines: TextLine[], line: string, variables: any) {
             // if at end of string
             if (i === line.length - 2) {
                 if (subLinesFound && line[i] !== '*') {
-                    textLines.push(formatTextLine(line.substr(start), variables, true))
+                    textLines.push(formatTextLine(line.substr(start), variables, headings, true))
                 }
                 else if (line[i] === '*') {
-                    textLines.push(formatTextLine(line.substr(start, subLength), variables, true))
+                    textLines.push(formatTextLine(line.substr(start, subLength), variables, headings, true))
                 }
             }
             // if not currently parsing
             else if (parsing === false) {
                 if (line[i] === '*' && line[i + 1] === '*') {
-                    textLines.push(formatTextLine(line.substr(start, subLength - 2), variables, true))
+                    textLines.push(formatTextLine(line.substr(start, subLength - 2), variables, headings, true))
                     parsing = true;
                     start = i;
                     i += 2;
@@ -37,7 +38,7 @@ export function splitLine(textLines: TextLine[], line: string, variables: any) {
                     subLength = 2;
                 }
                 else if (line[i] === '[') {
-                    textLines.push(formatTextLine(line.substr(start, subLength - 1), variables, true))
+                    textLines.push(formatTextLine(line.substr(start, subLength - 1), variables, headings, true))
                     parsing = true;
                     start = i;
                     i += 2;
@@ -49,7 +50,7 @@ export function splitLine(textLines: TextLine[], line: string, variables: any) {
             else {
                 // bold asterisks found
                 if (line[i] === '*' && line[i + 1] === '*') {
-                    textLines.push(formatTextLine(line.substr(start, subLength), variables, true));
+                    textLines.push(formatTextLine(line.substr(start, subLength), variables, headings, true));
                     parsing = false;
                     start = i + 3;
                     subLinesFound = true;
@@ -60,7 +61,7 @@ export function splitLine(textLines: TextLine[], line: string, variables: any) {
                     if (foundClosingBracket) {
                         foundClosingBracket = false;
                         console.log("start:", start, "subLength:", subLength, line.substr(start, subLength + 2))
-                        textLines.push(formatTextLine(line.substr(start, subLength + 2), variables, true));
+                        textLines.push(formatTextLine(line.substr(start, subLength + 2), variables, headings, true));
                         parsing = false;
                         start = i + 1;
                         subLinesFound = true;
@@ -75,10 +76,11 @@ export function splitLine(textLines: TextLine[], line: string, variables: any) {
             i++;
         }
         // console.log(textLines);
-        !subLinesFound && textLines.push(formatTextLine(line, variables));
+        !subLinesFound && textLines.push(formatTextLine(line, variables, headings));
 }
 
 export function scanForVariables(body: string, variables: any): string {
+    let ignore = false;
     let firstVar = null;
     let parsing = false;
     let start = 0;
@@ -86,7 +88,10 @@ export function scanForVariables(body: string, variables: any): string {
     let j = 0;
 
     while (i < body.length - 2) {
-        if (parsing) {
+        if (body[i] === '`') {
+            ignore = !ignore;
+        }
+        if (parsing && !ignore) {
             if (body[i] === ']' && body[i + 1] === ':') {
                 if (!firstVar) {
                     let j = i;
@@ -120,7 +125,7 @@ export function scanForVariables(body: string, variables: any): string {
             }
             j++;
         }
-        else {
+        else if (!ignore) {
             if (body[i] === '[') {
                 parsing = true;
                 start = i;

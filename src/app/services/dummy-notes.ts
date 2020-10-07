@@ -13,24 +13,40 @@ Place an asterisk followed by a space before a line to create a bulleted list it
 * My second,
 * and my third!
 ## Checkboxes
-* [ ] First checkbox
-* [ ] Second checkbox
-* [ ] Third checkbox
+You can add interactable checkboxes to your notes.
+* [x] Open Welcome to Vanilla Notes
+* [ ] Skim it
+* [ ] Start making notes!
+\`* [ ] Unchecked box\`
+\`* [x] Checked box\`
+## Links
+You can put working links to other sites in your notes.
+[Check out the Github repo for Vanilla Notes!][repo]
+\`[Check out the Github repo for Vanilla Notes!](https://github.com/AlexanderKarren/vanilla-notes-fe)\`
 ## Alignment
 You can format lines of text
 c[to be centerered,]
-r[or right aligned.]
+r[or aligned to the right.]
 ***
 \`You can format lines of text\`
 \`c[to be centered,]\`
 \`r[or aligned to the right.]\`
 ## Stylized Text
 Surround text with a pair of **double asterisks** to create **bold** text.
-## Adding Images
+\`Surround text with a pair of **double asterisks** to create **bold** text.\`
+## Variables
+Links to sites and images can also be stored in variables at the **bottom of your note.** The syntax looks like this:
+[Picture of dog][dog]
+### Note Body
+\`[Picture of dog][dog]\`
+### Last Line
+\`[dog]: https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80\`
+## Images
 Use the following syntax to add images to your notes:
-***
-\`![monkey with ice cream](https://i.pinimg.com/originals/2a/46/37/2a4637ed3fbeb25dc8c7e996a6d5f3ac.jpg)\`
-![monkey with ice cream](https://i.pinimg.com/originals/2a/46/37/2a4637ed3fbeb25dc8c7e996a6d5f3ac.jpg)`
+\`![tiny monkey](https://images.unsplash.com/photo-1516636052745-e142aecffd0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80)\`
+![tiny monkey](https://images.unsplash.com/photo-1516636052745-e142aecffd0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80)
+[dog]: https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80\
+[repo]: https://github.com/AlexanderKarren/vanilla-notes-fe`
     },
     {
         id: "eWRhpRV",

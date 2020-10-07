@@ -6,6 +6,10 @@
     align-items:center;
 }
 
+li.headingOne {
+    font-weight:bolder!important;
+}
+
 .view-toolbar {
     display:flex;
     justify-content:space-between;
@@ -16,6 +20,7 @@
     div {
         display:flex;
         justify-content:center;
+        align-items:center;
         width:20%;
         nz-button-group {
             display:flex;

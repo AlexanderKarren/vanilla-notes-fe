@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import Note from 'src/app/models/Note';
 import TextLine from 'src/app/models/TextLine';
+import Heading from 'src/app/models/Heading';
 
 import { NoteService } from 'src/app/services/note.service';
 import { splitLine, scanForVariables } from 'src/app/utilities/splitLine';
@@ -28,6 +29,7 @@ export class NoteComponent implements OnInit {
   note: Note;
   confirmDelete: boolean;
   textLines: TextLine[];
+  headings: Heading[];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +38,7 @@ export class NoteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.headings = [];
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.confirmDelete = false;
     this.textLines = [];
@@ -47,12 +50,13 @@ export class NoteComponent implements OnInit {
 
   renderNote():void {
     const variables = {};
-    this.note.body = scanForVariables(this.note.body, variables);
+    const body = scanForVariables(this.note.body, variables);
     // split by 
-    const lines = this.note.body.replace(/\r\n/g, "\r").replace(/\n/g, "\r").split(/\r/);
+    const lines = body.replace(/\r\n/g, "\r").replace(/\n/g, "\r").split(/\r/);
     lines.forEach(line => {
-      splitLine(this.textLines, line, variables);
+      splitLine(this.textLines, this.headings, line, variables);
     })
+    console.log(this.headings);
   }
 
   ngOnDestroy() {
