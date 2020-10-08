@@ -8,7 +8,7 @@ import storage from './utilities/storage';
 })
 export class AppComponent implements OnInit {
   dark:boolean;
-  isCollapsed:boolean = true;
+  isCollapsed:boolean;
 
   // constructor() {
   //   this.isCollapsed = true;
@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   ngOnInit():void {
     console.log("Starting app.NgOnit():")
     this.dark = storage.isDarkMode();
+    this.isCollapsed = true;
     console.log("Done running app.ngOnInit().")
   }
 

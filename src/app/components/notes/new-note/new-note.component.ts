@@ -95,12 +95,12 @@ export class NewNoteComponent implements OnInit {
     this.modes[data.key] = data.bool;
   }
 
-  handleChanges() {
+  handleChanges(event) {
     this.saved = false;
     const body = (<any>this.noteForm).value.body;
+    if (body.length % 10 === 0) console.log(body);
     const lastChar = body.charCodeAt(body.length - 1);
     const penulChar = body.charCodeAt(body.length - 2);
-    // console.log(lastChar, penulChar);
     handleNoteInput({
       body: (<any>this.noteForm).value.body,
       lastChar: lastChar,
@@ -195,6 +195,8 @@ export class NewNoteComponent implements OnInit {
       }
     }
   }
+
+  delete = () => this.router.navigate(["/notes/new"]);
 
   // whatIsDisplayRaw(): void {
   //   console.log(this.displayRaw);

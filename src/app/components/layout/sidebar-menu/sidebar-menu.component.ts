@@ -5,6 +5,7 @@ import { localSort, getDates } from 'src/app/utilities/sortOps';
 import * as dayjs from 'dayjs';
 
 import { NoteService } from '../../../services/note.service';
+import storage from 'src/app/utilities/storage';
 
 interface SortChanges {
   newSort: string;
@@ -40,13 +41,18 @@ export class SidebarMenuComponent implements OnInit {
   ngOnInit(): void {
     this.datesMap = new Map();
     this.dates = [];
-    this.dateDisplay = false;
+    this.dateDisplay = storage.getSort() === 'date' ? true : false;
     this.viewAll = true;
     this.viewNotes = false;
     this.sortBy = "title";
-    this.sortAsc = true;
+    this.sortAsc = storage.getSort() === 'za' ? false : true;
+    this.topics = this.noteService.getTopics();
     this.notes = localSort(this.noteService.getNotes(), this.sortBy, this.sortAsc);
-    this.topics = localSort(this.noteService.getTopics(), this.sortBy, this.sortAsc);
+    this.noteService.notesUpdated.subscribe(() => {
+      this.notes = localSort(this.noteService.getNotes(), this.sortBy, this.sortAsc)
+      this.topics = this.noteService.getTopics();
+      if (this.dateDisplay) this.toggleDateDisplay();
+    });
   }
 
   getNotesFromDate(date: string): Note[] {
@@ -58,29 +64,40 @@ export class SidebarMenuComponent implements OnInit {
     this.sortAsc = changes.newDir;
     this.notes = localSort(this.noteService.getNotes(), this.sortBy, this.sortAsc);
     this.dateDisplay = false;
+    storage.updateSort(changes.newDir ? 'az' : 'za')
   }
 
   changeTopic(topic: string) {
     this.activeTopic = topic;
+    
     if (this.activeTopic === 'All Notes') this.viewAll = true;
     else this.viewAll = false;
+
     this.viewNotes = true;
+
     if (this.dateDisplay) this.toggleDateDisplay();
   }
 
   toggleDateDisplay() {
-    let notes = localSort(this.noteService.getNotes(), 'title', true);
+    let notes = this.noteService.getNotes();
     if (this.activeTopic && this.activeTopic !== "All Notes") notes = notes.filter(note => (note.topic === this.activeTopic));
+    notes = localSort(notes, 'title', true);
     this.datesMap = getDates(notes);
-    this.dates = Array.from(this.datesMap.keys()).map(date => {
+
+    const datesMapKeys = Array.from(this.datesMap.keys());
+    // sorts dates
+    datesMapKeys.sort();
+    this.dates = datesMapKeys.map(date => {
       const now = dayjs().format("MMMM D, YYYY");
       const dateCreated = dayjs(date).format("MMMM D, YYYY");
       return {
-        formatted: dateCreated === now ? "Today" : dateCreated,
+        formatted: (dateCreated === now) ? "Today" : dateCreated,
         iso: date
       }
     });
+
     this.dateDisplay = true;
+    storage.updateSort('date');
   }
 
   return() {

@@ -1,128 +1,131 @@
-<!-- Return -->
-<button nz-button nzType="default" (click)="return()" *ngIf="editId">
-  Return
-</button>
-<!-- Save -->
-<button nz-button nzType="default" (click)="save()">
-    <i nz-icon nzType="save" [nzTheme]="saved && 'fill'"></i>
-</button>
-<!-- Undo / Redo -->
-<nz-button-group class="end-right">
-    <button
-      disabled
-      nz-button
-      nzType="default"
-      (click)="undo()">
-      <i nz-icon nzType="undo"></i>
-    </button>
-    <button
-      disabled
-      nz-button
-      nzType="default"
-      (click)="redo()">
-      <i nz-icon nzType="redo"></i>
-    </button>
-</nz-button-group>
-<div class="divider"></div>
-<!-- Text Style -->
-<div class="dropdown">
-    <button
-      disabled
-      nz-button
-      nz-dropdown
-      [nzDropdownMenu]="styleOptions"
-      nzTrigger="click">
-        Text Style
-    <i nz-icon nzType="down"></i>
-    </button>
-</div>
-<!-- Text Alignment -->
-<nz-button-group>
+<div class="toolbar-buttons">
+  <!-- Return -->
+  <button nz-button nzType="default" (click)="return()" *ngIf="editId">
+    Return
+  </button>
+  <!-- Save -->
+  <button nz-button nzType="default" (click)="save()">
+      <i nz-icon nzType="save" [nzTheme]="saved && 'fill'"></i>
+  </button>
+  <!-- Undo / Redo -->
+  <nz-button-group class="end-right">
       <button
+        disabled
         nz-button
-        [nzType]="(!modes.alignRight && !modes.alignCenter) ? 'primary' : 'default'"
+        nzType="default"
+        (click)="undo()">
+        <i nz-icon nzType="undo"></i>
+      </button>
+      <button
+        disabled
+        nz-button
+        nzType="default"
+        (click)="redo()">
+        <i nz-icon nzType="redo"></i>
+      </button>
+  </nz-button-group>
+  <div class="divider"></div>
+  <!-- Text Style -->
+  <div class="dropdown">
+      <button
+        disabled
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="styleOptions"
+        nzTrigger="click">
+          Text Style
+      <i nz-icon nzType="down"></i>
+      </button>
+  </div>
+  <!-- Text Alignment -->
+  <nz-button-group>
+        <button
+          nz-button
+          [nzType]="(!modes.alignRight && !modes.alignCenter) ? 'primary' : 'default'"
+        >
+          <i nz-icon nzType="align-left"></i>
+        </button>
+        <button 
+          (click)="insertAlignment('c[]')"
+          nz-button
+          nzType="default"
+        >
+          <i nz-icon nzType="align-center"></i>
+        </button>
+        <button
+        (click)="insertAlignment('r[]')"
+          nz-button
+          nzType="default"
+        >
+          <i nz-icon nzType="align-right"></i>
+        </button>
+  </nz-button-group>
+  <!-- Lists -->
+  <nz-button-group>
+      <button
+        disabled
+        nz-button
       >
-        <i nz-icon nzType="align-left"></i>
+        <i nz-icon nzType="ordered-list"></i>
       </button>
       <button 
-        (click)="insertAlignment('c[]')"
+        nz-button
+        [nzType]="modes.bullet ? 'primary' : 'default'"
+        (click)="changeMode('bullet', !modes.bullet)"
+      >
+        <i nz-icon nzType="unordered-list"></i>
+      </button>
+  </nz-button-group>
+  <!-- Link / Image -->
+  <nz-button-group>
+      <button
+        (click)="insertLink(false)"
         nz-button
         nzType="default"
       >
-        <i nz-icon nzType="align-center"></i>
+      <i nz-icon nzType="link"></i>
       </button>
       <button
-      (click)="insertAlignment('r[]')"
+        (click)="insertLink(true)"
         nz-button
         nzType="default"
       >
-        <i nz-icon nzType="align-right"></i>
+      <i nz-icon nzType="picture"></i>
       </button>
-</nz-button-group>
-<!-- Lists -->
-<nz-button-group>
-    <button
+  </nz-button-group>
+  <!-- Rich / Raw -->
+  <nz-button-group>
+      <button
       disabled
-      nz-button
-    >
-      <i nz-icon nzType="ordered-list"></i>
-    </button>
-    <button 
-      nz-button
-      [nzType]="modes.bullet ? 'primary' : 'default'"
-      (click)="changeMode('bullet', !modes.bullet)"
-    >
-      <i nz-icon nzType="unordered-list"></i>
-    </button>
-</nz-button-group>
-<!-- Link / Image -->
-<nz-button-group>
-    <button
-      (click)="insertLink(false)"
-      nz-button
-      nzType="default"
-    >
-    <i nz-icon nzType="link"></i>
-    </button>
-    <button
-      (click)="insertLink(true)"
-      nz-button
-      nzType="default"
-    >
-    <i nz-icon nzType="picture"></i>
-    </button>
-</nz-button-group>
-<!-- Rich / Raw -->
-<nz-button-group>
-    <button
-    disabled
-        (click)="toggleRawDisplay(false)"
-        nz-button 
-        [nzType]="displayRaw ? 'default' : 'primary'" 
-        nzDisabled>
-        Rich
-    </button>
-    <button
-        (click)="toggleRawDisplay(true)"
-        nz-button
-        [nzType]="displayRaw ? 'primary' : 'default'"
-        nzDisabled>
-        Raw
-    </button>
-</nz-button-group>
-<!-- Dropdown -->
-<nz-dropdown-menu #styleOptions="nzDropdownMenu">
-    <ul nz-menu>
-      <li nz-menu-item>Heading 1</li>
-      <li nz-menu-item>Heading 2</li>
-      <li nz-menu-item>Heading 3</li>
-    </ul>
-</nz-dropdown-menu>
-<!-- Delete -->
-<button 
-  nz-button
-  nzType="default"
-  (click)="changeDeleteStatus(true)"
->
-  <i nz-icon nzType="delete"></i>
-</button>
+          (click)="toggleRawDisplay(false)"
+          nz-button 
+          [nzType]="displayRaw ? 'default' : 'primary'" 
+          nzDisabled>
+          Rich
+      </button>
+      <button
+          (click)="toggleRawDisplay(true)"
+          nz-button
+          [nzType]="displayRaw ? 'primary' : 'default'"
+          nzDisabled>
+          Raw
+      </button>
+  </nz-button-group>
+  <!-- Dropdown -->
+  <nz-dropdown-menu #styleOptions="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item>Heading 1</li>
+        <li nz-menu-item>Heading 2</li>
+        <li nz-menu-item>Heading 3</li>
+      </ul>
+  </nz-dropdown-menu>
+  <!-- Delete -->
+  <button
+    *ngIf="editId"
+    nz-button
+    nzType="default"
+    (click)="changeDeleteStatus(true)"
+  >
+    <i nz-icon nzType="delete"></i>
+  </button>
+</div>

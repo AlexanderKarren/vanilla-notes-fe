@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-const settingsExecutions = {
-  "clear-local-storage": () => localStorage.clear()
-}
+import dummyNotes from 'src/app/services/dummyNotes';
+import { NoteService } from 'src/app/services/note.service';
 
 const alerts = {
   "clear-local-storage": {
@@ -28,9 +26,17 @@ interface Setting {
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  settingsExecutions = {
+    "clear-local-storage": () => {
+      localStorage.clear();
+      this.noteService.setNotes(dummyNotes);
+    }
+  }
   confirm: Setting | null;
 
-  constructor() { }
+  constructor(
+    private noteService: NoteService
+  ) { }
 
   isLocalStorageEmpty = (): boolean => Boolean(localStorage.getItem("vanilla-notes"));
 
@@ -40,7 +46,7 @@ export class SettingsComponent implements OnInit {
 
   setConfirm = (setting: string = null, warning: boolean = false) => (this.confirm = setting ? {
     name: setting,
-    execution: settingsExecutions[setting],
+    execution: this.settingsExecutions[setting],
     warning: warning ? alerts[setting] : null
   } : null);
 

@@ -57,7 +57,7 @@ export function splitLine(textLines: TextLine[], headings: Heading[], line: stri
                     subLength = 0;
                     i += 2;
                 }
-                else if (line[i] === ']') {
+                else if (line[i] === ']' || line[i] === ')') {
                     if (foundClosingBracket) {
                         foundClosingBracket = false;
                         console.log("start:", start, "subLength:", subLength, line.substr(start, subLength + 2))

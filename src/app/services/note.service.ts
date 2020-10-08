@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import Note from '../models/Note';
 import Topic from '../models/Topic';
 import storage from '../utilities/storage';
-import dummyNotes from './dummy-notes';
+import dummyNotes from './dummyNotes';
 
 // Get topics for client-stored tasks
 function assignTopics(localNotes: Note[]): Topic[] {
@@ -32,6 +32,7 @@ function assignTopics(localNotes: Note[]): Topic[] {
   providedIn: 'root'
 })
 export class NoteService {
+  notesUpdated = new EventEmitter();
   notes: Note[];
   topics: Topic[];
 
@@ -62,7 +63,12 @@ export class NoteService {
   }
 
   getTopics(): Topic[] {
-    return this.topics;
+    return assignTopics(this.notes);
+  }
+
+  setNotes(notes: Note[]): void {
+    this.notes = notes;
+    this.notesUpdated.emit();
   }
 
   addLocalNote(note: Note): void {
@@ -71,6 +77,7 @@ export class NoteService {
     this.addLocalTopic(note);
     this.notes.push(note);
     storage.updateNotes(this.notes);
+    this.notesUpdated.emit(this.notes);
   }
 
   // addLocalTopic will only add a topic if it doesn't already exist
@@ -84,6 +91,7 @@ export class NoteService {
   deleteLocalNote(note: Note) {
     this.notes = this.notes.filter(element => (element.id !== note.id))
     storage.updateNotes(this.notes);
+    this.notesUpdated.emit(this.notes);
   }
 
 }

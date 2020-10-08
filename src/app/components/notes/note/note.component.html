@@ -2,7 +2,7 @@
     <div class="view-toolbar">
         <div>
             <button nz-button nz-dropdown [nzDropdownMenu]="noteHeadings" nzTrigger="click">
-                Jump To
+                Jump To...
                 <i nz-icon nzType="down"></i>
             </button>
             <nz-dropdown-menu #noteHeadings="nzDropdownMenu">
@@ -62,6 +62,7 @@
     <app-confirm-delete
         class="note-display"
         (statusAction)="changeDeleteStatus($event)"
+        (deleteAction)="delete()"
         [note]="note"
         *ngIf="confirmDelete"
     ></app-confirm-delete>

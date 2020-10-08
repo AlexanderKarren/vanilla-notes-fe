@@ -15,30 +15,32 @@ $darkTextColor: rgba(0,0,0,.65);
     h1, h2, h3, h4, h5, h6 {
         color:white;
     }
-    nz-header {
-        span i {
-            color:white;
-        }
-        .app-header {
-            background-color:$darkBgColorLight!important;
-            border-bottom:1px solid $darkBorderColor!important;
-            [nz-menu] li {
-                color:white!important;
+    > nz-layout {
+        nz-header {
+            span i {
+                color:white;
+            }
+            .app-header {
                 background-color:$darkBgColorLight!important;
-                border-bottom:1px solid $darkBorderColor!important;
-                &:hover {
-                    border-bottom:1px solid #b2b2b2!important;
-                    color:#b2b2b2!important;
+                border-bottom:1px solid $darkBorderColor;
+                [nz-menu] li {
+                    color:white!important;
+                    background-color:$darkBgColorLight!important;
+                    border-bottom:1px solid $darkBorderColor!important;
+                    &:hover {
+                        border-bottom:1px solid #b2b2b2!important;
+                        color:#b2b2b2!important;
+                    }
                 }
             }
         }
-    }
-    nz-content {
-        .inner-content {
-            background: $darkBgColorDark!important;
-        }
-        app-toolbar {
-            background-color: $darkBgColorLight;
+        nz-content {
+            .inner-content {
+                background: $darkBgColorDark!important;
+            }
+            app-toolbar {
+                background-color: $darkBgColorLight;
+            }
         }
     }
     nz-sider {

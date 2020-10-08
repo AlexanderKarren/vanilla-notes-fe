@@ -180,7 +180,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
                     className: linkElements[1],
                     link: true,
                     image: false,
-                    text: linkElements[0],
+                    text: linkElements[0].substr(0, linkElements[0].length - 1),
                     bullet: false,
                     inline: inline
                 }

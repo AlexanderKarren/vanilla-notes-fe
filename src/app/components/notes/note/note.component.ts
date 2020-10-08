@@ -12,10 +12,10 @@ import storage from 'src/app/utilities/storage';
 function updateCheckboxes(note: Note, checked: boolean, text: string): Note {
   return checked ? {
     ...note,
-    body: note.body.replace(`[*] ${text}`, `[ ] ${text}`)
+    body: note.body.replace(`[x] ${text}`, `[ ] ${text}`)
   } : {
     ...note,
-    body: note.body.replace(`[ ] ${text}`, `[*] ${text}`)
+    body: note.body.replace(`[ ] ${text}`, `[x] ${text}`)
   }
 }
 
@@ -35,7 +35,9 @@ export class NoteComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private noteService: NoteService
-  ) { }
+  ) {
+    this.router.events.subscribe(() => console.log('test'))
+  }
 
   ngOnInit(): void {
     this.headings = [];
@@ -48,7 +50,7 @@ export class NoteComponent implements OnInit {
     })
   }
 
-  renderNote():void {
+  renderNote(): void {
     const variables = {};
     const body = scanForVariables(this.note.body, variables);
     // split by 
@@ -63,9 +65,7 @@ export class NoteComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-  changeDeleteStatus(status: boolean) {
-    this.confirmDelete = status;
-  }
+  changeDeleteStatus = (status: boolean) => (this.confirmDelete = status);
 
   download = () => storage.download(this.note.title, this.note.body);
 
@@ -75,5 +75,7 @@ export class NoteComponent implements OnInit {
     this.noteService.editNote(this.note.id, this.note);
     this.renderNote();
   };
+
+  delete = () => this.note = null;
 
 }

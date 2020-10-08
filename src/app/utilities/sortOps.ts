@@ -16,9 +16,9 @@ export const localSort = (list: any[], sortBy:string, ascending: boolean = true)
 export const getDates = (notes: Note[]):Map<string, Note[]> => {
     const map = new Map();
     notes.forEach(note => {
-      const date = note.date_created ? dayjs(note.date_created).format("MMMM D, YYYY") : "Undated";
-      if (map.get(date)) map.get(date).push(note);
-      else map.set(date, [note]);
+        const date = note.date_created ? dayjs(note.date_created).format("MMMM D, YYYY") : "Undated";
+        if (map.get(date)) map.get(date).push(note);
+        else map.set(date, [note]);
     });
 
     return map;

@@ -8,7 +8,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzInputModule } from 'ng-zorro-antd';
+import { NzInputModule, NzMessageModule } from 'ng-zorro-antd';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -55,6 +55,7 @@ registerLocaleData(en);
     NzDropDownModule,
     NzInputModule,
     NzAlertModule,
+    NzMessageModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
