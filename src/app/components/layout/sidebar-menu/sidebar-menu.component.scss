@@ -45,6 +45,7 @@ h4 {
         padding: .4rem $microMargin;
         background-color:white;
         border-top: 1px solid $borderColor;
+        outline:none;
         &:last-of-type {
             border-bottom: 1px solid $borderColor;
         }

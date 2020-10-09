@@ -79,7 +79,7 @@ function toggleDarkMode(): void {
         dark_mode: !userStorage.dark_mode
     }));
     else localStorage.setItem("vanilla-notes", JSON.stringify({
-        notes: [],
+        notes: null,
         dark_mode: true
     }));
 }

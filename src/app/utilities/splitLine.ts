@@ -3,6 +3,7 @@ import Heading from '../models/Heading';
 import TextLine from '../models/TextLine';
 import formatTextLine from './formatTextLine';
 
+// this splits single lines of text into smaller lines to be used on formatTextLine
 export function splitLine(textLines: TextLine[], headings: Heading[], line: string, variables: any) {
         let subLinesFound = false;
         let foundClosingBracket = false;
@@ -10,9 +11,10 @@ export function splitLine(textLines: TextLine[], headings: Heading[], line: stri
         let subLength = 0;
         let start = 0;
 
+        // ignore lines
         if (line[0] === 'c' || line[0] === 'r' || line[0] === '`' || line[0] === '!') {
             textLines.push(formatTextLine(line, variables, headings, false));
-            return
+            return;
         }
 
         let i = 0;
@@ -21,16 +23,16 @@ export function splitLine(textLines: TextLine[], headings: Heading[], line: stri
             // if at end of string
             if (i === line.length - 2) {
                 if (subLinesFound && line[i] !== '*') {
-                    textLines.push(formatTextLine(line.substr(start), variables, headings, true))
+                    textLines.push(formatTextLine(line.substr(start), variables, headings, true));
                 }
                 else if (line[i] === '*') {
-                    textLines.push(formatTextLine(line.substr(start, subLength), variables, headings, true))
+                    textLines.push(formatTextLine(line.substr(start, subLength), variables, headings, true));
                 }
             }
             // if not currently parsing
             else if (parsing === false) {
                 if (line[i] === '*' && line[i + 1] === '*') {
-                    textLines.push(formatTextLine(line.substr(start, subLength - 2), variables, headings, true))
+                    textLines.push(formatTextLine(line.substr(start, subLength - 2), variables, headings, true));
                     parsing = true;
                     start = i;
                     i += 2;
@@ -38,7 +40,7 @@ export function splitLine(textLines: TextLine[], headings: Heading[], line: stri
                     subLength = 2;
                 }
                 else if (line[i] === '[') {
-                    textLines.push(formatTextLine(line.substr(start, subLength - 1), variables, headings, true))
+                    textLines.push(formatTextLine(line.substr(start, subLength - 1), variables, headings, true));
                     parsing = true;
                     start = i;
                     i += 2;
@@ -60,7 +62,7 @@ export function splitLine(textLines: TextLine[], headings: Heading[], line: stri
                 else if (line[i] === ']' || line[i] === ')') {
                     if (foundClosingBracket) {
                         foundClosingBracket = false;
-                        console.log("start:", start, "subLength:", subLength, line.substr(start, subLength + 2))
+                        console.log("start:", start, "subLength:", subLength, line.substr(start, subLength + 2));
                         textLines.push(formatTextLine(line.substr(start, subLength + 2), variables, headings, true));
                         parsing = false;
                         start = i + 1;
@@ -103,7 +105,7 @@ export function scanForVariables(body: string, variables: any): string {
                 parsing = false;
                 let key = body.substr(start + 1, j - 1);
                 const endIndex = body.substr(i + 3, body.length).split("").findIndex(char => {
-                    return (char.charCodeAt(0) === keyCodes["enter"])
+                    return (char.charCodeAt(0) === keyCodes["enter"]);
                 });
                 let value = body.substr(i + 3, endIndex);
                 if (endIndex === -1) value = body.substr(i + 3, body.length - 1);

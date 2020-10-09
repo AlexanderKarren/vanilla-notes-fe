@@ -6,7 +6,7 @@
                 <i nz-icon nzType="down"></i>
             </button>
             <nz-dropdown-menu #noteHeadings="nzDropdownMenu">
-                <ul nz-menu>
+                <ul nz-menu class="poop">
                     <ng-container *ngFor="let heading of headings">
                         <li nz-menu-item [ngClass]="heading.className">
                             <a [routerLink]="'/notes/id/' + note.id" [fragment]="heading.name">

@@ -43,7 +43,7 @@ li.headingOne {
 
 .note-display {
     div, span, a {
-        font-size:1.2rem;
+        font-size:1.1rem;
     }
     div {
         display:flex;
@@ -94,6 +94,7 @@ li.headingOne {
         font-weight:bold;
         border-bottom:1px solid lightgray;
         margin:$microMargin 0;
+        letter-spacing: .12rem;
     }
     .headingOne {
         height:auto;

@@ -14,12 +14,12 @@ Place an asterisk followed by a space before a line to create a bulleted list it
 * My first bullet,
 * My second,
 * and my third!
-
+\`* Bullet item\`
 ## Checkboxes
 You can add interactive checkboxes to your notes.
-* [x] Open Welcome to Vanilla Notes
+* [x] Open 'Welcome to Vanilla Notes'
 * [ ] Skim it
-* [ ] Start making notes!
+* [ ] Start making your own!
 \`* [ ] Unchecked box\`
 \`* [x] Checked box\`
 
@@ -56,6 +56,8 @@ Links to sites and images can also be stored in variables at the **bottom of you
 Use the following syntax to add images to your notes:
 \`![tiny monkey](https://images.unsplash.com/photo-1516636052745-e142aecffd0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80)\`
 ![tiny monkey](https://images.unsplash.com/photo-1516636052745-e142aecffd0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80)
+
+[]: # Variables
 [dog]: https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80\
 [repo]: https://github.com/AlexanderKarren/vanilla-notes-fe`
     },

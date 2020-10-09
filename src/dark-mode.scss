@@ -3,8 +3,9 @@ $darkBgColorDarker: #0e1717;
 $darkBgColorDark: #1c2f2f;
 $darkBgColorLight: #121f1f;
 
-$darkBorderColor: lightgray;
-$darkHoverColor: #40a9ff;
+$darkBorderColor: #d3d3d3;
+$darkHoverColor: #00FF7F;
+$darkerHoverColor: #00cc65;
 $darkDangerColor: #ff4d4f;
 $darkDangerColorDark:#b23537;
 $darkDangerHover: #ffeded;
@@ -28,8 +29,25 @@ $darkTextColor: rgba(0,0,0,.65);
                     background-color:$darkBgColorLight!important;
                     border-bottom:1px solid $darkBorderColor!important;
                     &:hover {
-                        border-bottom:1px solid #b2b2b2!important;
-                        color:#b2b2b2!important;
+                        border-bottom:1px solid $darkHoverColor!important;
+                        color:$darkHoverColor!important;
+                    }
+                }
+                .app-header-menu {
+                    .ant-btn {
+                        border:1px solid $darkBorderColor;
+                        &.ant-btn-primary {
+                            background-color:$darkHoverColor!important;
+                            &:hover, &:focus {
+                                color:black;
+                                background-color:$darkerHoverColor!important;
+                                border:1px solid $darkerHoverColor;
+                            }
+                        }
+                        &:hover, &:focus {
+                            color:$darkHoverColor;
+                            border:1px solid $darkHoverColor;
+                        }
                     }
                 }
             }
@@ -58,6 +76,9 @@ $darkTextColor: rgba(0,0,0,.65);
                     color:white;
                 }
             }
+            nz-input-group:hover {
+                border:1px solid $darkHoverColor;
+            }
             .list {
                 .listing {
                     background:$darkBgColorDark;
@@ -67,26 +88,33 @@ $darkTextColor: rgba(0,0,0,.65);
                     }
                     &:hover {
                         cursor:pointer;
-                        color:$hoverColor;
-                        border-top: 1px solid $hoverColor;
+                        color:$darkHoverColor;
+                        border-top: 1px solid $darkHoverColor;
                         &:last-of-type {
-                            border-bottom: 1px solid $hoverColor;
+                            border-bottom: 1px solid $darkHoverColor;
                         }
                         & + * {
-                            border-top: 1px solid $hoverColor;
+                            border-top: 1px solid $darkHoverColor!important;
                         }
                     }
                 }
             }
         }
     }
+
     .ant-btn {
         color:white;
         border:1px solid $darkBorderColor;
         background-color:$darkBgColorDark;
         &.ant-btn-primary {
-            background-color:$bgColorDark;
-            color:white;
+            background-color:$darkHoverColor;
+            color:black;
+            border:1px solid black;
+            &:hover {
+                border:1px solid $darkerHoverColor;
+                background-color:$darkerHoverColor;
+                color:black;
+            }
             &.ant-btn-dangerous {
                 color:white;
                 background-color:$dangerColor;
@@ -96,16 +124,12 @@ $darkTextColor: rgba(0,0,0,.65);
                 }
             }
         }
-        &.ant-btn-dangerous {
-            border:1px solid $dangerColor;
-            color:$dangerColor;
-            &:hover {
-                background-color:#FCFCFC;
-                border:1px solid $dangerColorDark;
-                color:$dangerColorDark;
-            }
+        &:hover {
+            border: 1px solid $darkHoverColor;
+            color: $darkHoverColor;
         }
     }
+
     app-note {
         .view-toolbar {
             background-color:$darkBgColorLight!important;
@@ -121,6 +145,12 @@ $darkTextColor: rgba(0,0,0,.65);
             background-color:black!important;
             color:white!important;
             border:1px solid $darkBorderColor;
+            a {
+                color:$darkHoverColor;
+                &:hover {
+                    color:$darkerHoverColor;
+                }
+            }
             div {
                 .bullet {
                     background-color:white!important;
