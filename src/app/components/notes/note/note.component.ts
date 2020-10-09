@@ -51,6 +51,7 @@ export class NoteComponent implements OnInit {
   }
 
   renderNote(): void {
+    this.headings = [];
     const variables = {};
     const body = scanForVariables(this.note.body, variables);
     // split by 

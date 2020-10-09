@@ -42,6 +42,9 @@ li.headingOne {
 }
 
 .note-display {
+    div, span, a {
+        font-size:1.2rem;
+    }
     div {
         display:flex;
         align-items:center;
@@ -70,8 +73,8 @@ li.headingOne {
             align-items:center;
             justify-content:center;
             margin-right:$microMargin;
-            width:1rem;
-            height:1rem;
+            width:1.2rem;
+            height:1.2rem;
             background-color:$bgColorLight;
             border-radius:.2rem;
             border:1px solid $borderColor;
@@ -81,7 +84,7 @@ li.headingOne {
             }
             i {
                 color:$bgColorDark;
-                font-size:.8rem;
+                font-size:.9rem;
             }
         }
     }
@@ -110,6 +113,7 @@ li.headingOne {
         padding:$microMargin;
         overflow-x:auto;
         border:1px solid $borderColor;
+        font-size:1rem;
     }
     .rightAlign {
         justify-content:flex-end;
