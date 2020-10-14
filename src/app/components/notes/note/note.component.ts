@@ -40,11 +40,11 @@ export class NoteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.headings = [];
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.confirmDelete = false;
-    this.textLines = [];
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.sub = this.route.params.subscribe(params => {
+      this.confirmDelete = false;
+      this.headings = [];
+      this.textLines = [];
       this.note = this.noteService.getNote(params['id']);
       this.renderNote();
     })
@@ -70,7 +70,7 @@ export class NoteComponent implements OnInit {
   download = () => storage.download(this.note.title, this.note.body);
 
   handleBoxTick(text: string, checked: boolean) {
-    const newNote = updateCheckboxes(this.note, checked, text);
+    const newNote = updateCheckboxes(this.noteService.getNote(this.note.id), checked, text);
     this.noteService.editNote(this.note.id, newNote);
   };
 

@@ -36,7 +36,7 @@ interface Selection {
 })
 export class NewNoteComponent implements OnInit {
   note: Note;
-  topics: Topic[];
+  topics: string[];
   undoHistory = [];
   editId: string;
   textRows: number;
@@ -61,7 +61,7 @@ export class NewNoteComponent implements OnInit {
 
   ngOnInit(): void {
     this.note = null;
-    this.topics = this.noteService.getTopics();
+    this.topics = this.noteService.getTopics().slice(1).map(topic => topic.title !== 'All Notes' && topic.title);
     this.modes = {
       alignCenter: false,
       alignRight: false,
@@ -95,7 +95,7 @@ export class NewNoteComponent implements OnInit {
     this.modes[data.key] = data.bool;
   }
 
-  handleChanges(event) {
+  handleChanges() {
     this.saved = false;
     const body = (<any>this.noteForm).value.body;
     if (body.length % 10 === 0) console.log(body);

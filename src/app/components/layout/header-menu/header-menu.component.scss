@@ -11,6 +11,7 @@
     }
     .ant-menu {
         .ant-menu-item {
+            transition: $transition!important;
             height:100%;
             border-bottom:1px solid $borderColor;
             background-color:$bgColorLight;

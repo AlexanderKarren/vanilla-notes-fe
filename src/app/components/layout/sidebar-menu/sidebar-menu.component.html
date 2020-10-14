@@ -22,12 +22,13 @@
 
 <div class="list" *ngIf="viewNotes && !dateDisplay">
     <h3>
-        <i 
-            nz-icon
-            nzType="left"
-            nzTheme="outline"
-            (click)="return()"
-        ></i>
+        <div class="back-button" (click)="return()">
+            <i
+                nz-icon
+                nzType="arrow-left"
+                nzTheme="outline"
+            ></i>
+        </div>
         <span>{{ activeTopic }}</span>
         <div></div>
     </h3>
@@ -44,12 +45,13 @@
 
 <ng-container *ngIf="viewNotes && dateDisplay">
     <h3 class="date">
-        <i
-            nz-icon
-            nzType="left"
-            nzTheme="outline"
-            (click)="return()"
-        ></i>
+        <div class="back-button" (click)="return()">
+            <i
+                nz-icon
+                nzType="arrow-left"
+                nzTheme="outline"
+            ></i>
+        </div>
         <span>{{ activeTopic }}</span>
         <div></div>
     </h3>

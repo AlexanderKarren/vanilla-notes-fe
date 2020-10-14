@@ -52,7 +52,7 @@
                     *ngIf="line.bullet && line.className.includes('checkbox')"
                     nz-checkbox
                     [ngModel]="line.className.includes('checked')"
-                    (ngModelChange)="handleBoxTick(line.text, line.className.includes('checked'))"></label>
+                    (ngModelChange)="handleBoxTick(line.text, !!line.className.includes('checked'))"></label>
                 {{ line.text }}
             </div>
             <a [href]="line.className" *ngIf="line.link">

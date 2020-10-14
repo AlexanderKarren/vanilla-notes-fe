@@ -19,7 +19,6 @@
     <!-- <button nz-button (click)="whatIsModes()">Modes</button> -->
     <h3>Topic</h3>
     <div class="topic-input-group">
-        <div class="button-container"></div>
         <input
             class="topic-input"
             type="text"
@@ -27,16 +26,9 @@
             id="topic"
             formControlName="topic"
             text="title"
-            placeholder="Topic"
+            [nzAutocomplete]="topic_auto"
         >
-        <div class="button-container">
-            <button
-                nz-button
-                nz-dropdown
-                [nzDropdownMenu]="options"
-                nzTrigger="click"
-            ><i nz-icon nzType="down"></i></button>
-        </div>
+        <nz-autocomplete [nzDataSource]="topics" #topic_auto></nz-autocomplete>
     </div>
     <nz-dropdown-menu #options="nzDropdownMenu">
         <ul nz-menu>

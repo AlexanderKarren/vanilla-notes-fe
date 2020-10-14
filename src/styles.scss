@@ -63,7 +63,8 @@ textarea {
 
 .ant-btn {
 	color:$bgColorDark;
-    border:1px solid $borderColor;
+	border:1px solid $borderColor;
+	transition:$transition;
 	&.ant-btn-primary {
 		background-color:$bgColorDark;
 		color:white;

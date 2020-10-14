@@ -9,23 +9,31 @@ h3, h4 {
     justify-content:space-between;
     width:100%;
     padding: 0 $microMargin;
-    i, div {
-        width:5%;
+    div {
+        width:1.8rem;
     }
-    i {
-        font-size:1.5rem;
+    .back-button {
         display:flex;
-        justify-content:center;
         align-items:center;
+        justify-content:center;
+        border-radius:50rem;
+        height:1.8rem;
+        transition: $transition;
+        i {
+            font-size:1rem;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
         &:hover {
             cursor:pointer;
-            color:$bgColorDark;
+            background-color:#d8dfe5;
         }
     }
     span {
         display:flex;
         justify-content:center;
-        width:95%;
+        width:80%;
     }
 }
 
