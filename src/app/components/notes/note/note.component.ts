@@ -71,10 +71,8 @@ export class NoteComponent implements OnInit {
   download = () => storage.download(this.note.title, this.note.body);
 
   handleBoxTick(text: string, checked: boolean) {
-    this.textLines = [];
-    this.note = updateCheckboxes(this.note, checked, text)
+    this.note = updateCheckboxes(this.note, checked, text);
     this.noteService.editNote(this.note.id, this.note);
-    this.renderNote();
   };
 
   delete = () => this.note = null;

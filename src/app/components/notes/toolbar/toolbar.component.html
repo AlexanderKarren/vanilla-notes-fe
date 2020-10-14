@@ -1,8 +1,13 @@
-<div class="toolbar-buttons">
+<div [ngClass]="editId ? 'toolbar-buttons wide' : 'toolbar-buttons'">
   <!-- Return -->
-  <button nz-button nzType="default" (click)="return()" *ngIf="editId">
-    Return
-  </button>
+  <nz-button-group *ngIf="editId" class="return">
+    <button nz-button nzType="primary" (click)="return(true)">
+      Save and Return
+    </button>
+    <button nz-button nzType="default" (click)="return(false)">
+      Cancel
+    </button>
+  </nz-button-group>
   <!-- Save -->
   <button nz-button nzType="default" (click)="save()">
       <i nz-icon nzType="save" [nzTheme]="saved && 'fill'"></i>

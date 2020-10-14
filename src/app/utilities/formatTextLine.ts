@@ -69,7 +69,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
         case '#':
             if (line[1] == '#') {
                 if (line[2] == '#') {
-                    headings.push({
+                    headings.push(<Heading>{
                         name: line.substr(4, line.length - 1),
                         className: 'headingThree',
                         num: getHeadingNum(headings, "headingThree")
@@ -83,7 +83,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
                         inline: inline
                     }
                 }
-                headings.push({
+                headings.push(<Heading>{
                     name: line.substr(3, line.length - 1),
                     className: 'headingTwo',
                     num: getHeadingNum(headings, "headingTwo")
@@ -97,7 +97,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
                     inline: inline
                 }
             }
-            headings.push({
+            headings.push(<Heading>{
                 name: line.substr(2, line.length - 1),
                 className: 'headingOne',
                 num: getHeadingNum(headings, "headingOne")

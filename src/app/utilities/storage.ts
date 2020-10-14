@@ -18,7 +18,7 @@ export default {
     download
 }
 
-// get entire Storage object in vanilla-notes
+// get entire Storage object stored in 'vanilla-notes'
 const get = (): Storage => (
     localStorage.getItem("vanilla-notes") ? 
     <Storage>JSON.parse(localStorage.getItem("vanilla-notes")) : 
@@ -88,6 +88,7 @@ function toggleDarkMode(): void {
 function download(title: string, content: string) {
     let filename = title.toLowerCase().replace(" ", "_");
     let extension = null;
+    // find filename extension
     for (let i = 0; i < title.length; i++) {
         if (title[i] === '.') {
             let potentialExtension = title.substr(i, title.length - 1);

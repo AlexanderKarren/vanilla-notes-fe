@@ -97,7 +97,7 @@ input {
     width:55rem;
     margin:$microMargin 0;
     border:1px solid $borderColor;
-    span {
+    > span {
         display:inline;
         &.bold {
             font-weight:bold;

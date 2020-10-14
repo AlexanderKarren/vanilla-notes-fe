@@ -90,6 +90,7 @@ export function scanForVariables(body: string, variables: any): string {
     let j = 0;
 
     while (i < body.length - 2) {
+        // code block, line can be ignored
         if (body[i] === '`') {
             ignore = !ignore;
         }

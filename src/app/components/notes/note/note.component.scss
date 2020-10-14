@@ -68,24 +68,8 @@ li.headingOne {
         }
     }
     .checkbox {
-        .checkbox {
-            display:flex;
-            align-items:center;
-            justify-content:center;
+        label.ant-checkbox-wrapper {
             margin-right:$microMargin;
-            width:1.2rem;
-            height:1.2rem;
-            background-color:$bgColorLight;
-            border-radius:.2rem;
-            border:1px solid $borderColor;
-            &:hover {
-                cursor:pointer;
-                border:1px solid $hoverColor;
-            }
-            i {
-                color:$bgColorDark;
-                font-size:.9rem;
-            }
         }
     }
     .headingOne, .headingTwo, .headingThree {
@@ -94,7 +78,6 @@ li.headingOne {
         font-weight:bold;
         border-bottom:1px solid lightgray;
         margin:$microMargin 0;
-        letter-spacing: .12rem;
     }
     .headingOne {
         height:auto;

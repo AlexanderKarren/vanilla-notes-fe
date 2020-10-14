@@ -11,10 +11,13 @@
 .toolbar-buttons {
     display:flex;
     justify-content:space-between;
-    width:45rem;
+    width:36rem;
     .divider {
         width:.01rem;
         height:auto;
         background-color:$borderColor;
+    }
+    &.wide {
+        width:52rem;
     }
 }

@@ -85,8 +85,8 @@ export class ToolbarComponent implements OnInit {
     })
   }
 
-  return() {
-    this.save();
+  return(save: boolean) {
+    save && this.save();
     this.router.navigate([`notes/id/${this.editId}`])
   }
 
