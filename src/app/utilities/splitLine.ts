@@ -81,6 +81,7 @@ export function splitLine(textLines: TextLine[], headings: Heading[], line: stri
         !subLinesFound && textLines.push(formatTextLine(line, variables, headings));
 }
 
+// scan the document for variables and put them into a hash table
 export function scanForVariables(body: string, variables: any): string {
     let ignore = false;
     let firstVar = null;

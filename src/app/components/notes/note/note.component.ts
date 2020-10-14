@@ -54,12 +54,11 @@ export class NoteComponent implements OnInit {
     this.headings = [];
     const variables = {};
     const body = scanForVariables(this.note.body, variables);
-    // split by 
+    // split body by linebreak
     const lines = body.replace(/\r\n/g, "\r").replace(/\n/g, "\r").split(/\r/);
     lines.forEach(line => {
       splitLine(this.textLines, this.headings, line, variables);
     })
-    console.log(this.headings);
   }
 
   ngOnDestroy() {
@@ -71,8 +70,8 @@ export class NoteComponent implements OnInit {
   download = () => storage.download(this.note.title, this.note.body);
 
   handleBoxTick(text: string, checked: boolean) {
-    this.note = updateCheckboxes(this.note, checked, text);
-    this.noteService.editNote(this.note.id, this.note);
+    const newNote = updateCheckboxes(this.note, checked, text);
+    this.noteService.editNote(this.note.id, newNote);
   };
 
   delete = () => this.note = null;

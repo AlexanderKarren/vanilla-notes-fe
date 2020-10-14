@@ -14,16 +14,21 @@ export class AppComponent implements OnInit {
   //   this.isCollapsed = true;
   // }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     console.log("Starting app.NgOnit():")
     this.dark = storage.isDarkMode();
-    this.isCollapsed = true;
+    this.isCollapsed = storage.isCollapsed();
     console.log("Done running app.ngOnInit().")
   }
 
   onOutletLoaded(component) {
     console.log(typeof component);
     component.node = 'app';
+  }
+
+  toggleSidebar() {
+    this.isCollapsed = !this.isCollapsed;
+    storage.toggleCollapse();
   }
 
   toggleDarkMode = () => this.dark = !this.dark;

@@ -48,6 +48,7 @@ function getHeadingNum(headings: Heading[], curClass: string):string {
     }
 }
 
+// format text line parses a string for syntax and returns a Heading object to be handled by the DOM.
 export default function formatTextLine(line: string, variables: any, headings: Heading[], inline: boolean = false): TextLine {
     // console.log("fTL:", line);
     switch(line[0]) {

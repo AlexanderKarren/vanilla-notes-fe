@@ -6,6 +6,14 @@ interface Storage {
     notes: Note[];
     dark_mode: boolean;
     sort: string;
+    sbCollapsed: boolean;
+}
+
+const defaultStorage: Storage = {
+    notes: dummyNotes,
+    dark_mode: false,
+    sort: "az",
+    sbCollapsed: false
 }
 
 export default {
@@ -13,7 +21,9 @@ export default {
     getSort,
     updateSort,
     updateNotes,
+    toggleCollapse,
     toggleDarkMode,
+    isCollapsed,
     isDarkMode,
     download
 }
@@ -45,8 +55,7 @@ function updateSort(sort: string): void {
         sort: sort
     }))
     else localStorage.setItem("vanilla-notes", JSON.stringify({
-        notes: dummyNotes,
-        dark_mode: false,
+        ...defaultStorage,
         sort: sort
     }))
 }
@@ -59,16 +68,34 @@ function updateNotes(notes: Note[]): void {
         notes: notes
     }))
     else localStorage.setItem("vanilla-notes", JSON.stringify({
-        notes: notes,
-        dark_mode: false,
-        sort: "az"
+        ...defaultStorage,
+        notes: notes
     }));
+}
+
+function toggleCollapse(): void {
+    const userStorage: Storage = get();
+
+    if (userStorage) localStorage.setItem("vanilla-notes", JSON.stringify({
+        ...userStorage,
+        sbCollapsed: !userStorage.sbCollapsed
+    }))
+    else localStorage.setItem("vanilla-notes", JSON.stringify({
+        ...defaultStorage,
+        sbCollapsed: false
+    }))
 }
 
 function isDarkMode(): boolean {
     return localStorage.getItem("vanilla-notes") ? 
         JSON.parse(localStorage.getItem("vanilla-notes")).dark_mode : 
         false
+}
+
+function isCollapsed(): boolean {
+    return localStorage.getItem("vanilla-notes") ? 
+    JSON.parse(localStorage.getItem("vanilla-notes")).sbCollapsed : 
+    false
 }
 
 function toggleDarkMode(): void {
