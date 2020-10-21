@@ -28,6 +28,7 @@ import { ToolbarComponent } from './components/notes/toolbar/toolbar.component';
 import { SortSearchComponent } from './components/layout/sort-search/sort-search.component';
 import { NoteComponent } from './components/notes/note/note.component';
 import { ConfirmDeleteComponent } from './components/notes/confirm-delete/confirm-delete.component';
+import { NoteListingComponent } from './components/notes/note-listing/note-listing.component';
 
 registerLocaleData(en);
 
@@ -43,7 +44,8 @@ registerLocaleData(en);
     ToolbarComponent,
     SortSearchComponent,
     NoteComponent,
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    NoteListingComponent
   ],
   imports: [
     BrowserModule,

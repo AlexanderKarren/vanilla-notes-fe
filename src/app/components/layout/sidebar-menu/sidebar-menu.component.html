@@ -33,13 +33,11 @@
         <div></div>
     </h3>
     <ng-container *ngFor="let note of notes">
-        <div 
-            class="listing"
-            *ngIf="viewAll || note.topic === activeTopic"
+        <app-note-listing
+            [title]="note.title"
+            [id]="note.id"
             [routerLink]="['/notes/id', note.id]"
-        >
-            {{ note.title }}
-        </div>
+        ></app-note-listing>
     </ng-container>
 </div>
 
@@ -61,12 +59,12 @@
             <span>{{ date.formatted }}</span>
             <div></div>
         </h4>
-        <div 
-            class="listing"
-            *ngFor="let note of datesMap.get(date.iso)"
-            [routerLink]="['/notes/id', note.id]"
-        >
-            {{ note.title }}
-        </div>
+        <ng-container *ngFor="let note of datesMap.get(date.iso)">
+            <app-note-listing
+                [title]="note.title"
+                [id]="note.id"
+                [routerLink]="['/notes/id', note.id]"
+            ></app-note-listing>
+        </ng-container>
     </div>
 </ng-container>

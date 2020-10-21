@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import Note from 'src/app/models/Note';
 import TextLine from 'src/app/models/TextLine';
@@ -33,11 +33,8 @@ export class NoteComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private noteService: NoteService
-  ) {
-    this.router.events.subscribe(() => console.log('test'))
-  }
+  ) { }
 
   ngOnInit(): void {
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
