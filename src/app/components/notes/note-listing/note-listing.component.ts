@@ -17,10 +17,11 @@ export class NoteListingComponent implements OnInit {
     const initialUrl = this.router.url;
     this.open = !!(initialUrl === `/notes/id/${this.id}`)
 
+    // this needs to be moved out of this component
     this.router.events.subscribe(router => {
       this.open = false;
       const { url } = <any>router;
-      if (url) this.open = !!(url === `/notes/id/${this.id}`)
+      if (url) this.open = url.includes(`/notes/id/${this.id}`);
     })
   }
 

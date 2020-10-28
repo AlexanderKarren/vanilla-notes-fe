@@ -62,6 +62,10 @@ export class NoteService {
     return this.notes;
   }
 
+  getNotesByTopic(topic: string): Note[] {
+    return this.notes.filter(note => (note.topic === topic))
+  }
+
   getTopics(): Topic[] {
     return assignTopics(this.notes);
   }

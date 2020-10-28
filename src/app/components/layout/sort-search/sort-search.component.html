@@ -19,9 +19,28 @@
     ><i nz-icon nzType="clock-circle" nzTheme="outline"></i></button>
 </nz-button-group>
 
-<form>
-    <nz-input-group [nzPrefix]="searchPrefix">
-        <input type="text" nz-input />
+<div class="search-container">
+    <nz-input-group
+    [nzPrefix]="searchIcon"
+    [nzSuffix]="clearSearch"
+    >
+        <input 
+            type="text"
+            nz-input
+            [(ngModel)]="searchValue"
+            (ngModelChange)="handleSearch(false)"
+        />
     </nz-input-group>
-    <ng-template #searchPrefix><i nz-icon nzType="search"></i></ng-template>
-</form>
+    <ng-template #searchIcon>
+        <i nz-icon nzType="search"></i>
+    </ng-template>
+    <ng-template #clearSearch>
+        <i nz-icon
+            class="ant-input-clear-icon"
+            nzTheme="fill"
+            nzType="close-circle"
+            *ngIf="searchValue"
+            (click)="handleSearch(true)"
+        ></i>
+</ng-template>
+</div>

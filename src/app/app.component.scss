@@ -89,5 +89,8 @@ nz-layout {
     overflow:hidden;
     box-shadow: none;
     border-right:1px solid $borderColor;
+    &.collapsed {
+      border-right:0;
+    }
   }
 }

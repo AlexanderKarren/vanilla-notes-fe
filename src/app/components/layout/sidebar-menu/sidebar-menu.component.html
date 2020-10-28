@@ -9,14 +9,23 @@
     [dateDisplay]="dateDisplay"
     (sortChange)="changeSort($event)"
     (dateAction)="toggleDateDisplay()"
+    (searchAction)="handleSearch($event)"
 ></app-sort-search>
 
 <div class="list" *ngIf="!viewNotes">
     <div 
         (click)="changeTopic(topic.title)"
         class="listing"
-        *ngFor="let topic of topics">
-        {{ topic.title }}
+        *ngFor="let topic of topics"
+    >
+        <span>{{ topic.title }}</span>
+        <span></span>
+        <span
+            class="topic-results"
+            *ngIf="topic.results"
+        >
+            {{ topic.results + ((topic.results === '1') ? ' result' : ' results')}}
+        </span>
     </div>
 </div>
 
@@ -33,11 +42,14 @@
         <div></div>
     </h3>
     <ng-container *ngFor="let note of notes">
-        <app-note-listing
-            [title]="note.title"
-            [id]="note.id"
-            [routerLink]="['/notes/id', note.id]"
-        ></app-note-listing>
+        <ng-container *ngIf="!searchValue || compare(note.title, searchValue)">
+            <app-note-listing
+                [title]="note.title"
+                [id]="note.id"
+                [routerLink]="['/notes/id', note.id]"
+                *ngIf="viewAll || note.topic === activeTopic"
+            ></app-note-listing>
+        </ng-container>
     </ng-container>
 </div>
 
@@ -64,6 +76,7 @@
                 [title]="note.title"
                 [id]="note.id"
                 [routerLink]="['/notes/id', note.id]"
+                *ngIf="!searchValue || compare(note.title, searchValue)"
             ></app-note-listing>
         </ng-container>
     </div>

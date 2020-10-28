@@ -6,10 +6,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./sort-search.component.scss']
 })
 export class SortSearchComponent implements OnInit {
+  searchValue: string | null;
   @Input() sortBy: string;
   @Input() sortAsc: boolean;
   @Input() dateDisplay: boolean;
 
+  @Output() searchAction = new EventEmitter();
   @Output() sortChange = new EventEmitter();
   @Output() dateAction = new EventEmitter();
 
@@ -30,6 +32,11 @@ export class SortSearchComponent implements OnInit {
 
   toggleDateDisplay() {
     this.dateAction.emit();
+  }
+
+  handleSearch(clear: boolean) {
+    if (clear) this.searchValue = null;
+    this.searchAction.emit(clear ? null : this.searchValue);
   }
 
 }

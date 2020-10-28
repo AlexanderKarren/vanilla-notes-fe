@@ -52,7 +52,7 @@ function getHeadingNum(headings: Heading[], curClass: string):string {
 export default function formatTextLine(line: string, variables: any, headings: Heading[], inline: boolean = false): TextLine {
     // console.log("fTL:", line);
     switch(line[0]) {
-        // backtick case not working for multi-line yet
+        // Code Line (backtick case not working for multi-line yet)
         case '`':
             for (let i = 2; i < line.length; i++) {
                 if (line[i] === '`') {
@@ -67,6 +67,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
                     }
                 }
             }
+        // Heading
         case '#':
             if (line[1] == '#') {
                 if (line[2] == '#') {
@@ -111,6 +112,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
                 bullet: false,
                 inline: inline
             }
+        // Bulleted List
         case '*':
             if (line[1] === '*') {
                 if (line[2] === '*') {
@@ -160,6 +162,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
                 bullet: true,
                 inline: inline
             }
+        // Image
         case '!':
             if (line[line.length - 1] === ')') {
                 const imageElements = parseLink(line);
@@ -172,8 +175,8 @@ export default function formatTextLine(line: string, variables: any, headings: H
                     inline: inline
                 }
             }
+        // Link
         case '[':
-            // Links
             const linkElements = parseLink(line);
             if (line[line.length - 1] === ')') {
                 // console.log([linkElements[1], linkElements[0]]);
@@ -198,7 +201,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
                     inline: inline
                 }
             }
-            // Link with variable
+            // Link with Variable
             else if (line[line.length - 2] === ']' && line[line.length - 1] === '.') {
                 const lastChar = line[line.length - 1];
                 return {
@@ -220,6 +223,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
                     inline: inline
                 }
             }
+        // Center Alignment
         case 'c':
             if (line[1] === '[' && line[line.length - 1] === ']') {
                 return {
@@ -231,6 +235,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
                     inline:inline
                 }
             }
+        // Right Alignment
         case 'r':
             if (line[1] === '[' && line[line.length - 1] === ']') {
                 return {
@@ -243,6 +248,7 @@ export default function formatTextLine(line: string, variables: any, headings: H
                 }
             }
     }
+    // No special syntax found
     return {
       className: 'default',
       link: false,

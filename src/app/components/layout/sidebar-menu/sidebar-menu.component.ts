@@ -26,6 +26,7 @@ export class SidebarMenuComponent implements OnInit {
   viewAll: boolean;
   activeTopic: string;
   viewNotes: boolean;
+  searchValue: string | null;
   sortBy: string;
   sortAsc: boolean;
   notes: Note[];
@@ -41,7 +42,7 @@ export class SidebarMenuComponent implements OnInit {
   ngOnInit(): void {
     this.datesMap = new Map();
     this.dates = [];
-    this.dateDisplay = storage.getSort() === 'date' ? true : false;
+    this.dateDisplay = (storage.getSort() === 'date') ? true : false;
     this.viewAll = true;
     this.viewNotes = false;
     this.sortBy = "title";
@@ -100,8 +101,32 @@ export class SidebarMenuComponent implements OnInit {
     storage.updateSort('date');
   }
 
-  return() {
-    this.viewNotes = false;
+  // Used in sidebar-menu.component.html to compare query with note titles
+  compare(title: string, query: string) {
+    return title.toLowerCase().includes(query.toLowerCase());
   }
+
+  handleSearch(query: string) {
+    // asign result numbers to topic to be displayed
+    if (query) this.topics = this.topics.map(topic => {
+      let results = 0;
+
+      if (topic.title === 'All Notes') this.notes.forEach(note => {
+        if (this.compare(note.title, query)) results++;
+      });
+      else this.noteService.getNotesByTopic(topic.title).forEach(note => {
+        if (this.compare(note.title, query)) results++;
+      });
+
+      return {
+        ...topic,
+        results: results.toString()
+      }
+    })
+    else this.topics = this.noteService.getTopics();
+    this.searchValue = query
+  }
+
+  return() { this.viewNotes = false }
 
 }

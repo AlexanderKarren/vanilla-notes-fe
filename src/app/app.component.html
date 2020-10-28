@@ -1,5 +1,5 @@
 <nz-layout [ngClass]="dark ? 'app-layout dark-mode' : 'app-layout'">
-  <nz-sider class="menu-sidebar"
+  <nz-sider [ngClass]="isCollapsed ? 'menu-sidebar collapsed' : 'menu-sidebar'"
             nzCollapsible
             nzCollapsedWidth="0"
             nzWidth="256px"
