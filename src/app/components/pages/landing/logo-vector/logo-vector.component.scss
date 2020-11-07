@@ -1,0 +1,9 @@
+@import "../../../../../variables.scss";
+
+:host {
+    width:3.8rem;
+}
+
+svg {
+    filter: drop-shadow($jumbotronShadow);
+}

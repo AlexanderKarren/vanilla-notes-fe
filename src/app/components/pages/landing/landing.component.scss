@@ -1,7 +1,35 @@
+@import "../../../../variables.scss";
+
 :host {
     display:flex;
     flex-direction:column;
     align-items:center;
+}
+
+.jumbotron {
+    width:100%;
+    max-width:100%;
+    position: relative;
+    .jumbotron-heading {
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        position:absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height:auto;
+        max-width:100%;
+        h1 {
+            font-size:3.4rem;
+            margin-left:1.5rem;
+            text-shadow: $jumbotronShadow;
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color:white;
 }
 
 img {

@@ -29,6 +29,7 @@ import { SortSearchComponent } from './components/layout/sort-search/sort-search
 import { NoteComponent } from './components/notes/note/note.component';
 import { ConfirmDeleteComponent } from './components/notes/confirm-delete/confirm-delete.component';
 import { NoteListingComponent } from './components/notes/note-listing/note-listing.component';
+import { LogoVectorComponent } from './components/pages/landing/logo-vector/logo-vector.component';
 
 registerLocaleData(en);
 
@@ -45,7 +46,8 @@ registerLocaleData(en);
     SortSearchComponent,
     NoteComponent,
     ConfirmDeleteComponent,
-    NoteListingComponent
+    NoteListingComponent,
+    LogoVectorComponent
   ],
   imports: [
     BrowserModule,
