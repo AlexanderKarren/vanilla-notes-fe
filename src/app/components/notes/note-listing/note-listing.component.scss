@@ -9,10 +9,20 @@
     background-color:white;
     border-top: 1px solid $borderColor;
     outline:none;
-    i {
-        // opacity:0;
-        &.selected-icon {
-            opacity:1;
+    .icon {
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:1.4rem;
+        width:1.4rem;
+        background-color:$borderColor;
+        border-radius:100%;
+        i {
+            // opacity:0;
+            color:white;
+            &.selected-icon {
+                opacity:1;
+            }
         }
     }
     &:last-of-type {
